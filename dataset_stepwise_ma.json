@@ -1,0 +1,2074 @@
+[
+    {
+        "input": "Given grayscale image, how to return the regular image step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given grayscale image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Colorization\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the regular image step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nApproximation Step 2: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Colorization\nTarget Step 2: Image Denoising\nTarget Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Colorization\nTarget Step 2: Image Denoising\nTarget Step 3: Image Super-Resolution\nApproximation Step 5: Image Captioning\nTarget Step 4: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Colorization\nTarget Step 2: Image Denoising\nTarget Step 3: Image Super-Resolution\nApproximation Step 5: Image Captioning\nTarget Step 4: Image Classification\nApproximation Step 5: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the regular image step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 4: Colorization\nTarget Step 2: Image Deblurring\nTarget Step 3: Image Super-Resolution\nTarget Step 4: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 4: Colorization\nTarget Step 2: Image Deblurring\nTarget Step 3: Image Super-Resolution\nTarget Step 4: Image Classification\nApproximation Step 5: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given noisy blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 4: Colorization\nTarget Step 2: Image Deblurring\nTarget Step 3: Image Super-Resolution\nTarget Step 4: Image Classification\nApproximation Step 5: Object Detection\nApproximation Step 6: Image Captioning\nTarget Step 5: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 4: Colorization\nTarget Step 2: Image Deblurring\nTarget Step 3: Image Super-Resolution\nTarget Step 4: Image Classification\nApproximation Step 5: Object Detection\nApproximation Step 6: Image Captioning\nTarget Step 5: Image Captioning\nApproximation Step 7: Visual Question Answering\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the regular image step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Denoising\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Denoising\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Super-Resolution\nApproximation Step 4: Image Classification\nTarget Step 3: Image Denoising\nTarget Step 4: Colorization\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Denoising\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Super-Resolution\nApproximation Step 4: Image Classification\nTarget Step 3: Image Denoising\nTarget Step 4: Colorization\nApproximation Step 5: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Denoising\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Super-Resolution\nApproximation Step 4: Image Classification\nTarget Step 3: Image Denoising\nTarget Step 4: Colorization\nApproximation Step 5: Image Classification\nApproximation Step 6: Object Detection\nTarget Step 5: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Denoising\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Super-Resolution\nApproximation Step 4: Image Classification\nTarget Step 3: Image Denoising\nTarget Step 4: Colorization\nApproximation Step 5: Image Classification\nApproximation Step 6: Object Detection\nTarget Step 5: Image Classification\nApproximation Step 7: Image Captioning\nTarget Step 6: Object Detection\nTarget Step 7: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Denoising\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Super-Resolution\nApproximation Step 4: Image Classification\nTarget Step 3: Image Denoising\nTarget Step 4: Colorization\nApproximation Step 5: Image Classification\nApproximation Step 6: Object Detection\nTarget Step 5: Image Classification\nApproximation Step 7: Image Captioning\nTarget Step 6: Object Detection\nTarget Step 7: Image Captioning\nApproximation Step 8: Visual Question Answering\nTarget Step 8: Visual Question Answering\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Denoising\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Super-Resolution\nApproximation Step 4: Image Classification\nTarget Step 3: Image Denoising\nTarget Step 4: Colorization\nApproximation Step 5: Image Classification\nApproximation Step 6: Object Detection\nTarget Step 5: Image Classification\nApproximation Step 7: Image Captioning\nTarget Step 6: Object Detection\nTarget Step 7: Image Captioning\nApproximation Step 8: Visual Question Answering\nTarget Step 8: Visual Question Answering\nApproximation Step 9: Text-to-Image Generation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the regular image step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Denoising\nTarget Step 2: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Denoising\nTarget Step 2: Image Denoising\nApproximation Step 4: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Denoising\nTarget Step 2: Image Denoising\nApproximation Step 4: Image Captioning\nApproximation Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Denoising\nTarget Step 2: Image Denoising\nApproximation Step 4: Image Captioning\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Image Classification\nTarget Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Denoising\nTarget Step 2: Image Denoising\nApproximation Step 4: Image Captioning\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Image Classification\nTarget Step 3: Image Super-Resolution\nApproximation Step 5: Image Captioning\nTarget Step 4: Colorization\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Denoising\nTarget Step 2: Image Denoising\nApproximation Step 4: Image Captioning\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Image Classification\nTarget Step 3: Image Super-Resolution\nApproximation Step 5: Image Captioning\nTarget Step 4: Colorization\nApproximation Step 6: Visual Question Answering\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the regular image step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 3: Image Deblurring\nTarget Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the regular image step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given noisy image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given noisy image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 4: Colorization\nTarget Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned image, how to return the regular image step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Super-Resolution\nApproximation Step 3: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Super-Resolution\nApproximation Step 3: Image Deblurring\nApproximation Step 4: Image Classification\nTarget Step 2: Image Denoising\nTarget Step 3: Image Deblurring\nTarget Step 4: Colorization\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Super-Resolution\nApproximation Step 3: Image Deblurring\nApproximation Step 4: Image Classification\nTarget Step 2: Image Denoising\nTarget Step 3: Image Deblurring\nTarget Step 4: Colorization\nApproximation Step 5: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Super-Resolution\nApproximation Step 3: Image Deblurring\nApproximation Step 4: Image Classification\nTarget Step 2: Image Denoising\nTarget Step 3: Image Deblurring\nTarget Step 4: Colorization\nApproximation Step 5: Image Captioning\nApproximation Step 6: Image Classification\nTarget Step 5: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Super-Resolution\nApproximation Step 3: Image Deblurring\nApproximation Step 4: Image Classification\nTarget Step 2: Image Denoising\nTarget Step 3: Image Deblurring\nTarget Step 4: Colorization\nApproximation Step 5: Image Captioning\nApproximation Step 6: Image Classification\nTarget Step 5: Image Classification\nApproximation Step 7: TERMINATE\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Super-Resolution\nApproximation Step 3: Image Deblurring\nApproximation Step 4: Image Classification\nTarget Step 2: Image Denoising\nTarget Step 3: Image Deblurring\nTarget Step 4: Colorization\nApproximation Step 5: Image Captioning\nApproximation Step 6: Image Classification\nTarget Step 5: Image Classification\nApproximation Step 7: TERMINATE\nApproximation Step 6: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned image, how to return the regular image step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Super-Resolution\nApproximation Step 3: Image Deblurring\nApproximation Step 4: Image Classification\nTarget Step 2: Image Denoising\nTarget Step 3: Image Deblurring\nTarget Step 4: Colorization\nApproximation Step 5: Image Captioning\nApproximation Step 6: Image Classification\nTarget Step 5: Image Classification\nApproximation Step 7: TERMINATE\nApproximation Step 6: Image Captioning\nApproximation Step 7: Visual Question Answering\nTarget Step 6: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the caption in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nTarget Step 2: Image Deblurring\nTarget Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nTarget Step 2: Image Deblurring\nTarget Step 3: Image Super-Resolution\nApproximation Step 4: Image Captioning\nTarget Step 4: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nTarget Step 2: Image Deblurring\nTarget Step 3: Image Super-Resolution\nApproximation Step 4: Image Captioning\nTarget Step 4: Image Captioning\nApproximation Step 5: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the class label in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Image Classification\nTarget Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the object names in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 4: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 4: Object Detection\nApproximation Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 4: Object Detection\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 4: Object Detection\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the caption in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nTarget Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nTarget Step 2: Image Deblurring\nApproximation Step 4: Image Captioning\nTarget Step 3: Image Super-Resolution\nTarget Step 4: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the class label in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Denoising\nApproximation Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Denoising\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Image Classification\nTarget Step 2: Image Deblurring\nTarget Step 3: Image Super-Resolution\nTarget Step 4: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the object names in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 4: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 4: Object Detection\nApproximation Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 4: Object Detection\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 4: Object Detection\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Object Detection\nTarget Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 4: Object Detection\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Object Detection\nTarget Step 2: Image Deblurring\nApproximation Step 5: TERMINATE\nTarget Step 3: Image Super-Resolution\nTarget Step 4: Object Detection\nTarget Step 5: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the class label in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nApproximation Step 2: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Colorization\nTarget Step 2: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the object names in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 4: Object Detection\nTarget Step 2: Image Deblurring\nTarget Step 3: Image Super-Resolution\nTarget Step 4: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 4: Object Detection\nTarget Step 2: Image Deblurring\nTarget Step 3: Image Super-Resolution\nTarget Step 4: Object Detection\nApproximation Step 5: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 4: Object Detection\nTarget Step 2: Image Deblurring\nTarget Step 3: Image Super-Resolution\nTarget Step 4: Object Detection\nApproximation Step 5: Machine Translation\nApproximation Step 6: TERMINATE\nTarget Step 5: Machine Translation\nTarget Step 6: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the caption in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 4: Image Captioning\nTarget Step 2: Image Deblurring\nTarget Step 3: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the class label in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Classification\nTarget Step 2: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Classification\nTarget Step 2: Image Denoising\nApproximation Step 4: TERMINATE\nTarget Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Classification\nTarget Step 2: Image Denoising\nApproximation Step 4: TERMINATE\nTarget Step 3: Image Super-Resolution\nApproximation Step 4: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the object names in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Deblurring\nApproximation Step 4: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Deblurring\nApproximation Step 4: Object Detection\nApproximation Step 2: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Deblurring\nApproximation Step 4: Object Detection\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the caption in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nApproximation Step 3: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nApproximation Step 3: Object Detection\nApproximation Step 4: Image Captioning\nTarget Step 2: Image Super-Resolution\nTarget Step 3: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nApproximation Step 3: Object Detection\nApproximation Step 4: Image Captioning\nTarget Step 2: Image Super-Resolution\nTarget Step 3: Image Captioning\nApproximation Step 4: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the class label in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Classification\nApproximation Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Classification\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Classification\nTarget Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Classification\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Classification\nTarget Step 2: Image Super-Resolution\nApproximation Step 4: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the object names in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Object Detection\nTarget Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Object Detection\nTarget Step 1: Image Deblurring\nApproximation Step 4: Machine Translation\nTarget Step 2: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Object Detection\nTarget Step 1: Image Deblurring\nApproximation Step 4: Machine Translation\nTarget Step 2: Object Detection\nApproximation Step 3: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the caption in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Super-Resolution\nApproximation Step 3: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the class label in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Classification\nTarget Step 1: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the object names in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Object Detection\nTarget Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Object Detection\nTarget Step 1: Image Deblurring\nApproximation Step 4: Image Captioning\nTarget Step 2: Image Super-Resolution\nTarget Step 3: Object Detection\nTarget Step 4: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Object Detection\nTarget Step 1: Image Deblurring\nApproximation Step 4: Image Captioning\nTarget Step 2: Image Super-Resolution\nTarget Step 3: Object Detection\nTarget Step 4: Image Captioning\nApproximation Step 5: Text Summarization\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the caption in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Captioning\nTarget Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Captioning\nTarget Step 1: Image Deblurring\nApproximation Step 4: Machine Translation\nTarget Step 2: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Captioning\nTarget Step 1: Image Deblurring\nApproximation Step 4: Machine Translation\nTarget Step 2: Image Captioning\nApproximation Step 3: Machine Translation\nTarget Step 3: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the class label in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Image Classification\nTarget Step 2: Colorization\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Image Classification\nTarget Step 2: Colorization\nApproximation Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Image Classification\nTarget Step 2: Colorization\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Image Classification\nTarget Step 3: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Image Classification\nTarget Step 2: Colorization\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Image Classification\nTarget Step 3: Image Classification\nApproximation Step 5: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the object names in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Object Detection\nTarget Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Object Detection\nTarget Step 1: Image Deblurring\nApproximation Step 3: Machine Translation\nTarget Step 2: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Object Detection\nTarget Step 1: Image Deblurring\nApproximation Step 3: Machine Translation\nTarget Step 2: Machine Translation\nApproximation Step 4: Text Summarization\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Object Detection\nTarget Step 1: Image Deblurring\nApproximation Step 3: Machine Translation\nTarget Step 2: Machine Translation\nApproximation Step 4: Text Summarization\nApproximation Step 3: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Object Detection\nTarget Step 1: Image Deblurring\nApproximation Step 3: Machine Translation\nTarget Step 2: Machine Translation\nApproximation Step 4: Text Summarization\nApproximation Step 3: Object Detection\nApproximation Step 4: TERMINATE\nTarget Step 3: Object Detection\nTarget Step 4: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the caption in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Captioning\nApproximation Step 4: TERMINATE\nTarget Step 2: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the class label in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Classification\nApproximation Step 3: TERMINATE\nTarget Step 1: Image Deblurring\nTarget Step 2: Colorization\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Classification\nApproximation Step 3: TERMINATE\nTarget Step 1: Image Deblurring\nTarget Step 2: Colorization\nApproximation Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Classification\nApproximation Step 3: TERMINATE\nTarget Step 1: Image Deblurring\nTarget Step 2: Colorization\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Classification\nApproximation Step 3: TERMINATE\nTarget Step 1: Image Deblurring\nTarget Step 2: Colorization\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Image Classification\nApproximation Step 5: TERMINATE\nTarget Step 3: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the object names in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Object Detection\nApproximation Step 3: Machine Translation\nTarget Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Object Detection\nApproximation Step 3: Machine Translation\nTarget Step 1: Image Deblurring\nApproximation Step 4: Text Summarization\nTarget Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Object Detection\nApproximation Step 3: Machine Translation\nTarget Step 1: Image Deblurring\nApproximation Step 4: Text Summarization\nTarget Step 2: Image Super-Resolution\nApproximation Step 3: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Object Detection\nApproximation Step 3: Machine Translation\nTarget Step 1: Image Deblurring\nApproximation Step 4: Text Summarization\nTarget Step 2: Image Super-Resolution\nApproximation Step 3: Object Detection\nApproximation Step 4: Image Captioning\nTarget Step 3: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the caption in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Deblurring\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Deblurring\nTarget Step 1: Image Denoising\nApproximation Step 4: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Deblurring\nTarget Step 1: Image Denoising\nApproximation Step 4: Image Captioning\nApproximation Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Deblurring\nTarget Step 1: Image Denoising\nApproximation Step 4: Image Captioning\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the class label in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Classification\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Classification\nTarget Step 1: Image Denoising\nApproximation Step 4: Machine Translation\nTarget Step 2: Image Super-Resolution\nTarget Step 3: Image Classification\nTarget Step 4: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the object names in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Object Detection\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Object Detection\nTarget Step 1: Image Denoising\nApproximation Step 4: Machine Translation\nTarget Step 2: Image Super-Resolution\nTarget Step 3: Object Detection\nTarget Step 4: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the caption in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Denoising\nApproximation Step 3: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Denoising\nApproximation Step 3: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Denoising\nApproximation Step 3: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 2: Image Super-Resolution\nApproximation Step 3: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the class label in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Classification\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the object names in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Object Detection\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Object Detection\nTarget Step 1: Image Denoising\nApproximation Step 4: Machine Translation\nTarget Step 2: Image Super-Resolution\nTarget Step 3: Object Detection\nTarget Step 4: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the caption in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Denoising\nApproximation Step 3: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Denoising\nApproximation Step 3: Image Captioning\nApproximation Step 4: Machine Translation\nTarget Step 2: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Denoising\nApproximation Step 3: Image Captioning\nApproximation Step 4: Machine Translation\nTarget Step 2: Image Captioning\nApproximation Step 3: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the class label in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Classification\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Classification\nTarget Step 1: Image Denoising\nApproximation Step 3: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Classification\nTarget Step 1: Image Denoising\nApproximation Step 3: Machine Translation\nApproximation Step 4: TERMINATE\nTarget Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Classification\nTarget Step 1: Image Denoising\nApproximation Step 3: Machine Translation\nApproximation Step 4: TERMINATE\nTarget Step 2: Image Super-Resolution\nApproximation Step 3: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Classification\nTarget Step 1: Image Denoising\nApproximation Step 3: Machine Translation\nApproximation Step 4: TERMINATE\nTarget Step 2: Image Super-Resolution\nApproximation Step 3: Image Classification\nApproximation Step 4: Machine Translation\nTarget Step 3: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the object names in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Object Detection\nApproximation Step 3: Machine Translation\nTarget Step 1: Image Denoising\nTarget Step 2: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Object Detection\nApproximation Step 3: Machine Translation\nTarget Step 1: Image Denoising\nTarget Step 2: Object Detection\nApproximation Step 4: TERMINATE\nTarget Step 3: Machine Translation\nTarget Step 4: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the caption in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Captioning\nTarget Step 1: Image Denoising\nTarget Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Captioning\nTarget Step 1: Image Denoising\nTarget Step 2: Image Deblurring\nApproximation Step 4: TERMINATE\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Captioning\nTarget Step 1: Image Denoising\nTarget Step 2: Image Deblurring\nApproximation Step 4: TERMINATE\nApproximation Step 3: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the class label in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Classification\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the object names in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Object Detection\nTarget Step 1: Image Denoising\nTarget Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Object Detection\nTarget Step 1: Image Denoising\nTarget Step 2: Image Deblurring\nApproximation Step 3: TERMINATE\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Object Detection\nTarget Step 1: Image Denoising\nTarget Step 2: Image Deblurring\nApproximation Step 3: TERMINATE\nApproximation Step 3: Colorization\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Object Detection\nTarget Step 1: Image Denoising\nTarget Step 2: Image Deblurring\nApproximation Step 3: TERMINATE\nApproximation Step 3: Colorization\nApproximation Step 4: Object Detection\nTarget Step 3: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Object Detection\nTarget Step 1: Image Denoising\nTarget Step 2: Image Deblurring\nApproximation Step 3: TERMINATE\nApproximation Step 3: Colorization\nApproximation Step 4: Object Detection\nTarget Step 3: Object Detection\nApproximation Step 5: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned grayscale image, how to return the caption in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Captioning\nTarget Step 1: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Captioning\nTarget Step 1: Image Super-Resolution\nApproximation Step 3: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned grayscale image, how to return the class label in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Classification\nTarget Step 1: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Classification\nTarget Step 1: Image Super-Resolution\nApproximation Step 3: Machine Translation\nTarget Step 2: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned grayscale image, how to return the object names in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Object Detection\nTarget Step 1: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Object Detection\nTarget Step 1: Image Super-Resolution\nApproximation Step 3: Machine Translation\nTarget Step 2: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned grayscale image, how to return the caption in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Captioning\nTarget Step 1: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Captioning\nTarget Step 1: Image Super-Resolution\nApproximation Step 3: Machine Translation\nTarget Step 2: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned grayscale image, how to return the class label in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Classification\nTarget Step 1: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned grayscale image, how to return the object names in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Denoising\nTarget Step 1: Image Super-Resolution\nTarget Step 2: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Denoising\nTarget Step 1: Image Super-Resolution\nTarget Step 2: Object Detection\nApproximation Step 4: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Denoising\nTarget Step 1: Image Super-Resolution\nTarget Step 2: Object Detection\nApproximation Step 4: Object Detection\nApproximation Step 3: TERMINATE\nTarget Step 3: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given grayscale image, how to return the caption in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given grayscale image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Captioning\nApproximation Step 2: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given grayscale image, how to return the class label in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given grayscale image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Classification\nApproximation Step 2: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given grayscale image, how to return the object names in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given grayscale image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Object Detection\nApproximation Step 2: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given grayscale image, how to return the caption in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given grayscale image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given grayscale image, how to return the class label in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given grayscale image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Classification\nTarget Step 1: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given grayscale image, how to return the object names in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Object Detection\nApproximation Step 2: Machine Translation\nTarget Step 1: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Object Detection\nApproximation Step 2: Machine Translation\nTarget Step 1: Object Detection\nApproximation Step 3: TERMINATE\nTarget Step 2: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Object Detection\nApproximation Step 2: Machine Translation\nTarget Step 1: Object Detection\nApproximation Step 3: TERMINATE\nTarget Step 2: Image Captioning\nApproximation Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Object Detection\nApproximation Step 2: Machine Translation\nTarget Step 1: Object Detection\nApproximation Step 3: TERMINATE\nTarget Step 2: Image Captioning\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Colorization\nTarget Step 3: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given grayscale image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Object Detection\nApproximation Step 2: Machine Translation\nTarget Step 1: Object Detection\nApproximation Step 3: TERMINATE\nTarget Step 2: Image Captioning\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Colorization\nTarget Step 3: Object Detection\nApproximation Step 5: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the caption in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Captioning\nApproximation Step 2: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Captioning\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nTarget Step 2: Image Denoising\nTarget Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Captioning\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nTarget Step 2: Image Denoising\nTarget Step 3: Image Super-Resolution\nApproximation Step 4: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the class label in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 4: Image Classification\nTarget Step 2: Image Deblurring\nTarget Step 3: Image Super-Resolution\nTarget Step 4: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the object names in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Object Detection\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Object Detection\nTarget Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Object Detection\nTarget Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Object Detection\nTarget Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Object Detection\nTarget Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Object Detection\nTarget Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Object Detection\nTarget Step 2: Image Deblurring\nApproximation Step 5: Machine Translation\nTarget Step 3: Image Super-Resolution\nTarget Step 4: Object Detection\nTarget Step 5: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the caption in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 4: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 4: Image Captioning\nApproximation Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 4: Image Captioning\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the class label in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Deblurring\nApproximation Step 4: Image Classification\nTarget Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Deblurring\nApproximation Step 4: Image Classification\nTarget Step 2: Image Super-Resolution\nApproximation Step 3: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Deblurring\nApproximation Step 4: Image Classification\nTarget Step 2: Image Super-Resolution\nApproximation Step 3: Image Denoising\nApproximation Step 4: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the object names in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Deblurring\nTarget Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 4: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 4: Object Detection\nApproximation Step 2: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 4: Object Detection\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy blurry image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 4: Object Detection\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Object Detection\nTarget Step 2: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the caption in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given noisy blurry image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 4: Image Captioning\nTarget Step 2: Image Deblurring\nTarget Step 3: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 4: Image Captioning\nTarget Step 2: Image Deblurring\nTarget Step 3: Image Captioning\nApproximation Step 4: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the class label in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given noisy blurry image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given noisy blurry image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Deblurring\nApproximation Step 4: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Deblurring\nApproximation Step 4: Image Classification\nApproximation Step 2: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Deblurring\nApproximation Step 4: Image Classification\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Deblurring\nApproximation Step 4: Image Classification\nApproximation Step 2: Image Denoising\nApproximation Step 3: Image Classification\nApproximation Step 4: Machine Translation\nTarget Step 2: Image Denoising\nTarget Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the object names in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given noisy blurry image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 3: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 3: Object Detection\nApproximation Step 2: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 3: Object Detection\nApproximation Step 2: Image Denoising\nApproximation Step 3: Object Detection\nTarget Step 2: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 3: Object Detection\nApproximation Step 2: Image Denoising\nApproximation Step 3: Object Detection\nTarget Step 2: Image Denoising\nApproximation Step 4: Machine Translation\nTarget Step 3: Object Detection\nTarget Step 4: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nTarget Step 1: Image Deblurring\nApproximation Step 3: Object Detection\nApproximation Step 2: Image Denoising\nApproximation Step 3: Object Detection\nTarget Step 2: Image Denoising\nApproximation Step 4: Machine Translation\nTarget Step 3: Object Detection\nTarget Step 4: Machine Translation\nApproximation Step 5: Machine Translation\nTarget Step 5: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the caption in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Captioning\nTarget Step 1: Image Denoising\nTarget Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the class label in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nTarget Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nTarget Step 2: Image Deblurring\nApproximation Step 4: Image Classification\nTarget Step 3: Image Super-Resolution\nTarget Step 4: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Denoising\nTarget Step 2: Image Deblurring\nApproximation Step 4: Image Classification\nTarget Step 3: Image Super-Resolution\nTarget Step 4: Image Classification\nApproximation Step 5: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given noisy blurry image, how to return the object names in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy blurry image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given noisy blurry image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Object Detection\nTarget Step 1: Image Denoising\nTarget Step 2: Image Deblurring\nTarget Step 3: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the caption in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Captioning\nApproximation Step 4: Machine Translation\nTarget Step 2: Image Super-Resolution\nTarget Step 3: Image Captioning\nTarget Step 4: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the class label in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Classification\nTarget Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nApproximation Step 3: Image Classification\nTarget Step 2: Image Super-Resolution\nApproximation Step 4: Machine Translation\nTarget Step 3: Image Classification\nTarget Step 4: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the object names in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Object Detection\nApproximation Step 4: Machine Translation\nTarget Step 1: Image Deblurring\nTarget Step 2: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Object Detection\nApproximation Step 4: Machine Translation\nTarget Step 1: Image Deblurring\nTarget Step 2: Object Detection\nApproximation Step 3: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the caption in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Captioning\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Captioning\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Denoising\nApproximation Step 4: TERMINATE\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Captioning\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Denoising\nApproximation Step 4: TERMINATE\nApproximation Step 3: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Captioning\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Denoising\nApproximation Step 4: TERMINATE\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Image Captioning\nTarget Step 3: Image Super-Resolution\nTarget Step 4: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the class label in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Classification\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Classification\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Super-Resolution\nApproximation Step 4: TERMINATE\nTarget Step 3: Image Classification\nTarget Step 4: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Classification\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Super-Resolution\nApproximation Step 4: TERMINATE\nTarget Step 3: Image Classification\nTarget Step 4: Image Captioning\nApproximation Step 5: TERMINATE\nTarget Step 5: Visual Question Answering\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the object names in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Object Detection\nTarget Step 1: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Object Detection\nTarget Step 1: Image Super-Resolution\nApproximation Step 4: Image Captioning\nTarget Step 2: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned blurry image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Object Detection\nTarget Step 1: Image Super-Resolution\nApproximation Step 4: Image Captioning\nTarget Step 2: Object Detection\nApproximation Step 3: TERMINATE\nTarget Step 3: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the caption in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Captioning\nApproximation Step 3: Machine Translation\nTarget Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the class label in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Classification\nApproximation Step 3: Machine Translation\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Classification\nTarget Step 3: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the object names in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Object Detection\nApproximation Step 3: Machine Translation\nTarget Step 1: Image Deblurring\nTarget Step 2: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the caption in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Captioning\nTarget Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Captioning\nTarget Step 1: Image Deblurring\nApproximation Step 3: TERMINATE\nTarget Step 2: Image Captioning\nTarget Step 3: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the class label in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the object names in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Object Detection\nApproximation Step 3: Image Captioning\nTarget Step 1: Image Deblurring\nTarget Step 2: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given blurry image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Object Detection\nApproximation Step 3: Image Captioning\nTarget Step 1: Image Deblurring\nTarget Step 2: Object Detection\nApproximation Step 4: Machine Translation\nTarget Step 3: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Object Detection\nApproximation Step 3: Image Captioning\nTarget Step 1: Image Deblurring\nTarget Step 2: Object Detection\nApproximation Step 4: Machine Translation\nTarget Step 3: Machine Translation\nApproximation Step 4: TERMINATE\nTarget Step 4: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given blurry image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Object Detection\nApproximation Step 3: Image Captioning\nTarget Step 1: Image Deblurring\nTarget Step 2: Object Detection\nApproximation Step 4: Machine Translation\nTarget Step 3: Machine Translation\nApproximation Step 4: TERMINATE\nTarget Step 4: Image Captioning\nApproximation Step 5: Text Summarization\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the caption in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Captioning\nApproximation Step 4: Machine Translation\nTarget Step 1: Image Denoising\nTarget Step 2: Image Super-Resolution\nTarget Step 3: Image Captioning\nTarget Step 4: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the class label in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Denoising\nApproximation Step 3: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Denoising\nApproximation Step 3: Image Classification\nApproximation Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Denoising\nTarget Step 1: Image Denoising\nApproximation Step 3: Image Classification\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Classification\nTarget Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the object names in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Object Detection\nTarget Step 1: Image Denoising\nTarget Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Object Detection\nTarget Step 1: Image Denoising\nTarget Step 2: Image Super-Resolution\nApproximation Step 4: Machine Translation\nTarget Step 3: Object Detection\nTarget Step 4: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the caption in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Captioning\nTarget Step 1: Image Denoising\nTarget Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the class label in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Denoising\nApproximation Step 3: Image Classification\nTarget Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the object names in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Super-Resolution\nApproximation Step 4: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Super-Resolution\nApproximation Step 4: Object Detection\nApproximation Step 2: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Super-Resolution\nApproximation Step 4: Object Detection\nApproximation Step 2: Image Denoising\nApproximation Step 3: Object Detection\nTarget Step 2: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned noisy image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Deblurring\nApproximation Step 3: Image Super-Resolution\nTarget Step 1: Image Super-Resolution\nApproximation Step 4: Object Detection\nApproximation Step 2: Image Denoising\nApproximation Step 3: Object Detection\nTarget Step 2: Image Denoising\nApproximation Step 4: TERMINATE\nTarget Step 3: Image Deblurring\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the caption in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Captioning\nApproximation Step 3: Machine Translation\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the class label in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given noisy image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Classification\nTarget Step 1: Image Denoising\nTarget Step 2: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the class label in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Classification\nTarget Step 1: Image Denoising\nTarget Step 2: Image Classification\nApproximation Step 4: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the object names in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the object names in German step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Object Detection\nApproximation Step 3: Machine Translation\nTarget Step 1: Image Denoising\nTarget Step 2: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the caption in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given noisy image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Captioning\nTarget Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given noisy image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Captioning\nTarget Step 1: Image Denoising\nApproximation Step 4: TERMINATE\nTarget Step 2: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the caption in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Super-Resolution\nApproximation Step 3: Image Captioning\nTarget Step 1: Image Denoising\nApproximation Step 4: TERMINATE\nTarget Step 2: Image Captioning\nApproximation Step 3: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given noisy image, how to return the class label in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given noisy image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Classification\nApproximation Step 3: TERMINATE\nTarget Step 1: Image Denoising\nTarget Step 2: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the class label in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Image Classification\nApproximation Step 3: TERMINATE\nTarget Step 1: Image Denoising\nTarget Step 2: Image Super-Resolution\nApproximation Step 3: Image Classification\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the object names in English step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Object Detection\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given noisy image, how to return the object names in English step by step?\nPrevious history:\nApproximation Step 1: Image Denoising\nApproximation Step 2: Object Detection\nApproximation Step 3: Machine Translation\nNow, please predict whether approximation should continue.",
+        "output": 0
+    },
+    {
+        "input": "Given low-resolutioned image, how to return the caption in German step by step?\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Captioning\nNow, please predict whether approximation should continue.",
+        "output": 1
+    },
+    {
+        "input": "Given low-resolutioned image, how to return the caption in German step by step?\nPrevious history:\nApproximation Step 1: Image Super-Resolution\nApproximation Step 2: Image Captioning\nApproximation Step 3: Machine Translation\nTarget Step 1: Image Super-Resolution\nNow, please predict whether approximation should continue.",
+        "output": 1
+    }
+]

@@ -1,0 +1,8 @@
+openai==1.3.1
+tiktoken
+asyncio
+pyautogen==0.2.31
+colorama
+async-timeout==4.0.2
+config==0.5.1
+inputimeout
