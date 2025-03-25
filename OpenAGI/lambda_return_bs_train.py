@@ -47,14 +47,17 @@ class LambdaReturnDataset(Dataset):
         trajectory = self.episodes[idx]['trajectory']
         
         states = []
-        rewards = []        
+        rewards = []   
+        gt_ks = []           
         for step in trajectory:
             state = step['state']
             reward = step['reward']
-
+            gt_k = step['k']
+            
             states.append(state)
             rewards.append(torch.tensor(reward))
-        
+            gt_ks.append(torch.tensor(gt_k))
+
         inputs = tokenizer(
             states, 
             return_tensors="pt", 
@@ -65,8 +68,10 @@ class LambdaReturnDataset(Dataset):
         input_ids = inputs['input_ids']
         attention_masks = inputs['attention_mask']
         rewards = torch.stack(rewards, dim=0)
+        gt_ks = torch.stack(gt_ks, dim=0)
 
-        return input_ids, attention_masks, rewards
+        return input_ids, attention_masks, rewards, gt_ks
+    
 
 
 class DynamicBatchSampler(Sampler):
@@ -113,12 +118,13 @@ def collate_fn(batch):
     input_ids_batch = []
     attention_mask_batch = []
     rewards_batch = []
+    gt_k_batch = []
     for trajectory_data in batch:
         input_ids_batch.append(trajectory_data[0])
         attention_mask_batch.append(trajectory_data[1])
         rewards_batch.append(trajectory_data[2])
-    
-    return input_ids_batch, attention_mask_batch, rewards_batch
+        gt_k_batch.append(trajectory_data[3])
+    return input_ids_batch, attention_mask_batch, rewards_batch, gt_k_batch
 
 
 def compute_lambda_return(input_ids, attention_masks, rewards, gamma, lambda_, model):
@@ -130,37 +136,41 @@ def compute_lambda_return(input_ids, attention_masks, rewards, gamma, lambda_, m
     for t in reversed(range(T)):
         input_id = input_ids[t].unsqueeze(0)
         attention_mask = attention_masks[t].unsqueeze(0)
-        k_pred = model(input_id, attention_mask).item()   
+        v_pred = model(input_id, attention_mask).item()   
         mask = rewards[t]
-        G_t = rewards[t] + gamma * (1 - lambda_) * k_pred * mask + gamma * lambda_ * G_t * mask
+        G_t = rewards[t] + gamma * (1 - lambda_) * v_pred * mask + gamma * lambda_ * G_t * mask
         G_lambda[t] = G_t
     model.train()
     return G_lambda
 
-def flat_batch_data(input_ids_batch, attention_mask_batch, rewards_batch, gamma, lambda_, model):
+def flat_batch_data(input_ids_batch, attention_mask_batch, rewards_batch, gt_k_batch, gamma, lambda_, model):
     all_G_lambda = []
     all_input_ids = []
     all_attention_mask = []
-    
-    # Compute current G_lambda for batch data and flatten steps
+    all_gt_k = []
+    # compute current G_lambda for batch data and flatten steps
     for i in range(len(input_ids_batch)):
+        # [steps_num, hid_dim]
         input_ids = input_ids_batch[i]
         attention_mask = attention_mask_batch[i]
         rewards = rewards_batch[i]
 
+        # G_lambda for each trajectory
         G_lambda = compute_lambda_return(input_ids, attention_mask, rewards, gamma, lambda_, model)
+        # flatten inputs and targets
         all_G_lambda.extend(G_lambda) 
         all_input_ids.extend(input_ids)
         all_attention_mask.extend(attention_mask)
+        all_gt_k.extend(gt_k_batch[i])
         
-    device = model.model.device    
+    device = model.model.device
     # [total_step_num, hid_dim]: total_step_num in this batch
     flat_input_ids = torch.stack(all_input_ids, dim=0).to(device)
     flat_attention_mask = torch.stack(all_attention_mask, dim=0).to(device)
     # [total_step_num]
     flat_G_lambda = torch.tensor(all_G_lambda).to(device)
-    
-    return flat_input_ids, flat_attention_mask, flat_G_lambda
+    flat_gt_k = torch.stack(all_gt_k, dim=0).to(device)
+    return flat_input_ids, flat_attention_mask, flat_G_lambda, flat_gt_k
 
 
 def train_model(train_dataloader, val_dataloader, gamma, lambda_, model, tokenizer, writer, lr):
@@ -168,7 +178,7 @@ def train_model(train_dataloader, val_dataloader, gamma, lambda_, model, tokeniz
     optimizer = optim.Adam(model.parameters(), lr=lr)
     
     # scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=5)
-    num_epochs = 30
+    num_epochs = 35
     for epoch in range(num_epochs):
         model.train()
         epoch_acc = 0.0
@@ -177,15 +187,14 @@ def train_model(train_dataloader, val_dataloader, gamma, lambda_, model, tokeniz
         
         # logging.info(f"Epoch {epoch + 1}/{num_epochs}")
         
-        for batch_idx, (input_ids_batch, attention_mask_batch, rewards_batch) in enumerate(train_dataloader):
+        for batch_idx, (input_ids_batch, attention_mask_batch, rewards_batch, gt_k_batch) in enumerate(train_dataloader):
                             
-            flat_input_ids, flat_attention_mask, flat_G_lambda = flat_batch_data(input_ids_batch, attention_mask_batch, rewards_batch, gamma, lambda_, model)
+            flat_input_ids, flat_attention_mask, flat_G_lambda, flat_gt_k = flat_batch_data(input_ids_batch, attention_mask_batch, rewards_batch, gt_k_batch, gamma, lambda_, model)
 
             k_pred = model(flat_input_ids, flat_attention_mask).squeeze()
             loss = criterion(k_pred, flat_G_lambda)
-            diff = torch.round(k_pred) - flat_G_lambda
+            diff = torch.round(k_pred) - flat_gt_k
             acc = ((diff == 0) | (diff == 1)).float().mean().item()
-
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
@@ -214,13 +223,13 @@ def eval_model(val_dataloader, criterion, gamma, lambda_, model, tokenizer, epoc
         val_loss = 0.0
         val_acc = 0.0
         total_batches = len(val_dataloader)
-        for input_ids_batch, attention_mask_batch, rewards_batch in val_dataloader:
+        for input_ids_batch, attention_mask_batch, rewards_batch, gt_k_batch in val_dataloader:
             
-            flat_input_ids, flat_attention_mask, flat_G_lambda = flat_batch_data(input_ids_batch, attention_mask_batch, rewards_batch, gamma, lambda_, model)
+            flat_input_ids, flat_attention_mask, flat_G_lambda, flat_gt_k = flat_batch_data(input_ids_batch, attention_mask_batch, rewards_batch, gt_k_batch, gamma, lambda_, model)
             
             k_preds = model(flat_input_ids, flat_attention_mask).squeeze()
             loss = criterion(k_preds, flat_G_lambda)
-            diff = torch.round(k_preds) - flat_G_lambda
+            diff = torch.round(k_preds) - flat_gt_k
             acc = ((diff == 0) | (diff == 1)).float().mean().item()
 
             val_loss += loss.item()
@@ -253,7 +262,7 @@ if __name__ == "__main__":
     ds_type = "cot"
     
     if ds_type == "cot":
-        dataset_path = "dataset_value_func_cot.json"
+        dataset_path = "dataset_value_func_cot_new.json"
     elif ds_type == "tp":
         dataset_path = "dataset_value_func_react.json"
     
@@ -278,7 +287,6 @@ if __name__ == "__main__":
         shuffle=False
     )
 
-    
     train_dataloader = DataLoader(
         train_dataset,
         batch_sampler=train_batch_sampler,
@@ -293,9 +301,9 @@ if __name__ == "__main__":
         pin_memory=True
     ) 
     
-    writer = SummaryWriter(log_dir=f'3_20_log/dyn_bs_lambda_{lambda_}_{ds_type}/lr_{lr}/bs_{batch_size}')
+    writer = SummaryWriter(log_dir=f'test/dyn_bs_lambda_{lambda_}_{ds_type}/lr_{lr}/bs_{batch_size}')
     # writer = SummaryWriter(log_dir=f'test/dyn_bs_lambda_{lambda_}_{ds_type}/lr_{lr}/bs_{batch_size}')
     train_model(train_dataloader, val_dataloader, gamma=gamma, lambda_=lambda_, model=model, tokenizer=tokenizer, writer=writer, lr=lr)
-    # model_save_path = "lambda_return_model.pth"
-    # torch.save(model.state_dict(), model_save_path)
-    
+    model_save_path = "cot_value_function_model.pth"
+    torch.save(model.state_dict(), model_save_path)
+    # logging.info(f"Model weights saved to {model_save_path}")

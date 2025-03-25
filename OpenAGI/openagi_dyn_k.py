@@ -9,22 +9,41 @@ import random
 import subprocess
 import random
 import json 
+import torch
 import autogen 
 import argparse 
-from color import slow_type_approximation, slow_type_target
+# from color import slow_type_approximation, slow_type_target
 
 from autogen import AssistantAgent, UserProxyAgent, config_list_from_json
 from autogen import AssistantAgent, UserProxyAgent, config_list_from_json, GroupChat, GroupChatManager
-from autogen.agentchat.contrib.agent_builder import AgentBuilder
+# from autogen.agentchat.contrib.agent_builder import AgentBuilder
 
 from utils import Logger, cancel, register_async_handler
 import config
-import tiktoken
 import os 
 
-os.environ['OPENAI_API_KEY'] = ""
+
+import openai
+
+import tiktoken
+from tiktoken.load import load_tiktoken_bpe
+from openai import OpenAI
 
 encoding = tiktoken.get_encoding("cl100k_base")
+
+# bpe_path = "cl100k_base.tiktoken"
+# bpe_ranks = load_tiktoken_bpe(bpe_path)
+os.environ['OPENAI_API_KEY'] = "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"
+
+# import httpx
+# client = httpx.Client(proxies="http://43.139.168.201/link/bEkmteftODUiK3Ma?clash=2")
+
+
+asyncio.get_event_loop().set_debug(True)
+
+from transformers import AutoModel, AutoTokenizer
+from OpenAGI import DistilBERTValueFunction, OnlineTrajectoryCollector, OnlineLearningExecutor
+
 
 def concurrent_calls():
     tasks = asyncio.all_tasks()
@@ -43,10 +62,20 @@ def parse_user_input(user_input, s, t):
         return user_input
 
 ### functions that can be customized
-def interaction_function(sas, tas, to_print_id, logger, target_logger, prev_steps, target_tasks):
+def interaction_function(collector, sas, tas, to_print_id, logger, target_logger, prev_steps, target_tasks):
     s = sas[to_print_id]
     t = tas[to_print_id]
     target_logger.log(f'Target: Step {t[0][0] + len(prev_steps)+1} - {t[0][1]}')
+    
+    # Add to online trajectory collector
+    cur_time = time.time()
+    timestamp = datetime.fromtimestamp(cur_time)
+    source = "Target"
+    step = t[0][0] + len(prev_steps)+1
+    desc = t[0][1]
+    collector.record_step(timestamp, source, step, desc)
+    print(f'{timestamp} Target: Step {t[0][0] + len(prev_steps)+1} - {t[0][1]}')
+    
     try:
         config.TOTAL_APPROXIMATION_CALLS += 1
         if judge_to_be_true(s, t[0][1]):
@@ -109,9 +138,8 @@ def ordinal(n):
         suffix = ['th', 'st', 'nd', 'rd', 'th'][min(n % 10, 4)]
     return str(n) + suffix
 
-def simulate_within_T_interaction(sas, tas, flatten_tas, printed_ids, logger, target_logger, prev_steps, target_tasks):
-   
-    ## conduct on-time printing out
+def simulate_within_T_interaction(collector, sas, tas, flatten_tas, printed_ids, logger, target_logger, prev_steps, target_tasks):
+    # conduct on-time printing out
     tas_ids = [t[0] for t in flatten_tas]
     flatten_printed_ids = []
     for ids in printed_ids:
@@ -138,7 +166,7 @@ def simulate_within_T_interaction(sas, tas, flatten_tas, printed_ids, logger, ta
                 if not judge_to_be_true(sas[to_print_ids[order_id-1]], tas[to_print_ids[order_id-1]][0][1]):
                     break
             printed_ids[to_print_id].append(to_print_id)
-            user_input = interaction_function(sas, tas, to_print_id, logger, target_logger, prev_steps, target_tasks)
+            user_input = interaction_function(collector, sas, tas, to_print_id, logger, target_logger, prev_steps, target_tasks)
             # print('user_input', user_input.lower())
             if str(user_input) == str(tas[to_print_id][0][1]) and user_input.lower() != 'terminate':
                 continue 
@@ -153,7 +181,7 @@ def simulate_within_T_interaction(sas, tas, flatten_tas, printed_ids, logger, ta
     ## finish printing out
     return printed_ids, tas
 
-def simulate_leftover_interaction(sas, tas, flatten_tas, printed_ids, logger, target_logger, prev_steps, target_tasks):
+def simulate_leftover_interaction(collector, sas, tas, flatten_tas, printed_ids, logger, target_logger, prev_steps, target_tasks):
     # print('simulate_leftover_interaction')
     # when sas is slower than tas 
     # we need to print out the extra here
@@ -178,7 +206,7 @@ def simulate_leftover_interaction(sas, tas, flatten_tas, printed_ids, logger, ta
     if print_leftover and not contain_wrong_result:
         for print_id in range(len(flatten_printed_ids), min(len(sas),len(tas))):
             if tas[print_id]:
-                user_input = interaction_function(sas, tas, print_id, logger, target_logger, prev_steps, target_tasks)
+                user_input = interaction_function(collector, sas, tas, print_id, logger, target_logger, prev_steps, target_tasks)
                 printed_ids[print_id].append(print_id)
                 if str(user_input) == str(tas[print_id][0][1]):
                     continue 
@@ -195,7 +223,7 @@ def simulate_leftover_interaction(sas, tas, flatten_tas, printed_ids, logger, ta
 
     return printed_ids, tas
 
-async def A_generate(assistant, prompt, total_step_number, logger, approximation_logger):
+async def A_generate(collector, assistant, prompt, total_step_number, logger, approximation_logger):
     start = time.time()
     prompt += f"\n\nDirectly tell me what **the ONE NEXT action step** based on the current action trajectory should be. (Remember to use xml tag <tool> and </tool> for formatting.)\nWhat should be the action in Step {total_step_number+1}?\n\nStep {total_step_number+1}:"
     n = 0
@@ -206,11 +234,22 @@ async def A_generate(assistant, prompt, total_step_number, logger, approximation
                 result = ''
                 return result
             response = await assistant.a_generate_reply(messages=[{'content':prompt, 'role':'user'}])
+
             config.TOTAL_TOKEN_GENERATION.append(response)
             result = parse_response(response)
             end = time.time()
+            
+            # add approximation task to online trajectory collector
+            timestamp = datetime.fromtimestamp(end)
+            source = "Approximation"
+            step = total_step_number+1
+            desc = result
+            collector.record_step(timestamp, source, step, desc)
+            
             approximation_logger.log(f'Approximation: Step {total_step_number+1} - {result}')
+            print(f'{timestamp} Approximation: Step {total_step_number+1} - {result}')
             print(f'approximation: step time for {total_step_number}: '+ str(end-start))
+            
             return result
         except:
             continue
@@ -227,7 +266,7 @@ async def ReAct(assistant, prompt, total_step_number):
     config.TOTAL_TOKEN_GENERATION.append(response)
     return response
 
-async def postprocess_T_generation(result, total_step_number, tas, sas, target_tasks, printed_ids=[[]], current_step=0, logger=None, target_logger=None, prev_steps=[]): 
+async def postprocess_T_generation(collector, result, total_step_number, tas, sas, target_tasks, printed_ids=[[]], current_step=0, logger=None, target_logger=None, prev_steps=[]): 
     in_step_number = total_step_number - current_step
     tas[in_step_number].append((in_step_number,result))
 
@@ -238,7 +277,7 @@ async def postprocess_T_generation(result, total_step_number, tas, sas, target_t
         if t:
             flatten_tas += t
     flatten_tas = sorted(flatten_tas, key=lambda x: x[0],reverse=False)
-    printed_ids, tas = simulate_within_T_interaction(sas, tas, flatten_tas, printed_ids, logger, target_logger, prev_steps, target_tasks)
+    printed_ids, tas = simulate_within_T_interaction(collector, sas, tas, flatten_tas, printed_ids, logger, target_logger, prev_steps, target_tasks)
 
     # if the target result is terminate, we break the loop
     flatten_ids = [t[0] for t in flatten_tas]
@@ -258,7 +297,7 @@ async def postprocess_T_generation(result, total_step_number, tas, sas, target_t
     flatten_tas = sorted(flatten_tas, key=lambda x: x[0],reverse=False)
     for ta in flatten_tas:
         if len(sas) > ta[0]:
-            if not sas[ta[0]] == ta[1]:
+            if not sas[ta[0]] == ta[1]: # mismatch occurs
                 end = time.time()
                 pending_approximation_tasks = [t for t in asyncio.all_tasks() if not t.cancelled() and not t.done() and t not in target_tasks and t.get_name().startswith('approximation')]
                 for pending_approximation_task in pending_approximation_tasks:
@@ -267,7 +306,7 @@ async def postprocess_T_generation(result, total_step_number, tas, sas, target_t
 
     return tas, printed_ids
 
-async def T_generate(args, assistant, prompt, total_step_number, tas, sas, target_tasks, printed_ids, current_step, logger, target_logger, prev_steps):
+async def T_generate(args, collector, assistant, prompt, total_step_number, tas, sas, target_tasks, printed_ids, current_step, logger, target_logger, prev_steps):
     start = time.time()
     if args.target_type == 'direct':
         prompt += f"\n\nDirectly tell me what **the ONE NEXT action step** based on the current action trajectory should be. (Remember to use xml tag <tool> and </tool> for formatting.)\nWhat should be the action in Step {total_step_number+1}?\n\nStep {total_step_number+1}:"
@@ -293,27 +332,27 @@ async def T_generate(args, assistant, prompt, total_step_number, tas, sas, targe
             except:
                 await asyncio.sleep(0.1)
                 continue
-        tas, printed_ids = await postprocess_T_generation(result, total_step_number, tas, sas, target_tasks, printed_ids=printed_ids, current_step=current_step, logger=logger, target_logger=target_logger, prev_steps=prev_steps)
+        tas, printed_ids = await postprocess_T_generation(collector, result, total_step_number, tas, sas, target_tasks, printed_ids=printed_ids, current_step=current_step, logger=logger, target_logger=target_logger, prev_steps=prev_steps)
     except asyncio.CancelledError as e:
         if config.USERINPUT:
             config.USERINPUT=False
             result = input("What do you think this step should be?\n")
             result = 'any tool'
-            user_input_task = asyncio.create_task(postprocess_T_generation(result, total_step_number, tas, sas, target_tasks, printed_ids=printed_ids, current_step=current_step, logger=logger, target_logger=target_logger, prev_steps=prev_steps))
+            user_input_task = asyncio.create_task(postprocess_T_generation(collector, result, total_step_number, tas, sas, target_tasks, printed_ids=printed_ids, current_step=current_step, logger=logger, target_logger=target_logger, prev_steps=prev_steps))
             target_tasks.append(user_input_task)
     except asyncio.exceptions.TimeoutError:
         if config.USERINPUT:
             config.USERINPUT=False
             result = input("What do you think this step should be?\n")
             result = 'any tool'
-            user_input_task = asyncio.create_task(postprocess_T_generation(result, total_step_number, tas, sas, target_tasks, printed_ids=printed_ids, current_step=current_step, logger=logger, target_logger=target_logger, prev_steps=prev_steps))
+            user_input_task = asyncio.create_task(postprocess_T_generation(collector, result, total_step_number, tas, sas, target_tasks, printed_ids=printed_ids, current_step=current_step, logger=logger, target_logger=target_logger, prev_steps=prev_steps))
             target_tasks.append(user_input_task)
     except Exception as e:
         if config.USERINPUT:
             config.USERINPUT=False
             result = input("What do you think this step should be?\n")
             result = 'any tool'
-            user_input_task = asyncio.create_task(postprocess_T_generation(result, total_step_number, tas, sas, target_tasks, printed_ids=printed_ids, current_step=current_step, logger=logger, target_logger=target_logger, prev_steps=prev_steps))
+            user_input_task = asyncio.create_task(postprocess_T_generation(collector, result, total_step_number, tas, sas, target_tasks, printed_ids=printed_ids, current_step=current_step, logger=logger, target_logger=target_logger, prev_steps=prev_steps))
             target_tasks.append(user_input_task)
 
     end = time.time()
@@ -321,20 +360,21 @@ async def T_generate(args, assistant, prompt, total_step_number, tas, sas, targe
 
     return tas, printed_ids
 
-async def onebreakingpoint_speculative_planning(args, app_assistant, tar_assistant, prompt, current_step, logger, target_logger, approximation_logger, prev_steps):
+async def onebreakingpoint_speculative_planning(args, pred_k, collector, app_assistant, tar_assistant, prompt, current_step, logger, target_logger, approximation_logger, prev_steps):
     # approximation
     # target
     sas = []
     tas = []
     target_tasks = []
     printed_ids = []
-    for i in range(args.k):
+    
+    for i in range(pred_k):
         break_out_approximation = False
 
         tas.append([])
         printed_ids.append([])
-        approximation = asyncio.create_task(A_generate(app_assistant, prompt, current_step+i, logger=logger, approximation_logger=approximation_logger), name=f"approximation_{current_step+i}")
-        target = asyncio.create_task(T_generate(args, tar_assistant, prompt, current_step+i, tas, sas, target_tasks=target_tasks, printed_ids=printed_ids, current_step=current_step, logger=logger, target_logger=target_logger, prev_steps=prev_steps), name=f"target_{i}")
+        approximation = asyncio.create_task(A_generate(collector, app_assistant, prompt, current_step+i, logger=logger, approximation_logger=approximation_logger), name=f"approximation_{current_step+i}")
+        target = asyncio.create_task(T_generate(args, collector, tar_assistant, prompt, current_step+i, tas, sas, target_tasks=target_tasks, printed_ids=printed_ids, current_step=current_step, logger=logger, target_logger=target_logger, prev_steps=prev_steps), name=f"target_{i}")
         target_tasks.append(target)
 
         concurrent_api_calls = concurrent_calls()
@@ -438,7 +478,7 @@ async def onebreakingpoint_speculative_planning(args, app_assistant, tar_assista
                     if t:
                         flatten_tas += t
                 flatten_tas = sorted(flatten_tas, key=lambda x: x[0],reverse=False)
-                printed_ids, tas = simulate_leftover_interaction(sas, tas, flatten_tas, printed_ids, logger, target_logger, prev_steps, target_tasks)
+                printed_ids, tas = simulate_leftover_interaction(collector, sas, tas, flatten_tas, printed_ids, logger, target_logger, prev_steps, target_tasks)
 
                 # get the final tas result
                 flatten_tas = []
@@ -489,8 +529,10 @@ async def onebreakingpoint_speculative_planning(args, app_assistant, tar_assista
         if t:
             flatten_tas += t
     flatten_tas = sorted(flatten_tas, key=lambda x: x[0],reverse=False)
-    printed_ids, tas = simulate_leftover_interaction(sas, tas, flatten_tas, printed_ids, logger, target_logger, prev_steps, target_tasks)
+    printed_ids, tas = simulate_leftover_interaction(collector, sas, tas, flatten_tas, printed_ids, logger, target_logger, prev_steps, target_tasks)
 
+    # collector build trajectory
+    collector.build_trajectory()
     # get the final tas result
     flatten_tas = []
     for t in tas:
@@ -501,17 +543,25 @@ async def onebreakingpoint_speculative_planning(args, app_assistant, tar_assista
         if t[0] == step_number and not judge_to_be_true(s, t[1]):# t[1] != s:
             sas = sas[:step_number]+[flatten_tas[step_number][1]]
             break
-    
     return sas
 
-async def speculative_planning(args, app_assistant, tar_assistant, prompt, logger, target_logger, approximation_logger):
+async def speculative_planning(args, executor, app_assistant, tar_assistant, prompt, logger, target_logger, approximation_logger):
     begin_time = datetime.now()
+    collector = executor.collector
     steps = []
     breaking_points = 0
     i = 0
     while True:
-        result = await onebreakingpoint_speculative_planning(args, app_assistant, tar_assistant, prompt, len(steps), logger, target_logger, approximation_logger, prev_steps=steps)
-
+        if args.pred == True:
+            pred_k, state = executor.predict()
+        else:
+            pred_k = args.k
+        
+        approximation_logger.log("Predict Prompt: " + state)
+        approximation_logger.log(f"Predict K: {pred_k}")
+        
+        result = await onebreakingpoint_speculative_planning(args, pred_k, collector, app_assistant, tar_assistant, prompt, len(steps), logger, target_logger, approximation_logger, prev_steps=steps)
+        
         previous_action_trajectory = [f'\nAction {len(steps) + j+1} in the decided action trajectory: {result[j]}.' for j in range(len(result))]
         if '## Current Action Trajectory:' not in prompt:
             prompt += f'\n\n## Current Action Trajectory:\n'
@@ -528,10 +578,13 @@ async def speculative_planning(args, app_assistant, tar_assistant, prompt, logge
 
     end_time = datetime.now()
     logger.log(f'{end_time} - {begin_time} = {end_time - begin_time}')
-
     return steps
 
+
 if __name__ == '__main__':
+    os.environ['OPENAI_API_KEY'] = "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"
+    asyncio.get_event_loop().set_debug(True)
+    
     ## gloabl variables
     config.MAX_CONCURRENT_CALLS = 0
     config.TOTAL_APPROXIMATION_CALLS = 0
@@ -545,6 +598,8 @@ if __name__ == '__main__':
     parser.add_argument('--task_id', type=int, default=29, help='task id')
     parser.add_argument('--k', type=int, default=4, help='number of approximation steps to generate everytime')
     parser.add_argument('--target_type', type=str, default='react', help='cot, react, multi-agent, direct')
+    parser.add_argument('--pred', type=bool, default=True, help='speculative planning with predictor')
+    
     args = parser.parse_args()
 
     logger = Logger(f'logs/{args.target_type}/simulation_datapoint{args.task_id}_k{args.k}.log', on=True)
@@ -602,15 +657,36 @@ Please use xml tags to specify the tool when responsing. For example, <tool>Sent
 
     tar_config_list = [{
         "model": "gpt-4-turbo",
-        "api_key": "",
+        "api_key": os.environ['OPENAI_API_KEY'],
         "api_type": "openai",
         "cache_seed": None, 
         "seed":0
     },]
     tar_assistant = AssistantAgent("assistant", llm_config={"config_list": tar_config_list}, human_input_mode='NEVER')
-
+    
+    # online learning preparations
+    model_path = "distilbert-base-uncased"
+    bert_model = AutoModel.from_pretrained(model_path)
+    tokenizer = AutoTokenizer.from_pretrained(model_path)
+    model = DistilBERTValueFunction(bert_model)
+    
+    model_save_path = "cot_value_function_model.pth"
+    model.load_state_dict(torch.load(model_save_path))
+    
+    executor = OnlineLearningExecutor(
+        model=model,
+        tokenizer=tokenizer,
+        initial_prompt=task_description,
+        buffer_size=1000,
+        batch_size_steps=32,
+        lambda_=0.9,
+        gamma=1,
+        lr=5e-05,
+        epoch_per_train=3
+    )    
+    
     # run the speculative planning
-    steps = asyncio.run(speculative_planning(args, app_assistant, tar_assistant, prompt, logger, target_logger, approximation_logger))
+    steps = asyncio.run(speculative_planning(args, executor, app_assistant, tar_assistant, prompt, logger, target_logger, approximation_logger))
 
     # record the metrics
     logger.log('final result for the speculative planning ' + str(steps))

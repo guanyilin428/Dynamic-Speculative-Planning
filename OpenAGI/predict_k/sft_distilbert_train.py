@@ -30,13 +30,13 @@ class SFTPredictor(nn.Module):
         pooled_output = outputs.last_hidden_state[:, 0, :]
         k = self.fc(pooled_output)
         return k
-
+    
 
 def collate_fn(batch):
     input_texts, labels = [], []
     for sample in batch:
         input_texts.append(sample["input"])
-        labels.append(int(sample["output"]))
+        labels.append(int(sample["output"]) - 1)
     
     inputs = tokenizer(
         input_texts, 
@@ -99,7 +99,6 @@ def eval_sft(val_loader, criterion, epoch, model, writer):
             
         val_acc /= total_batches
         val_loss /= total_batches
-        
         writer.add_scalar('Loss/val', val_loss, epoch)
         writer.add_scalar('Accuracy/val', val_acc, epoch)
 
@@ -113,25 +112,18 @@ if __name__ == "__main__":
     args = parser.parse_args()
     lr = args.lr
     batch_size = args.batch_size
-    ds_type = "cot_val"
     
-    if ds_type == "cot":
-        dataset_path = "dataset_predict_k_cot.json"
-    elif ds_type == "cot_val":
-        dataset_path = "dataset_value_to_sft_cot.json"
-    elif ds_type == "tp":
-        dataset_path = "dataset_travelplanner_first_task.json"
-    model_path = "../weights/distilbert-base-uncased"
+    model_path = "../weights/distilbert_base_uncased"
     tokenizer = AutoTokenizer.from_pretrained(model_path, local_files_only=True)
     bert_model = AutoModel.from_pretrained(model_path, local_files_only=True)
     
-    full_dataset = load_dataset(dataset_path)
+    full_dataset = load_dataset("dataset_value_to_sft_cot.json")
     train_dataset, val_dataset = train_test_split(full_dataset, test_size=0.2, random_state=42)
     
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, collate_fn=collate_fn)
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, collate_fn=collate_fn)
     full_loader = DataLoader(full_dataset, batch_size=batch_size, shuffle=False, collate_fn=collate_fn)
-    writer = SummaryWriter(log_dir=f"3_20_log/sft_reg_{ds_type}_with_hint/lr_{lr}_bs_{batch_size}")
+    writer = SummaryWriter(log_dir=f"3_18_log/sft_reg_cot_val/lr_{lr}_bs_{batch_size}")
 
     # sft_predictor_pth = "./OpenAGI/predict_k/predictor_weights/sft_distilbert_predictor.pth"
     sft_predictor_pth = "./OpenAGI/predict_k/predictor_weights/sft_travel_planner.pth"
