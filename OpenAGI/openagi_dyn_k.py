@@ -33,7 +33,7 @@ encoding = tiktoken.get_encoding("cl100k_base")
 
 # bpe_path = "cl100k_base.tiktoken"
 # bpe_ranks = load_tiktoken_bpe(bpe_path)
-os.environ['OPENAI_API_KEY'] = "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"
+os.environ['OPENAI_API_KEY'] = ""
 
 # import httpx
 # client = httpx.Client(proxies="http://43.139.168.201/link/bEkmteftODUiK3Ma?clash=2")
@@ -582,7 +582,7 @@ async def speculative_planning(args, executor, app_assistant, tar_assistant, pro
 
 
 if __name__ == '__main__':
-    os.environ['OPENAI_API_KEY'] = "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"
+    os.environ['OPENAI_API_KEY'] = ""
     asyncio.get_event_loop().set_debug(True)
     
     ## gloabl variables
