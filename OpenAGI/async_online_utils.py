@@ -8,6 +8,12 @@ import torch.nn as nn
 import torch.optim as optim
 from concurrent.futures import ThreadPoolExecutor
 import asyncio
+import copy
+import threading
+from threading import Event
+import time
+
+import hashlib
 
 class OnlineLearningExecutor:
     def __init__(self, 
@@ -21,26 +27,30 @@ class OnlineLearningExecutor:
                  gamma=1,
                  lr=5e-5,
                  epoch_per_train=1):
-        self.model = model
+        
         self.tokenizer = tokenizer
         self.buffer = FiniteReplay(tokenizer=tokenizer, model=model, max_length=max_length, replay_size=buffer_size)
         self.collector = OnlineTrajectoryCollector(initial_prompt, self.buffer)
         self.batch_size_steps = batch_size_steps
         self.criterion = nn.MSELoss()
-        self.optimizer = optim.Adam(self.model.parameters(), lr=lr)
         self.max_length = max_length
         self.lambda_ = lambda_
         self.gamma = gamma
         self.epoch_per_train = epoch_per_train
         
+        self.train_model = model  
+        self.predict_model = copy.deepcopy(model)  
         self.train_executor = ThreadPoolExecutor(max_workers=1)
-        self.current_train_task = None
+        self.optimizer = optim.Adam(self.train_model.parameters(), lr=lr)
         self.train_lock = asyncio.Lock()
-        self.model_lock = asyncio.Lock() 
+        self.model_lock = threading.Lock() 
+
+        # self.debug_barrier = Event()  # barrier for syncing debug pause
+        # self.debug_barrier.set()
         
         
     def _compute_lambda_return(self, input_ids, attention_masks, rewards):
-        self.model.eval()
+        self.train_model.eval()
         T = len(input_ids)
         G_lambda = torch.zeros(T)
         
@@ -48,11 +58,11 @@ class OnlineLearningExecutor:
         for t in reversed(range(T)):
             input_id = input_ids[t].unsqueeze(0)
             attention_mask = attention_masks[t].unsqueeze(0)
-            v_pred = self.model(input_id, attention_mask).item()   
+            v_pred = self.train_model(input_id, attention_mask).item()   
             mask = rewards[t]
             G_t = rewards[t] + self.gamma * (1 - self.lambda_) * v_pred * mask + self.gamma * self.lambda_ * G_t * mask
             G_lambda[t] = G_t
-        self.model.train()
+        self.train_model.train()
         return G_lambda
 
     def _flat_batch_data(self, input_ids_batch, attention_mask_batch, rewards_batch, gt_k_batch):
@@ -67,15 +77,16 @@ class OnlineLearningExecutor:
             attention_mask = attention_mask_batch[i]
             rewards = rewards_batch[i]
 
-            # G_lambda for each trajectory
-            G_lambda = self._compute_lambda_return(input_ids, attention_mask, rewards)
+            with torch.no_grad():
+                # G_lambda for each trajectory
+                G_lambda = self._compute_lambda_return(input_ids, attention_mask, rewards)
             # flatten inputs and targets
             all_G_lambda.extend(G_lambda)
             all_input_ids.extend(input_ids)
             all_attention_mask.extend(attention_mask)
             all_gt_k.extend(gt_k_batch[i])
             
-        device = self.model.model.device
+        device = self.train_model.model.device
         # [total_step_num, hid_dim]: total_step_num in this batch
         flat_input_ids = torch.stack(all_input_ids, dim=0).to(device)
         flat_attention_mask = torch.stack(all_attention_mask, dim=0).to(device)
@@ -83,64 +94,78 @@ class OnlineLearningExecutor:
         flat_G_lambda = torch.tensor(all_G_lambda).to(device)
         flat_gt_k = torch.stack(all_gt_k, dim=0).to(device)
         return flat_input_ids, flat_attention_mask, flat_G_lambda, flat_gt_k
-
-    async def async_train(self): 
+        
+    async def async_train(self, logger, train_event):
         async with self.train_lock:
             loop = asyncio.get_running_loop()
+            # logger.log("Starting training")
             self.current_train_task = loop.run_in_executor(
                 self.train_executor,
-                self._sync_train
+                self._train,
+                logger,
+                train_event
             )
 
-    
-    def _sync_train(self):
-        with torch.no_grad():
-            model_state = self.model.state_dict()
-        local_model = copy.deepcopy(self.model)
-        local_model.train()
-        local_optimizer = torch.optim.Adam(local_model.parameters(), lr=self.lr)
+    def _train(self, logger):
+        for epoch in range(self.epoch_per_train):
+            self.train_model.train()
+            batch = self.buffer.sample(self.batch_size_steps)
+        
+            if batch is None:
+                return
+            # start = time.time()
+            input_ids_batch, attention_mask_batch, rewards_batch, gt_k_batch = batch
 
-        for epoch in range(epoch_per_train):
-            self.model.train()
-            input_ids_batch, attention_mask_batch, rewards_batch, gt_k_batch = self.buffer.sample(self.batch_size_steps)
             flat_input_ids, flat_attention_mask, flat_G_lambda, flat_gt_k = self._flat_batch_data(
                 input_ids_batch, attention_mask_batch, rewards_batch, gt_k_batch)
-            
-            # batch = self.buffer.sample(self.batch_size_steps)
-            # flat_input_ids, flat_attention_mask, flat_G_lambda, flat_gt_k = self._flat_batch_data(**batch)
-                                
-            local_optimizer.zero_grad()
-            k_pred = local_model(flat_input_ids, flat_attention_mask).squeeze()
+
+            self.optimizer.zero_grad()
+            k_pred = self.train_model(flat_input_ids, flat_attention_mask).squeeze()
             loss = self.criterion(k_pred, flat_G_lambda)
             diff = torch.round(k_pred) - flat_gt_k
             acc = ((diff == 0) | (diff == 1)).float().mean().item()
-            
+            logger.log(f'Epoch {epoch + 1} - Loss: {loss.item()} - Accuracy: {round(acc * 100, 2)}%')
+            # self.debug_barrier.set()
+
             loss.backward()
-            local_optimizer.step()
+            self.optimizer.step()
             
         with self.model_lock:
-            self.model.load_state_dict(local_model.state_dict())
-            # k_pred = self.model(flat_input_ids, flat_attention_mask).squeeze()
-            # loss = self.criterion(k_pred, flat_G_lambda)
-            # diff = torch.round(k_pred) - flat_gt_k
-            # acc = ((diff == 0) | (diff == 1)).float().mean().item()
-            # self.optimizer.zero_grad()    
-            # loss.backward()
-            # self.optimizer.step()
-                   
-    def predict(self):
-        self.model.eval()
-        state = self.collector.get_current_trajectory()
-        inputs = self.tokenizer(
-            state,
-            return_tensors="pt",
-            truncation=True,
-            padding='max_length',
-            max_length=self.max_length
+            self.predict_model.load_state_dict(self.train_model.state_dict())
+        # logger.log(f'Trained for {self.epoch_per_train} epoch -time {round(time.time()-start, 2)}s')
+    
+    
+    async def async_predict(self, logger):
+        # logger.log("Start Prediction")
+        loop = asyncio.get_running_loop()
+        return await loop.run_in_executor(
+            None,
+            self._predict,
+            logger
         )
-        k_pred = self.model(**inputs).squeeze()
+
+    def _predict(self, logger):
+        self.predict_model.eval()
+        start = time.time()
         
-        return int(torch.round(k_pred).item()), state
+        state = self.collector.get_current_trajectory()
+        with self.model_lock:
+            # param_tensor = torch.cat([p.flatten() for p in self.predict_model.parameters()])
+            # checksum = hashlib.md5(param_tensor.detach().cpu().numpy().tobytes()).hexdigest()
+            # logger.log(f"Predict model checksum: {checksum}") # log model updates
+
+            inputs = self.tokenizer(
+                state,
+                return_tensors="pt",
+                truncation=True,
+                padding='max_length',
+                max_length=self.max_length
+            )
+            k_pred = self.predict_model(**inputs).squeeze()
+        k = int(torch.round(k_pred).item())
+        logger.log(f'Predictor time: {round(time.time()-start, 2)}s')
+        logger.log(f'Predict K: {k}')
+        return k
         
 
 class OnlineTrajectoryCollector:
@@ -169,8 +194,10 @@ class OnlineTrajectoryCollector:
         else:
             self.target_logs.append((timestamp, source.strip(), step, description))
     
-    def build_trajectory(self):
+    def build_trajectory(self, logger):
+        # start = time.time()
         # when reach a breakingpoint, call build_trajectory
+        # print("Build Trajectory")
         combined_logs = sorted(self.approx_logs + self.target_logs, key=lambda x: (x[0], x[2], 0 if x[1] == "Approximation" else 1))
         target_logs_sorted_by_step = sorted(self.target_logs, key=lambda x: x[2])
         i, j = 0, 0
@@ -184,8 +211,7 @@ class OnlineTrajectoryCollector:
                 j += 1
             else: # mismatch, breakingpoint
                 # iterate thru all approx tasks in this breakingpoint
-                # generate traj from bp start to cur_approx_task(not included)
-                
+                # generate traj from bp start to cur_approx_task(not included)                
                 approx_index = 0
                 while approx_index < len(self.approx_logs):
                     cur_approx_timestamp, _, cur_approx_step, cur_approx_desc = self.approx_logs[approx_index]
@@ -211,18 +237,28 @@ class OnlineTrajectoryCollector:
                     })
                     approx_index += 1
                 break
-            
         # update prefix
         bp_state = [f"{log[1]} Step {log[2]}: {log[3]}" for log in combined_logs]
         self.prefix += "\n".join(bp_state) + "\n"    
-        
+        logger.log(f"trajectory: {trajectory}")
         # add trajectory to replay buffer
         self.replay_buffer.add_trajectory(trajectory)
         self._reset_trajectory()
+        # print(f'Build trajectory time: {round(time.time()-start, 2)}s') # 0.0s
+        
         
                     
     def get_current_trajectory(self):
-        return self.prefix    
+        # start = time.time()
+        combined_logs = sorted(self.approx_logs + self.target_logs, key=lambda x: (x[0], x[2], 0 if x[1] == "Approximation" else 1))
+        bp_state = [f"{log[1]} Step {log[2]}: {log[3]}" for log in combined_logs]
+        if self.prefix == self.initial_task and bp_state:
+            prefix = self.prefix + "\nPrevious History:\n"
+        else: prefix = self.prefix
+        prefix += "\n".join(bp_state) + "\n"    
+        
+        # print(f'Build predict state time: {round(time.time()-start, 2)}s') # 0.0s
+        return prefix    
             
     def save_trajectory(self, file_path):
         with open(file_path, 'w') as f:
@@ -230,7 +266,6 @@ class OnlineTrajectoryCollector:
                 "task_description": self.task_description,
                 "trajectory": self.current_trajectory
             }, f, indent=2)
-            
             
 
 class FiniteReplay:
@@ -249,6 +284,7 @@ class FiniteReplay:
         return self.replay_size if self.full else self.pos
 
     def add_trajectory(self, trajectory: List[dict]):
+        # breakpoint()
         processed = self._preprocess_trajectory(trajectory)
         self.replay_buffer[self.pos] = processed
         self.trajectory_lengths[self.pos] = len(trajectory)
@@ -295,75 +331,11 @@ class FiniteReplay:
             total_steps += self.trajectory_lengths[idx]
             if total_steps >= batch_size_steps:
                 break
-
+        
+        if total_steps < batch_size_steps:
+            return None
         return input_ids_list, attention_mask_list, rewards_list, gt_k_list
-                    
-            
-            
-            
-            
-            
-"""          
-class OnlineDataset(Dataset):
-    def __init__(self, tokenizer, model, max_length=512, replay_size: int = 1000):
-        self.tokenizer = tokenizer
-        self.model = model
-        self.max_length = max_length
-        # self.replay_buffer = deque(maxlen=replay_size)
-        self.replay_buffer = []
-        self.trajectory_lengths = []
-        
-    def __len__(self) -> int:
-        return len(self.replay_buffer)
-    
-    def __getitem__(self, idx):
-        input_ids, attention_masks, rewards = self.replay_buffer[idx]
-        return input_ids, attention_masks, rewards
-    
-    def add_trajectory(self, trajectory):
-        self.trajectory_lengths.append(len(trajectory))
-        self.replay_buffer.append(self._preprocess_trajectory(trajectory))
-       
-    def _preprocess_trajectory(self, trajectory):
-        states = [step["state"] for step in trajectory]
-        rewards = [step["reward"] for step in trajectory]
-        # gt_ks = [step["k"] for step in trajectory]
-        
-            # rewards.append(torch.tensor(reward))
-            # gt_ks.append(torch.tensor(gt_k))
 
-        inputs = tokenizer(
-            states, 
-            return_tensors="pt", 
-            truncation=True, 
-            padding='max_length', 
-            max_length=512
-        )
-        input_ids = inputs['input_ids']
-        attention_masks = inputs['attention_mask']
-        # rewards = torch.stack(rewards, dim=0)
-        rewards = torch.tensor(rewards, dtype=torch.float32)
-        # gt_ks = torch.stack(gt_ks, dim=0)
-        return (input_ids, attention_masks, rewards)
-        
-    def get_dataloader(self, 
-                      batch_size: int = 32,
-                      shuffle: bool = True) -> DataLoader:
-        batch_sampler = DynamicBatchSampler(
-            trajectory_lengths=self.trajectory_lengths,
-            max_steps_per_batch=batch_size,
-            shuffle=False
-        )
-        return DataLoader(
-            self,
-            batch_sampler=train_batch_sampler,
-            collate_fn=self._collate_fn,
-            pin_memory=True
-        )
-    
-    def _collate_fn(self, batch: list) -> dict:
-        input_ids_batch = [trajectory_data[0] for trajectory_data in batch]
-        attention_mask_batch = [trajectory_data[1] for trajectory_data in batch]
-        rewards_batch = [trajectory_data[2] for trajectory_data in batch]
-        return input_ids_batch, attention_mask_batch, rewards_batch
-"""
+class SharedState:
+    mismatch_detected = asyncio.Event()
+    mismatch_step_id = None

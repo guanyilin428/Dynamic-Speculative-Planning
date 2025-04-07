@@ -32,15 +32,15 @@ from openai import OpenAI
 
 bpe_path = "cl100k_base.tiktoken"
 bpe_ranks = load_tiktoken_bpe(bpe_path)
-os.environ['OPENAI_API_KEY'] = "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"
+# os.environ['OPENAI_API_KEY'] = "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"
 # client = OpenAI(api_key="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")
 # print(os.environ['OPENAI_API_KEY'])
 # openai.api_key = os.getenv("OPENAI_API_KEY")
 
-asyncio.get_event_loop().set_debug(True)
+# asyncio.get_event_loop().set_debug(True)
 
 from transformers import AutoModel, AutoTokenizer
-from OpenAGI import DistilBERTValueFunction, OnlineTrajectoryCollector, OnlineLearningExecutor
+from OpenAGI import DistilBERTValueFunction, OnlineTrajectoryCollector, OnlineLearningExecutor, SharedState
 
 
 def concurrent_calls():
@@ -223,24 +223,25 @@ def simulate_leftover_interaction(collector, sas, tas, flatten_tas, printed_ids,
 
 async def A_generate(collector, encoding, assistant, prompt, total_step_number, logger, approximation_logger):
     start = time.time()
-    prompt += f"\n\nDirectly tell me what **the ONE NEXT action step** based on the current action trajectory should be. (Remember to use xml tag <tool> and </tool> for formatting.)\nWhat should be the action in Step {total_step_number+1}?\n\nStep {total_step_number+1}:"
+    prompt += f"\n\nDirectly tell me what **the ONE NEXT action step** based on the current action trajectory should be. (Remember to use xml tag <tool> and </tool> for formatting.)\nWhat should be the action in Step {total_step_number+1}?\nTarget won't terminate easily so don't choose <tool>TERMINATE</tool> unless you are very confident. \nStep {total_step_number+1}:"
     n = 0
     # approximation_logger.log(f'Approximation prompt: Step {total_step_number+1} - {prompt}')
 
+    # approximation_logger.log(prompt)
     while True:
         try:
             n += 1
             if n >= 10:
                 result = ''
                 return result
+            config.TOTAL_TOKEN_PROMPT += len(encoding.encode(prompt))
             response = await assistant.a_generate_reply(messages=[{'content':prompt, 'role':'user'}])
-
-
+            
             # approximation_logger.log(f"Approximation tokens: {len(encoding.encode(response))}") 
-            config.TOTAL_TOKEN_GENERATION.append(response)
             app_tokens = len(encoding.encode(response))
+            config.TOTAL_TOKEN_GENERATION += app_tokens
             config.APPROX_TOTAL_TOKENS += app_tokens
-
+            
             result = parse_response(response)
             end = time.time()
             
@@ -260,20 +261,35 @@ async def A_generate(collector, encoding, assistant, prompt, total_step_number, 
         except:
             continue
 
-async def ReAct(assistant, prompt, total_step_number):
+async def ReAct(encoding, assistant, prompt, total_step_number, target_logger):
     prompt += f"\n\nCarefully think about **the ONE NEXT action step** based on the current action trajectory."
     prompt += f"\nGenerate thought only.\nThought {total_step_number}:"
+
+    target_logger.log('react launch api for thought.')
+
+    config.TARGET_TOTAL_PROMPT[total_step_number+1] = len(encoding.encode(prompt))
+    config.TOTAL_TOKEN_PROMPT += len(encoding.encode(prompt))
     thought = await assistant.a_generate_reply(messages=[{'content':prompt, 'role':'user'}])
-    config.TOTAL_TOKEN_GENERATION.append(thought)
     thought_token = len(encoding.encode(thought))
+    config.TOTAL_TOKEN_GENERATION += thought_token
+    config.TARGET_TOTAL_TOKENS[total_step_number+1] = thought_token
+    target_logger.log(f"Target step {total_step_number+1} thought token: {thought_token}")
+
     prompt += " " + thought
     prompt += f"\nGenerate Action only based on thoughts. Remember to use xml tag <tool> and </tool> for formatting. \nAction {total_step_number}:"
     # generate action based on thought
+    target_logger.log('react launch api for response.')
+    config.TARGET_TOTAL_PROMPT[total_step_number+1] = len(encoding.encode(prompt))
+    config.TOTAL_TOKEN_PROMPT += len(encoding.encode(prompt))
     response = await assistant.a_generate_reply(messages=[{'content':prompt, 'role':'user'}])
-    # config.TOTAL_TOKEN_GENERATION.append(response)
-    return response, thought_token
+    response_token = len(encoding.encode(response))
+    config.TOTAL_TOKEN_GENERATION += response_token
+    config.TARGET_TOTAL_TOKENS[total_step_number+1] += response_token
+    target_logger.log(f"Target step {total_step_number+1} generation token: {response_token}")
 
-async def postprocess_T_generation(collector, result, total_step_number, tas, sas, target_tasks, printed_ids=[[]], current_step=0, logger=None, target_logger=None, prev_steps=[]): 
+    return response
+
+async def postprocess_T_generation(prediction_task, mismatch_state, collector, result, total_step_number, tas, sas, target_tasks, printed_ids=[[]], current_step=0, logger=None, target_logger=None, prev_steps=[]): 
     in_step_number = total_step_number - current_step
     tas[in_step_number].append((in_step_number,result))
 
@@ -291,8 +307,9 @@ async def postprocess_T_generation(collector, result, total_step_number, tas, sa
     if flatten_ids == list(range(len(flatten_ids))):
         for step_number, (s, t) in enumerate(zip(sas, flatten_tas)):
             if t[0] == step_number and t[1].lower() == 'terminate':
-                # throw Exception here to halt everything
                 end = time.time()
+                mismatch_state.mismatch_detected.set()
+                mismatch_state.mismatch_step_id = ta[0]
                 raise Exception('terminate the whole process!')
 
     # if it is a wrong result
@@ -304,17 +321,30 @@ async def postprocess_T_generation(collector, result, total_step_number, tas, sa
     flatten_tas = sorted(flatten_tas, key=lambda x: x[0],reverse=False)
     for ta in flatten_tas:
         if len(sas) > ta[0]:
-            if not sas[ta[0]] == ta[1]: # mismatch occurs
+            if not sas[ta[0]] == ta[1]:
+                # target_logger.log(f"task {len(prev_steps)+ta[0]+1} mismatched.")
+                if not mismatch_state.mismatch_detected.is_set():
+                    mismatch_state.mismatch_step_id = ta[0]
+                    mismatch_state.mismatch_detected.set() # mismatch occurs
                 end = time.time()
                 pending_approximation_tasks = [t for t in asyncio.all_tasks() if not t.cancelled() and not t.done() and t not in target_tasks and t.get_name().startswith('approximation')]
                 for pending_approximation_task in pending_approximation_tasks:
+                    # mismatch occurs, cancel ongoing approximation tasks
                     await cancel(pending_approximation_task)
                 raise Exception(f'approximation error happen in step {total_step_number} for current step {current_step}, the target id is {ta[0]}')
+    if args.pred:
+        k = await prediction_task
+    else: k = args.k
+    if not mismatch_state.mismatch_detected.is_set() and ta[0] >= k-1:
+        # all match in current breakingpoint
+        mismatch_state.mismatch_detected.set()
+        mismatch_state.mismatch_step_id = ta[0]
 
     return tas, printed_ids
 
-async def T_generate(args, collector, encoding, assistant, prompt, total_step_number, tas, sas, target_tasks, printed_ids, current_step, logger, target_logger, prev_steps):
+async def T_generate(args, prediction_task, mismatch_state, collector, encoding, assistant, prompt, total_step_number, tas, sas, target_tasks, printed_ids, current_step, logger, target_logger, prev_steps):
     start = time.time()
+    result = None
     if args.target_type == 'direct':
         prompt += f"\n\nDirectly tell me what **the ONE NEXT action step** based on the current action trajectory should be. (Remember to use xml tag <tool> and </tool> for formatting.)\nWhat should be the action in Step {total_step_number+1}?\n\nStep {total_step_number+1}:"
     else:
@@ -329,65 +359,78 @@ async def T_generate(args, collector, encoding, assistant, prompt, total_step_nu
                 if n >= 10:
                     result = ''
                     break
-                thought_token = 0
                 if args.target_type == 'react':
-                    response, thought_token = await ReAct(assistant, prompt, total_step_number)
+                    response = await ReAct(encoding, assistant, prompt, total_step_number, target_logger)
                 else:
+                    # if mismatch_state.mismatch_detected.is_set() and mismatch_state.mismatch_step_id < 
+                    # log prompt token
+                    config.TARGET_TOTAL_PROMPT[total_step_number+1] = len(encoding.encode(prompt))
+                    config.TOTAL_TOKEN_PROMPT += len(encoding.encode(prompt))
                     response = await assistant.a_generate_reply(messages=[{'content':prompt, 'role':'user'}])
-                config.TOTAL_TOKEN_GENERATION.append(response)
-                tar_token = len(encoding.encode(response)) + thought_token
-                config.TARGET_TOTAL_TOKENS += tar_token
+                    response_token = len(encoding.encode(response))
+                    config.TOTAL_TOKEN_GENERATION += response_token
+                    config.TARGET_TOTAL_TOKENS[total_step_number+1] = response_token
                 result = parse_response(response)
                 break
             except:
                 await asyncio.sleep(0.1)
                 continue
-        tas, printed_ids = await postprocess_T_generation(collector, result, total_step_number, tas, sas, target_tasks, printed_ids=printed_ids, current_step=current_step, logger=logger, target_logger=target_logger, prev_steps=prev_steps)
+        tas, printed_ids = await postprocess_T_generation(prediction_task, mismatch_state, collector, result, total_step_number, tas, sas, target_tasks, printed_ids=printed_ids, current_step=current_step, logger=logger, target_logger=target_logger, prev_steps=prev_steps)
     except asyncio.CancelledError as e:
         if config.USERINPUT:
             config.USERINPUT=False
             result = input("What do you think this step should be?\n")
             result = 'any tool'
-            user_input_task = asyncio.create_task(postprocess_T_generation(collector, result, total_step_number, tas, sas, target_tasks, printed_ids=printed_ids, current_step=current_step, logger=logger, target_logger=target_logger, prev_steps=prev_steps))
+            user_input_task = asyncio.create_task(postprocess_T_generation(prediction_task, mismatch_state, collector, result, total_step_number, tas, sas, target_tasks, printed_ids=printed_ids, current_step=current_step, logger=logger, target_logger=target_logger, prev_steps=prev_steps))
             target_tasks.append(user_input_task)
     except asyncio.exceptions.TimeoutError:
         if config.USERINPUT:
             config.USERINPUT=False
             result = input("What do you think this step should be?\n")
             result = 'any tool'
-            user_input_task = asyncio.create_task(postprocess_T_generation(collector, result, total_step_number, tas, sas, target_tasks, printed_ids=printed_ids, current_step=current_step, logger=logger, target_logger=target_logger, prev_steps=prev_steps))
+            user_input_task = asyncio.create_task(postprocess_T_generation(prediction_task, mismatch_state, collector, result, total_step_number, tas, sas, target_tasks, printed_ids=printed_ids, current_step=current_step, logger=logger, target_logger=target_logger, prev_steps=prev_steps))
             target_tasks.append(user_input_task)
     except Exception as e:
         if config.USERINPUT:
             config.USERINPUT=False
             result = input("What do you think this step should be?\n")
             result = 'any tool'
-            user_input_task = asyncio.create_task(postprocess_T_generation(collector, result, total_step_number, tas, sas, target_tasks, printed_ids=printed_ids, current_step=current_step, logger=logger, target_logger=target_logger, prev_steps=prev_steps))
+            user_input_task = asyncio.create_task(postprocess_T_generation(prediction_task, mismatch_state, collector, result, total_step_number, tas, sas, target_tasks, printed_ids=printed_ids, current_step=current_step, logger=logger, target_logger=target_logger, prev_steps=prev_steps))
             target_tasks.append(user_input_task)
 
     end = time.time()
     t_time = round(end-start, 2)
-    config.TARGET_TOTAL_TIME += t_time
-    target_logger.log(f"Intermediate Target Step {total_step_number+1} - {result} -tokens {tar_token}")
+    config.TARGET_TOTAL_TIME[total_step_number+1] = t_time
+    target_logger.log(f"Intermediate Target Step {total_step_number+1} - {result} -tokens {config.TARGET_TOTAL_TOKENS[total_step_number+1]}")
     target_logger.log(f'Target: Step {total_step_number+1} -time '+ str(t_time))
 
     return tas, printed_ids
 
-async def onebreakingpoint_speculative_planning(args, pred_k, collector, encoding, app_assistant, tar_assistant, prompt, current_step, logger, target_logger, approximation_logger, prev_steps):
-    # approximation
-    # target
-    sas = []
-    tas = []
+async def onebreakingpoint_speculative_planning(args, mismatch_state, executor, collector, encoding, app_assistant, tar_assistant, app_prompt, tar_prompt, current_step, logger, target_logger, approximation_logger, train_logger, prev_steps):
+    sas = [] # approximation
+    tas = [] # target
     target_tasks = []
     printed_ids = []
+    mismatch_state.mismatch_detected.clear()
+    pred_k = 1 if args.pred else args.k
+    first = True
     
-    for i in range(pred_k):
+    
+    # wait if the training thread is paused for debug
+    # await asyncio.get_running_loop().run_in_executor(None, executor.debug_barrier.wait)
+    
+    i = 0
+    prediction_task = None
+    while i < pred_k:
+        if args.pred and first: # parallel launch predictor
+            prediction_task = asyncio.create_task(executor.async_predict(approximation_logger))
+        
         break_out_approximation = False
 
         tas.append([])
         printed_ids.append([])
-        approximation = asyncio.create_task(A_generate(collector, encoding, app_assistant, prompt, current_step+i, logger=logger, approximation_logger=approximation_logger), name=f"approximation_{current_step+i}")
-        target = asyncio.create_task(T_generate(args, collector, encoding, tar_assistant, prompt, current_step+i, tas, sas, target_tasks=target_tasks, printed_ids=printed_ids, current_step=current_step, logger=logger, target_logger=target_logger, prev_steps=prev_steps), name=f"target_{i}")
+        approximation = asyncio.create_task(A_generate(collector, encoding, app_assistant, app_prompt, current_step+i, logger=logger, approximation_logger=approximation_logger), name=f"approximation_{current_step+i}")
+        target = asyncio.create_task(T_generate(args, prediction_task, mismatch_state, collector, encoding, tar_assistant, tar_prompt, current_step+i, tas, sas, target_tasks=target_tasks, printed_ids=printed_ids, current_step=current_step, logger=logger, target_logger=target_logger, prev_steps=prev_steps), name=f"target_{i}")
         target_tasks.append(target)
 
         concurrent_api_calls = concurrent_calls()
@@ -421,10 +464,14 @@ async def onebreakingpoint_speculative_planning(args, pred_k, collector, encodin
                     register_async_handler(target_tasks=target_tasks)
 
             # modify the prompt based on latest approximation result
-            if '## Current Action Trajectory:' not in prompt:
-                prompt += f'\n\n## Current Action Trajectory:\n'
-            prompt += f'\nAction {current_step+i+1} in the decided action trajectory: {str(sa)}.'
+            if '## Current Action Trajectory:' not in app_prompt:
+                app_prompt += f'\n\n## Current Action Trajectory:\n'
+            app_prompt += f'\nAction {current_step+i+1}: {str(sa)}.'
+            if '## Current Action Trajectory:' not in tar_prompt:
+                tar_prompt += f'\n\n## Current Action Trajectory:\n'
+            tar_prompt += f'\nAction {current_step+i+1}: {str(sa)}.'
         except asyncio.CancelledError as e:
+            target_logger.log("exception happens.")
             pass
 
         # if sa == terminate, and ta == terminate, we break the loop
@@ -447,22 +494,45 @@ async def onebreakingpoint_speculative_planning(args, pred_k, collector, encodin
                     # print('sas', sas)
                     # print('tas', tas)
                     break_out_approximation = True
+                    mismatch_state.mismatch_detected.set()
+                    mismatch_state.mismatch_step_id = t[0]
                     for process_id, one_task in enumerate(target_tasks):
                         if not one_task.cancelled() and not one_task.done() and process_id > t[0]:
-                            # print('start cancel tasks within approximation loop with task id with', process_id)
+                            # cancel ongoing target task after mismatch
+                            target_logger.log(f'Cancel Task {len(prev_steps)+process_id+1}')
                             await cancel(one_task)
                             # print('finish cancel tasks within approximation loop with task id with', process_id)
                     break
 
         if break_out_approximation:
             break
+        
+        if args.pred and first:
+            pred_k = await prediction_task
+            pred_k = max(pred_k, 0)
+            first = False
+        i += 1
 
     # print('====finish approximation loop====')
     # after halting the approximation loop
     # we need to collect the target results
     # organize to sas, see how much we want to preserve
     # SHOULD NOT exclude finished tasks, because exceptions are only thrown when tasks are finished
+    # breakpoint()
+    
+    await mismatch_state.mismatch_detected.wait()
+    target_logger.log(f"Mismatch at {mismatch_state.mismatch_step_id}. Cancel starts. ")
+    target_logger.log(f"target tasks: {target_tasks}")
+    for process_id, one_task in enumerate(target_tasks):
+        if not one_task.cancelled() and not one_task.done() and process_id > mismatch_state.mismatch_step_id:
+            # cancel ongoing target task after mismatch
+            target_logger.log(f'Cancel task {len(prev_steps)+process_id+1}')
+            await cancel(one_task)
+
+    # wait for pending target tasks prior to mismatch target task
     pending_tasks = [t for t in target_tasks if not t.cancelled()]
+    target_logger.log(f"pending tasks {pending_tasks}")
+    
     while pending_tasks:
         break_while_loop = False
         try:
@@ -480,11 +550,12 @@ async def onebreakingpoint_speculative_planning(args, pred_k, collector, encodin
             break_while_loop = True
             break
         except Exception as e:
+            target_logger.log(f"Exception msg: {e}")
             # print('get to the exception part')
             if str(e) == 'terminate the whole process!':
                 # cancel all pending tasks because we have already got TERMINATE
                 for pending_task in pending_tasks:
-                    await cancel(pending_task) 
+                    await cancel(pending_task)
                 # organize the results and return the final results
                 flatten_tas = []
                 for t in tas:
@@ -503,7 +574,10 @@ async def onebreakingpoint_speculative_planning(args, pred_k, collector, encodin
                     if t[0] == step_number and not judge_to_be_true(s, t[1]):
                         sas = sas[:step_number]+[flatten_tas[step_number][1]]
                         break
-                
+                target_logger.log(f"tar {step_number}: {flatten_tas[step_number][1]}")
+                collector.build_trajectory(target_logger) # collector build trajectory when target terminates
+                if args.pred:
+                    asyncio.create_task(executor.async_train(train_logger))
                 return sas
             else:
                 # print('need to cancel some tasks')
@@ -527,9 +601,9 @@ async def onebreakingpoint_speculative_planning(args, pred_k, collector, encodin
                 # only cancel t_j such that j > i
                 for process_id, one_task in enumerate(pending_tasks):
                     if not one_task.cancelled() and not one_task.done() and process_id > mistaken_process_id:
-                        # print('start cancel task id with', process_id)
+                        # cancel pending task after mismatch
+                        target_logger.log(f'Cancel task {process_id}')
                         await cancel(one_task)
-                        # print('finish cancel task id with', process_id)
                 
                 pending_tasks = [t for process_id, t in enumerate(target_tasks) if not t.cancelled() and process_id != mistaken_process_id]
 
@@ -543,45 +617,78 @@ async def onebreakingpoint_speculative_planning(args, pred_k, collector, encodin
             flatten_tas += t
     flatten_tas = sorted(flatten_tas, key=lambda x: x[0],reverse=False)
     printed_ids, tas = simulate_leftover_interaction(collector, sas, tas, flatten_tas, printed_ids, logger, target_logger, prev_steps, target_tasks)
-
-    # collector build trajectory
-    collector.build_trajectory()
+    
     # get the final tas result
     flatten_tas = []
     for t in tas:
         if t:
             flatten_tas += t
     flatten_tas = sorted(flatten_tas, key=lambda x: x[0],reverse=False)
+    mismatch = False
+    origin_sa = None
+    target_logger.log(f"sas tasks: {sas}")    
+    target_logger.log(f"flatten_tas: {flatten_tas}")    
+
     for step_number, (s, t) in enumerate(zip(sas, flatten_tas)):
         if t[0] == step_number and not judge_to_be_true(s, t[1]):# t[1] != s:
+            target_logger.log(f"step {step_number} app: {s}, tar: {t[1]}")
+            collector.build_trajectory(target_logger) # collector build trajectory at mismatch step
+            if args.pred:
+                asyncio.create_task(executor.async_train(train_logger))
             sas = sas[:step_number]+[flatten_tas[step_number][1]]
+            origin_sa = s
+            mismatch = True
             break
-    return sas
+    
+    target_logger.log(f"return sas tasks: {sas}")    
+    return sas, origin_sa, mismatch
+
 
 async def speculative_planning(args, executor, encoding, app_assistant, tar_assistant, prompt, logger, target_logger, approximation_logger):
+    train_logger = None
+    if args.pred:
+        pred_type = "dyn_k" if args.pred == True else "fix_k" 
+        train_logger = Logger(f'test/logs/{args.target_type}/{pred_type}/train_datapoint{args.task_id}.log', on=True)
+        # train_event = asyncio.Event()
+        # train_event.clear()
+        # online_train_task = asyncio.create_task(executor.async_train(train_logger))
+
     begin_time = datetime.now()
     collector = executor.collector
+    mismatch_state = SharedState()
     steps = []
     breaking_points = 0
     i = 0
+    app_prompt = prompt
+    tar_prompt = prompt
     while True:
-        if args.pred == True:
-            pred_k, state = executor.predict()
-            # approximation_logger.log("Predict Prompt: " + state)
-        else:
-            pred_k = args.k
+        # if args.pred == True:
+        #     pred_k, state = executor.predict()
+        #     # approximation_logger.log("Predict Prompt: " + state)
+        # else:
+        #     pred_k = args.k
         # launch async predictor training task
         # asyncio.create_task(executor.async_train(), name="predictor_online_training")
         
-        approximation_logger.log(f"Predict K: {pred_k}")
-        pred_k = 1 if pred_k == 0 else pred_k
+        # approximation_logger.log(f"Predict K: {pred_k}")
+        # pred_k = 1 if pred_k == 0 else pred_k
+        result, origin_sa, mismatch = await onebreakingpoint_speculative_planning(args, mismatch_state, executor, collector, encoding, app_assistant, tar_assistant, app_prompt, tar_prompt, len(steps), logger, target_logger, approximation_logger, train_logger, prev_steps=steps)
         
-        result = await onebreakingpoint_speculative_planning(args, pred_k, collector, encoding, app_assistant, tar_assistant, prompt, len(steps), logger, target_logger, approximation_logger, prev_steps=steps)
         
-        previous_action_trajectory = [f'\nAction {len(steps) + j+1} in the decided action trajectory: {result[j]}.' for j in range(len(result))]
-        if '## Current Action Trajectory:' not in prompt:
-            prompt += f'\n\n## Current Action Trajectory:\n'
-        prompt += ''.join(previous_action_trajectory)
+        # update approximation prompt
+        if '## Current Action Trajectory:' not in app_prompt:
+            app_prompt += f'\n\n## Current Action Trajectory:\n'
+        previous_action_trajectory = [f'\nAction {len(steps) + j+1}: {result[j]}. Your prediction aligned with Target.' for j in range(len(result))]
+        if mismatch:
+            app_prompt += ''.join(previous_action_trajectory[:-1])
+            app_prompt += f"\nAction {len(steps) + len(result)}: {result[-1]}. Target predicted {result[-1]} and corrected your prediction {origin_sa}."
+        else: app_prompt += ''.join(previous_action_trajectory)
+
+        # update target prompt
+        if '## Current Action Trajectory:' not in tar_prompt:
+            tar_prompt += f'\n\n## Current Action Trajectory:\n'
+        previous_action_trajectory = [f'\nAction {len(steps) + j+1}: {result[j]}.' for j in range(len(result))]
+        tar_prompt += ''.join(previous_action_trajectory)
 
         steps += result
         breaking_points += 1
@@ -594,11 +701,16 @@ async def speculative_planning(args, executor, encoding, app_assistant, tar_assi
 
     end_time = datetime.now()
     logger.log(f'{end_time} - {begin_time} = {end_time - begin_time}')
+    config.TOTAL_TIME = round((end_time - begin_time).total_seconds(), 2)
+    # if args.pred:
+    #     train_event.set()
+    #     await online_train_task
     return steps
 
 
+
 if __name__ == '__main__':
-    os.environ['OPENAI_API_KEY'] = "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"
+    os.environ['OPENAI_API_KEY'] = "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"
     encoding = tiktoken.get_encoding("cl100k_base")
     
     asyncio.get_event_loop().set_debug(True)
@@ -607,25 +719,30 @@ if __name__ == '__main__':
     config.MAX_CONCURRENT_CALLS = 0
     config.TOTAL_APPROXIMATION_CALLS = 0
     config.TOTAL_CORRECT_APPROXIMATION_CALLS = 0
-    config.TOTAL_TOKEN_GENERATION = []
+    config.TOTAL_TOKEN_GENERATION = 0
+    config.TOTAL_TOKEN_PROMPT = 0
     config.USERINPUT=False
-    config.TARGET_TOTAL_TOKENS = 0
-    config.TARGET_TOTAL_TIME = 0
+    config.TARGET_TOTAL_TIME = {}
+    config.TARGET_TOTAL_TOKENS = {}
     config.APPROX_TOTAL_TOKENS = 0
+    config.TOTAL_TIME = 0
+
+    config.TARGET_TOTAL_PROMPT = {}
+    config.APPROXIMATION_TOTAL_PROMPT = 0
 
     random.seed(2)
     parser = argparse.ArgumentParser(description='OpenAGI')
     parser.add_argument('--data', type=str, default='data/openagi_task_descrition.txt', help='data directory')
     parser.add_argument('--task_id', type=int, default=11, help='task id')
-    parser.add_argument('--k', type=int, default=4, help='number of approximation steps to generate everytime')
+    parser.add_argument('--k', type=int, default=6, help='number of approximation steps to generate everytime')
     parser.add_argument('--target_type', type=str, default='react', help='cot, react, multi-agent, direct')
     parser.add_argument('--pred', type=bool, default=False, help='speculative planning with predictor')
     
     args = parser.parse_args()
     pred_type = "dyn_k" if args.pred == True else "fix_k" 
-    logger = Logger(f'logs/{args.target_type}/{pred_type}/simulation_datapoint{args.task_id}.log', on=True)
-    target_logger = Logger(f'logs/{args.target_type}/{pred_type}/target_datapoint{args.task_id}.log', on=True)
-    approximation_logger = Logger(f'logs/{args.target_type}/{pred_type}/approximation_datapoint{args.task_id}.log', on=True)
+    logger = Logger(f'4_6/test/logs/{args.target_type}/{pred_type}/simulation_datapoint{args.task_id}.log', on=True)
+    target_logger = Logger(f'4_6/test/logs/{args.target_type}/{pred_type}/target_datapoint{args.task_id}.log', on=True)
+    approximation_logger = Logger(f'4_6/test/logs/{args.target_type}/{pred_type}/approximation_datapoint{args.task_id}.log', on=True)
 
     tasks = load_data(args)
     task_description = tasks[args.task_id]
@@ -661,33 +778,40 @@ Please use xml tags to specify the tool when responsing. For example, <tool>Sent
     if args.target_type == 'direct':
         app_config_list = [{
             "model": "gpt-3.5-turbo",
-            "api_key": "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",
-            # "api_key": os.environ['OPENAI_API_KEY'],
+            # "api_key": "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",
+            "api_key": os.environ['OPENAI_API_KEY'],
             "api_type": "openai",
             "cache_seed": None, 
+            "temperature": 0,
             "seed":0
         },]
     else:
         app_config_list = [{
             "model": "gpt-4-turbo",
-            # "api_key": os.environ['OPENAI_API_KEY'],
-            "api_key": "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",
+            # "model": "gpt-3.5-turbo",
+            "api_key": os.environ['OPENAI_API_KEY'],
+            # "api_key": "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",
             "api_type": "openai",
-            "cache_seed": None, 
+            "cache_seed": None,
+            "temperature": 0,
             "seed":0
         },]
     app_assistant = AssistantAgent("assistant", llm_config={"config_list": app_config_list}, human_input_mode='NEVER')
 
+    
     tar_config_list = [{
         "model": "gpt-4-turbo",
-        # "api_key": os.environ['OPENAI_API_KEY'],
-        "api_key": "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",
+        # "model": "gpt-3.5-turbo",
+        "api_key": os.environ['OPENAI_API_KEY'],
+        # "api_key": "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",
         "api_type": "openai",
         "cache_seed": None, 
+        "temperature": 0,
         "seed":0
     },]
     tar_assistant = AssistantAgent("assistant", llm_config={"config_list": tar_config_list}, human_input_mode='NEVER')
-    
+    print(app_assistant.llm_config)
+    print(tar_assistant.llm_config)
     # online learning preparations
     model_path = "../weights/distilbert-base-uncased"
     bert_model = AutoModel.from_pretrained(model_path)
@@ -696,18 +820,22 @@ Please use xml tags to specify the tool when responsing. For example, <tool>Sent
     
     model_save_path = "cot_value_function_model.pth"
     model.load_state_dict(torch.load(model_save_path))
-    
+
+
     executor = OnlineLearningExecutor(
         model=model,
         tokenizer=tokenizer,
         initial_prompt=task_description,
         buffer_size=1000,
-        batch_size_steps=32,
+        batch_size_steps=4,
         lambda_=0.9,
         gamma=1,
         lr=5e-05,
         epoch_per_train=3
-    )    
+    )
+    # checkpoint = torch.load('predictor_online_weights.pth')
+    # executor.predict_model.load_state_dict(checkpoint['model_state_dict'])
+    # executor.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
     
     # run the speculative planning
     steps = asyncio.run(speculative_planning(args, executor, encoding, app_assistant, tar_assistant, prompt, logger, target_logger, approximation_logger))
@@ -715,9 +843,45 @@ Please use xml tags to specify the tool when responsing. For example, <tool>Sent
     # record the metrics
     logger.log('final result for the speculative planning ' + str(steps))
     logger.log('max concurrent calls: ' + str(config.MAX_CONCURRENT_CALLS-1)) # speculative_planning will add one more call
+    sp_plan_token = config.TOTAL_TOKEN_GENERATION
+    logger.log('total approximation token generation: ' + str(config.APPROX_TOTAL_TOKENS))
+    step_num = len(steps)
+
+    naive_plan_token = sum(config.TARGET_TOTAL_TOKENS[i] for i in range(1, step_num+1))
+    naive_plan_time = sum(config.TARGET_TOTAL_TIME[i] for i in range(1, step_num+1))
+    naive_plan_prompt = sum(config.TARGET_TOTAL_PROMPT[i] for i in range(1, step_num+1))
+    logger.log('total target token prompt: ' + str(naive_plan_prompt))
+    logger.log('total target token generation: ' + str(naive_plan_token))
+    logger.log('total target step time: ' + str(naive_plan_time))
+    logger.log('total token prompt: ' + str(config.TOTAL_TOKEN_PROMPT))
+    logger.log('total token generation: ' + str(sp_plan_token))
+
     logger.log('accuracy of approximation agent: ' + str(config.TOTAL_CORRECT_APPROXIMATION_CALLS/config.TOTAL_APPROXIMATION_CALLS))
-    token_number = sum([len(encoding.encode(response)) for response in config.TOTAL_TOKEN_GENERATION])
-    approximation_logger.log('total approximation token generation: ' + str(config.APPROX_TOTAL_TOKENS))
-    target_logger.log('total target token generation: ' + str(config.TARGET_TOTAL_TOKENS))
-    target_logger.log('total target step time: ' + str(config.TARGET_TOTAL_TIME))
-    logger.log('total token generation: ' + str(token_number))
+    avg_sp_token = round(sp_plan_token/step_num, 2)
+    logger.log('sp token/step: ' + str(avg_sp_token))
+    avg_naive_token = round(naive_plan_token/step_num, 2)
+    logger.log('naive token/step: ' + str(avg_naive_token))
+    logger.log('generation token cost increased: ' + str(round((avg_sp_token/avg_naive_token-1)*100, 2))+"%.")
+    
+    avg_sp_prompt = config.TOTAL_TOKEN_PROMPT / step_num
+    logger.log('sp prompt/step: ' + str(round(avg_sp_prompt, 2)))
+
+    avg_naive_prompt = round(naive_plan_prompt/step_num, 2)
+    logger.log('naive prompt/step: ' + str(avg_naive_prompt))
+    logger.log('prompt token cost increased: ' + str(round((avg_sp_prompt/avg_naive_prompt-1)*100, 2))+"%.")
+
+    avg_sp_time = round(config.TOTAL_TIME/step_num, 2)
+    logger.log('sp time/step: ' + str(avg_sp_time))
+    avg_naive_time = round(naive_plan_time/step_num, 2)
+    logger.log('naive time/step: ' + str(avg_naive_time))
+    logger.log('time decreased by: ' + str(round((1-avg_sp_time/avg_naive_time)*100, 2))+"%.")
+    logger.log(f'step number: {step_num}')
+
+    if not args.pred:
+        logger.log(f'k = {args.k}')
+    else: logger.log(f'dynamic k')
+    torch.save({
+        'model_state_dict': executor.predict_model.state_dict(),
+        'optimizer_state_dict': executor.optimizer.state_dict()
+    }, 'predictor_online_weights.pth')
+    print("model saved to predictor_online_weights.pth")

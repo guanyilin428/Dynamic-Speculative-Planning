@@ -266,7 +266,7 @@ if __name__ == "__main__":
     elif ds_type == "tp":
         dataset_path = "dataset_value_func_react.json"
     
-    model_path = "distilbert-base-uncased"
+    model_path = "../weights/distilbert-base-uncased"
     bert_model = AutoModel.from_pretrained(model_path)
     tokenizer = AutoTokenizer.from_pretrained(model_path)
     model = DistilBERTValueFunction(bert_model)
@@ -307,3 +307,7 @@ if __name__ == "__main__":
     model_save_path = "cot_value_function_model.pth"
     torch.save(model.state_dict(), model_save_path)
     # logging.info(f"Model weights saved to {model_save_path}")
+    
+# 1. predictor: online / update
+# 2. travel planner
+# 3. toolemu debug
