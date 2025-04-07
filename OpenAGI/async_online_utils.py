@@ -95,15 +95,14 @@ class OnlineLearningExecutor:
         flat_gt_k = torch.stack(all_gt_k, dim=0).to(device)
         return flat_input_ids, flat_attention_mask, flat_G_lambda, flat_gt_k
         
-    async def async_train(self, logger, train_event):
+    async def async_train(self, logger):
         async with self.train_lock:
             loop = asyncio.get_running_loop()
             # logger.log("Starting training")
             self.current_train_task = loop.run_in_executor(
                 self.train_executor,
                 self._train,
-                logger,
-                train_event
+                logger
             )
 
     def _train(self, logger):

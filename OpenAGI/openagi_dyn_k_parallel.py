@@ -234,13 +234,16 @@ async def A_generate(collector, encoding, assistant, prompt, total_step_number, 
             if n >= 10:
                 result = ''
                 return result
-            config.TOTAL_TOKEN_PROMPT += len(encoding.encode(prompt))
+            prompt_token = len(encoding.encode(prompt))
+            config.TOTAL_TOKEN_PROMPT += prompt_token
+            config.APPROX_TOTAL_PROMPT += prompt_token
+            approximation_logger.log(f'Approximation: Step {total_step_number+1} -prompt token {prompt_token}')
             response = await assistant.a_generate_reply(messages=[{'content':prompt, 'role':'user'}])
             
             # approximation_logger.log(f"Approximation tokens: {len(encoding.encode(response))}") 
             app_tokens = len(encoding.encode(response))
             config.TOTAL_TOKEN_GENERATION += app_tokens
-            config.APPROX_TOTAL_TOKENS += app_tokens
+            config.APPROX_TOTAL_GENERATION += app_tokens
             
             result = parse_response(response)
             end = time.time()
@@ -267,25 +270,29 @@ async def ReAct(encoding, assistant, prompt, total_step_number, target_logger):
 
     target_logger.log('react launch api for thought.')
 
-    config.TARGET_TOTAL_PROMPT[total_step_number+1] = len(encoding.encode(prompt))
-    config.TOTAL_TOKEN_PROMPT += len(encoding.encode(prompt))
+    prompt_token = len(encoding.encode(prompt))
+    config.TARGET_TOTAL_PROMPT[total_step_number+1] = prompt_token
+    config.TOTAL_TOKEN_PROMPT += prompt_token
+    target_logger.log(f"Target step {total_step_number+1} thought prompt token: {prompt_token}")
     thought = await assistant.a_generate_reply(messages=[{'content':prompt, 'role':'user'}])
     thought_token = len(encoding.encode(thought))
     config.TOTAL_TOKEN_GENERATION += thought_token
-    config.TARGET_TOTAL_TOKENS[total_step_number+1] = thought_token
-    target_logger.log(f"Target step {total_step_number+1} thought token: {thought_token}")
+    config.TARGET_TOTAL_GENERATION[total_step_number+1] = thought_token
+    target_logger.log(f"Target step {total_step_number+1} thought generation token: {thought_token}")
 
     prompt += " " + thought
     prompt += f"\nGenerate Action only based on thoughts. Remember to use xml tag <tool> and </tool> for formatting. \nAction {total_step_number}:"
     # generate action based on thought
     target_logger.log('react launch api for response.')
-    config.TARGET_TOTAL_PROMPT[total_step_number+1] = len(encoding.encode(prompt))
-    config.TOTAL_TOKEN_PROMPT += len(encoding.encode(prompt))
+    prompt_token = len(encoding.encode(prompt))
+    config.TARGET_TOTAL_PROMPT[total_step_number+1] += prompt_token
+    config.TOTAL_TOKEN_PROMPT += prompt_token
+    target_logger.log(f"Target step {total_step_number+1} response prompt token: {prompt_token}")
     response = await assistant.a_generate_reply(messages=[{'content':prompt, 'role':'user'}])
     response_token = len(encoding.encode(response))
     config.TOTAL_TOKEN_GENERATION += response_token
-    config.TARGET_TOTAL_TOKENS[total_step_number+1] += response_token
-    target_logger.log(f"Target step {total_step_number+1} generation token: {response_token}")
+    config.TARGET_TOTAL_GENERATION[total_step_number+1] += response_token
+    target_logger.log(f"Target step {total_step_number+1} response generation token: {response_token}")
 
     return response
 
@@ -364,12 +371,13 @@ async def T_generate(args, prediction_task, mismatch_state, collector, encoding,
                 else:
                     # if mismatch_state.mismatch_detected.is_set() and mismatch_state.mismatch_step_id < 
                     # log prompt token
-                    config.TARGET_TOTAL_PROMPT[total_step_number+1] = len(encoding.encode(prompt))
-                    config.TOTAL_TOKEN_PROMPT += len(encoding.encode(prompt))
+                    prompt_token = len(encoding.encode(prompt))
+                    config.TARGET_TOTAL_PROMPT[total_step_number+1] = prompt_token
+                    config.TOTAL_TOKEN_PROMPT += prompt_token
                     response = await assistant.a_generate_reply(messages=[{'content':prompt, 'role':'user'}])
                     response_token = len(encoding.encode(response))
                     config.TOTAL_TOKEN_GENERATION += response_token
-                    config.TARGET_TOTAL_TOKENS[total_step_number+1] = response_token
+                    config.TARGET_TOTAL_GENERATION[total_step_number+1] = response_token
                 result = parse_response(response)
                 break
             except:
@@ -401,7 +409,8 @@ async def T_generate(args, prediction_task, mismatch_state, collector, encoding,
     end = time.time()
     t_time = round(end-start, 2)
     config.TARGET_TOTAL_TIME[total_step_number+1] = t_time
-    target_logger.log(f"Intermediate Target Step {total_step_number+1} - {result} -tokens {config.TARGET_TOTAL_TOKENS[total_step_number+1]}")
+
+    target_logger.log(f"Intermediate Target Step {total_step_number+1} - {result} -gen {config.TARGET_TOTAL_GENERATION[total_step_number+1]} -prompt {config.TARGET_TOTAL_PROMPT[total_step_number+1]}")
     target_logger.log(f'Target: Step {total_step_number+1} -time '+ str(t_time))
 
     return tas, printed_ids
@@ -522,7 +531,7 @@ async def onebreakingpoint_speculative_planning(args, mismatch_state, executor, 
     
     await mismatch_state.mismatch_detected.wait()
     target_logger.log(f"Mismatch at {mismatch_state.mismatch_step_id}. Cancel starts. ")
-    target_logger.log(f"target tasks: {target_tasks}")
+    # target_logger.log(f"target tasks: {target_tasks}")
     for process_id, one_task in enumerate(target_tasks):
         if not one_task.cancelled() and not one_task.done() and process_id > mismatch_state.mismatch_step_id:
             # cancel ongoing target task after mismatch
@@ -531,7 +540,7 @@ async def onebreakingpoint_speculative_planning(args, mismatch_state, executor, 
 
     # wait for pending target tasks prior to mismatch target task
     pending_tasks = [t for t in target_tasks if not t.cancelled()]
-    target_logger.log(f"pending tasks {pending_tasks}")
+    # target_logger.log(f"pending tasks {pending_tasks}")
     
     while pending_tasks:
         break_while_loop = False
@@ -550,12 +559,13 @@ async def onebreakingpoint_speculative_planning(args, mismatch_state, executor, 
             break_while_loop = True
             break
         except Exception as e:
-            target_logger.log(f"Exception msg: {e}")
             # print('get to the exception part')
             if str(e) == 'terminate the whole process!':
+                target_logger.log(f"Exception msg: {e}")
                 # cancel all pending tasks because we have already got TERMINATE
-                for pending_task in pending_tasks:
-                    await cancel(pending_task)
+                for process_id, one_task in pending_tasks:
+                    if not one_task.cancelled() and not one_task.done() and process_id > mismatch_state.mismatch_step_id:
+                        await cancel(one_task)
                 # organize the results and return the final results
                 flatten_tas = []
                 for t in tas:
@@ -723,26 +733,28 @@ if __name__ == '__main__':
     config.TOTAL_TOKEN_PROMPT = 0
     config.USERINPUT=False
     config.TARGET_TOTAL_TIME = {}
-    config.TARGET_TOTAL_TOKENS = {}
-    config.APPROX_TOTAL_TOKENS = 0
+    config.TARGET_TOTAL_GENERATION = {}
+    config.APPROX_TOTAL_GENERATION = 0
     config.TOTAL_TIME = 0
+    config.TERMINATE_TARGET_ID = None
 
+    config.APPROX_TOTAL_PROMPT = 0
     config.TARGET_TOTAL_PROMPT = {}
     config.APPROXIMATION_TOTAL_PROMPT = 0
 
     random.seed(2)
     parser = argparse.ArgumentParser(description='OpenAGI')
     parser.add_argument('--data', type=str, default='data/openagi_task_descrition.txt', help='data directory')
-    parser.add_argument('--task_id', type=int, default=11, help='task id')
-    parser.add_argument('--k', type=int, default=6, help='number of approximation steps to generate everytime')
+    parser.add_argument('--task_id', type=int, default=12, help='task id')
+    parser.add_argument('--k', type=int, default=2, help='number of approximation steps to generate everytime')
     parser.add_argument('--target_type', type=str, default='react', help='cot, react, multi-agent, direct')
     parser.add_argument('--pred', type=bool, default=False, help='speculative planning with predictor')
     
     args = parser.parse_args()
     pred_type = "dyn_k" if args.pred == True else "fix_k" 
-    logger = Logger(f'4_6/test/logs/{args.target_type}/{pred_type}/simulation_datapoint{args.task_id}.log', on=True)
-    target_logger = Logger(f'4_6/test/logs/{args.target_type}/{pred_type}/target_datapoint{args.task_id}.log', on=True)
-    approximation_logger = Logger(f'4_6/test/logs/{args.target_type}/{pred_type}/approximation_datapoint{args.task_id}.log', on=True)
+    logger = Logger(f'4_7/logs/{args.target_type}/{pred_type}/simulation_datapoint{args.task_id}.log', on=True)
+    target_logger = Logger(f'4_7/logs/{args.target_type}/{pred_type}/target_datapoint{args.task_id}.log', on=True)
+    approximation_logger = Logger(f'4_7/logs/{args.target_type}/{pred_type}/approximation_datapoint{args.task_id}.log', on=True)
 
     tasks = load_data(args)
     task_description = tasks[args.task_id]
@@ -844,10 +856,10 @@ Please use xml tags to specify the tool when responsing. For example, <tool>Sent
     logger.log('final result for the speculative planning ' + str(steps))
     logger.log('max concurrent calls: ' + str(config.MAX_CONCURRENT_CALLS-1)) # speculative_planning will add one more call
     sp_plan_token = config.TOTAL_TOKEN_GENERATION
-    logger.log('total approximation token generation: ' + str(config.APPROX_TOTAL_TOKENS))
+    logger.log('total approximation token generation: ' + str(config.APPROX_TOTAL_GENERATION))
     step_num = len(steps)
 
-    naive_plan_token = sum(config.TARGET_TOTAL_TOKENS[i] for i in range(1, step_num+1))
+    naive_plan_token = sum(config.TARGET_TOTAL_GENERATION[i] for i in range(1, step_num+1))
     naive_plan_time = sum(config.TARGET_TOTAL_TIME[i] for i in range(1, step_num+1))
     naive_plan_prompt = sum(config.TARGET_TOTAL_PROMPT[i] for i in range(1, step_num+1))
     logger.log('total target token prompt: ' + str(naive_plan_prompt))
