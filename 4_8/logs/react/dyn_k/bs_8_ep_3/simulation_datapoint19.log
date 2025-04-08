@@ -1,0 +1,33 @@
+04/08/2025, 20:39:11: task description: Given low-resolutioned noisy blurry grayscale image, how to return the class label in English step by step?
+04/08/2025, 20:39:14: in breaking, The approximation agent thinks step 1 should be Image Denoising
+04/08/2025, 20:39:16: The target agent thinks step 1 should be Image Super-Resolution, correcting what the approximation agent thinks which is Image Denoising.
+04/08/2025, 20:39:18: in breaking, The approximation agent thinks step 2 should be Image Deblurring
+04/08/2025, 20:39:27: The target agent thinks step 2 should be Image Denoising, correcting what the approximation agent thinks which is Image Deblurring.
+04/08/2025, 20:39:28: in breaking, The approximation agent thinks step 3 should be Image Deblurring
+04/08/2025, 20:39:30: The target agent thinks step 3 should be Image Deblurring, which agrees with the approximation agent.
+04/08/2025, 20:39:30: The approximation agent thinks step 4 should be Image Classification
+04/08/2025, 20:39:35: The target agent thinks step 4 should be Image Classification, which agrees with the approximation agent.
+04/08/2025, 20:39:36: in breaking, The approximation agent thinks step 5 should be TERMINATE
+04/08/2025, 20:39:47: The target agent thinks step 5 should be TERMINATE, which agrees with the approximation agent.
+04/08/2025, 20:39:47: 2025-04-08 20:39:47.230192 - 2025-04-08 20:39:11.954577 = 0:00:35.275615
+04/08/2025, 20:39:47: final result for the speculative planning ['Image Super-Resolution', 'Image Denoising', 'Image Deblurring', 'Image Classification', 'TERMINATE']
+04/08/2025, 20:39:47: max concurrent calls: 4
+04/08/2025, 20:39:47: total approximation token generation: 75
+04/08/2025, 20:39:47: total target token prompt: 5013
+04/08/2025, 20:39:47: total target token generation: 811
+04/08/2025, 20:39:47: total target step time: 37.86
+04/08/2025, 20:39:47: total token prompt: 10960
+04/08/2025, 20:39:47: total token generation: 1093
+04/08/2025, 20:39:47: accuracy of approximation agent: 0.6
+04/08/2025, 20:39:47: sp token/step: 218.6
+04/08/2025, 20:39:47: naive token/step: 162.2
+04/08/2025, 20:39:47: generation token cost increased: 34.77%.
+04/08/2025, 20:39:47: sp prompt/step: 2192.0
+04/08/2025, 20:39:47: naive prompt/step: 1002.6
+04/08/2025, 20:39:47: prompt token cost increased: 118.63%.
+04/08/2025, 20:39:47: sp time/step: 7.06
+04/08/2025, 20:39:47: naive time/step: 7.57
+04/08/2025, 20:39:47: time decreased by: 6.74%.
+04/08/2025, 20:39:47: predictor acc: 0.0
+04/08/2025, 20:39:47: step number: 5
+04/08/2025, 20:39:47: dynamic k

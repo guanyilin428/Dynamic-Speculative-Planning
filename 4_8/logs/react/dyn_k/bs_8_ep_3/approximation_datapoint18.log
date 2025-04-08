@@ -1,0 +1,19 @@
+04/08/2025, 20:38:46: task description: Given low-resolutioned noisy blurry grayscale image, how to return the caption in English step by step?
+04/08/2025, 20:38:46: Approximation: Step 1 -prompt token 370
+04/08/2025, 20:38:46: Predictor time: 0.08s
+04/08/2025, 20:38:46: Predict K: 2
+04/08/2025, 20:38:48: Approximation: Step 1 - Image Denoising -time 1.82 -token 10
+04/08/2025, 20:38:48: Approximation: Step 2 -prompt token 385
+04/08/2025, 20:38:49: Approximation: Step 2 - Image Deblurring -time 1.16 -token 10
+04/08/2025, 20:38:50: Approximation: Step 2 -prompt token 400
+04/08/2025, 20:38:51: Predictor time: 0.17s
+04/08/2025, 20:38:51: Predict K: 2
+04/08/2025, 20:38:51: Approximation: Step 2 - Image Denoising -time 0.86 -token 10
+04/08/2025, 20:38:51: Approximation: Step 3 -prompt token 409
+04/08/2025, 20:38:53: Approximation: Step 3 - Image Super-Resolution -time 1.34 -token 10
+04/08/2025, 20:38:57: Approximation: Step 4 -prompt token 430
+04/08/2025, 20:38:57: Predictor time: 0.2s
+04/08/2025, 20:38:57: Predict K: 2
+04/08/2025, 20:38:58: Approximation: Step 4 - Image Captioning -time 1.17 -token 9
+04/08/2025, 20:38:58: Approximation: Step 5 -prompt token 438
+04/08/2025, 20:38:59: Approximation: Step 5 - Image Captioning -time 0.81 -token 9

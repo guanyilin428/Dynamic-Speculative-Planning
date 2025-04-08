@@ -1,0 +1,25 @@
+04/08/2025, 22:20:05: task description: Given low-resolutioned noisy blurry grayscale image, how to return the object names in German step by step?
+04/08/2025, 22:20:05: Approximation: Step 1 -prompt token 371
+04/08/2025, 22:20:06: Predictor time: 0.38s
+04/08/2025, 22:20:06: Predict K: 1
+04/08/2025, 22:20:10: Approximation: Step 1 - Image Denoising -time 4.81 -token 10
+04/08/2025, 22:20:12: Approximation: Step 2 -prompt token 392
+04/08/2025, 22:20:12: Predictor time: 0.26s
+04/08/2025, 22:20:12: Predict K: 1
+04/08/2025, 22:20:13: Approximation: Step 2 - Image Deblurring -time 1.11 -token 10
+04/08/2025, 22:20:19: Approximation: Step 3 -prompt token 407
+04/08/2025, 22:20:20: Predictor time: 0.41s
+04/08/2025, 22:20:20: Predict K: 1
+04/08/2025, 22:20:22: Approximation: Step 3 - Image Super-Resolution -time 2.13 -token 10
+04/08/2025, 22:20:26: Approximation: Step 4 -prompt token 422
+04/08/2025, 22:20:26: Predictor time: 0.28s
+04/08/2025, 22:20:26: Predict K: 1
+04/08/2025, 22:20:27: Approximation: Step 4 - Object Detection -time 1.3 -token 8
+04/08/2025, 22:20:34: Approximation: Step 5 -prompt token 435
+04/08/2025, 22:20:35: Predictor time: 0.56s
+04/08/2025, 22:20:35: Predict K: 1
+04/08/2025, 22:20:37: Approximation: Step 5 - Machine Translation -time 2.17 -token 8
+04/08/2025, 22:20:47: Approximation: Step 6 -prompt token 448
+04/08/2025, 22:20:47: Predictor time: 0.34s
+04/08/2025, 22:20:47: Predict K: 1
+04/08/2025, 22:20:49: Approximation: Step 6 - TERMINATE -time 2.35 -token 9

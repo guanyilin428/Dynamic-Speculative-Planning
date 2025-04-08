@@ -1,0 +1,29 @@
+04/08/2025, 22:14:12: task description: Given blurry image, how to return the regular image step by step?
+04/08/2025, 22:14:12: Approximation: Step 1 -prompt token 364
+04/08/2025, 22:14:12: Predictor time: 0.63s
+04/08/2025, 22:14:12: Predict K: 2
+04/08/2025, 22:14:14: Approximation: Step 1 - Image Deblurring -time 2.69 -token 10
+04/08/2025, 22:14:14: Approximation: Step 2 -prompt token 379
+04/08/2025, 22:14:16: Approximation: Step 2 - Image Super-Resolution -time 1.31 -token 10
+04/08/2025, 22:14:22: Approximation: Step 3 -prompt token 409
+04/08/2025, 22:14:22: Predictor time: 0.23s
+04/08/2025, 22:14:22: Predict K: 2
+04/08/2025, 22:14:24: Approximation: Step 3 - Image Super-Resolution -time 1.61 -token 10
+04/08/2025, 22:14:24: Approximation: Step 4 -prompt token 418
+04/08/2025, 22:14:25: Approximation: Step 4 - Image Super-Resolution -time 1.0 -token 10
+04/08/2025, 22:14:37: Approximation: Step 5 -prompt token 444
+04/08/2025, 22:14:37: Predictor time: 0.25s
+04/08/2025, 22:14:37: Predict K: 1
+04/08/2025, 22:14:39: Approximation: Step 5 - Image Classification -time 1.69 -token 8
+04/08/2025, 22:14:47: Approximation: Step 6 -prompt token 464
+04/08/2025, 22:14:48: Predictor time: 0.39s
+04/08/2025, 22:14:48: Predict K: 0
+04/08/2025, 22:14:49: Approximation: Step 6 - Visual Question Answering -time 1.57 -token 10
+04/08/2025, 22:14:59: Approximation: Step 7 -prompt token 479
+04/08/2025, 22:15:00: Predictor time: 0.64s
+04/08/2025, 22:15:00: Predict K: 1
+04/08/2025, 22:15:02: Approximation: Step 7 - TERMINATE -time 2.87 -token 9
+04/08/2025, 22:15:12: Approximation: Step 8 -prompt token 503
+04/08/2025, 22:15:12: Predictor time: 0.33s
+04/08/2025, 22:15:12: Predict K: 1
+04/08/2025, 22:15:13: Approximation: Step 8 - TERMINATE -time 1.61 -token 9

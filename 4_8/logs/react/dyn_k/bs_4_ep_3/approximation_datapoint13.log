@@ -1,0 +1,33 @@
+04/08/2025, 22:16:43: task description: Given noisy image, how to return the regular image step by step?
+04/08/2025, 22:16:43: Approximation: Step 1 -prompt token 364
+04/08/2025, 22:16:43: Predictor time: 0.18s
+04/08/2025, 22:16:43: Predict K: 1
+04/08/2025, 22:16:45: Approximation: Step 1 - Image Denoising -time 1.75 -token 10
+04/08/2025, 22:16:49: Approximation: Step 2 -prompt token 385
+04/08/2025, 22:16:50: Predictor time: 0.52s
+04/08/2025, 22:16:50: Predict K: 2
+04/08/2025, 22:16:50: Approximation: Step 2 - Image Deblurring -time 1.05 -token 10
+04/08/2025, 22:16:50: Approximation: Step 3 -prompt token 394
+04/08/2025, 22:16:51: Approximation: Step 3 - Image Super-Resolution -time 1.33 -token 10
+04/08/2025, 22:16:57: Approximation: Step 4 -prompt token 415
+04/08/2025, 22:16:57: Predictor time: 0.73s
+04/08/2025, 22:16:57: Predict K: 1
+04/08/2025, 22:16:58: Approximation: Step 4 - Colorization -time 1.23 -token 8
+04/08/2025, 22:17:10: Approximation: Step 5 -prompt token 433
+04/08/2025, 22:17:11: Predictor time: 0.37s
+04/08/2025, 22:17:11: Predict K: 2
+04/08/2025, 22:17:12: Approximation: Step 5 - Colorization -time 1.65 -token 8
+04/08/2025, 22:17:12: Approximation: Step 6 -prompt token 440
+04/08/2025, 22:17:13: Approximation: Step 6 - Image Captioning -time 1.01 -token 9
+04/08/2025, 22:17:24: Approximation: Step 7 -prompt token 460
+04/08/2025, 22:17:24: Predictor time: 0.42s
+04/08/2025, 22:17:24: Predict K: 1
+04/08/2025, 22:17:25: Approximation: Step 7 - Visual Question Answering -time 1.37 -token 10
+04/08/2025, 22:17:33: Approximation: Step 8 -prompt token 475
+04/08/2025, 22:17:34: Predictor time: 0.26s
+04/08/2025, 22:17:34: Predict K: 1
+04/08/2025, 22:17:35: Approximation: Step 8 - TERMINATE -time 1.59 -token 9
+04/08/2025, 22:17:41: Approximation: Step 9 -prompt token 499
+04/08/2025, 22:17:42: Predictor time: 0.38s
+04/08/2025, 22:17:42: Predict K: 1
+04/08/2025, 22:17:43: Approximation: Step 9 - TERMINATE -time 1.5 -token 9

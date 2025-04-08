@@ -1,0 +1,21 @@
+04/08/2025, 22:22:43: task description: Given low-resolutioned noisy blurry grayscale image, how to return the class label in English step by step?
+04/08/2025, 22:22:43: Approximation: Step 1 -prompt token 371
+04/08/2025, 22:22:44: Predictor time: 0.53s
+04/08/2025, 22:22:44: Predict K: 1
+04/08/2025, 22:22:45: Approximation: Step 1 - Image Denoising -time 1.76 -token 10
+04/08/2025, 22:22:49: Approximation: Step 2 -prompt token 401
+04/08/2025, 22:22:50: Predictor time: 0.22s
+04/08/2025, 22:22:50: Predict K: 1
+04/08/2025, 22:22:51: Approximation: Step 2 - Image Denoising -time 1.29 -token 10
+04/08/2025, 22:22:55: Approximation: Step 3 -prompt token 416
+04/08/2025, 22:22:55: Predictor time: 0.7s
+04/08/2025, 22:22:55: Predict K: 1
+04/08/2025, 22:22:56: Approximation: Step 3 - Image Super-Resolution -time 0.96 -token 10
+04/08/2025, 22:23:00: Approximation: Step 4 -prompt token 431
+04/08/2025, 22:23:01: Predictor time: 0.68s
+04/08/2025, 22:23:01: Predict K: 1
+04/08/2025, 22:23:01: Approximation: Step 4 - Image Classification -time 0.95 -token 8
+04/08/2025, 22:23:09: Approximation: Step 5 -prompt token 444
+04/08/2025, 22:23:10: Predictor time: 0.54s
+04/08/2025, 22:23:10: Predict K: 1
+04/08/2025, 22:23:12: Approximation: Step 5 - TERMINATE -time 2.82 -token 9

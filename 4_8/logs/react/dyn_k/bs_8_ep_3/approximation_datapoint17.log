@@ -1,0 +1,35 @@
+04/08/2025, 20:37:14: task description: Given low-resolutioned noisy blurry grayscale image, how to return the object names in German step by step?
+04/08/2025, 20:37:14: Approximation: Step 1 -prompt token 371
+04/08/2025, 20:37:14: Predictor time: 0.08s
+04/08/2025, 20:37:14: Predict K: 1
+04/08/2025, 20:37:16: Approximation: Step 1 - Image Denoising -time 1.72 -token 10
+04/08/2025, 20:37:19: Approximation: Step 2 -prompt token 401
+04/08/2025, 20:37:19: Predictor time: 0.15s
+04/08/2025, 20:37:19: Predict K: 2
+04/08/2025, 20:37:20: Approximation: Step 2 - Image Denoising -time 1.02 -token 10
+04/08/2025, 20:37:20: Approximation: Step 3 -prompt token 410
+04/08/2025, 20:37:21: Approximation: Step 3 - Image Super-Resolution -time 1.11 -token 10
+04/08/2025, 20:37:29: Approximation: Step 4 -prompt token 431
+04/08/2025, 20:37:29: Predictor time: 0.09s
+04/08/2025, 20:37:29: Predict K: 1
+04/08/2025, 20:37:31: Approximation: Step 4 - Object Detection -time 1.65 -token 8
+04/08/2025, 20:37:36: Approximation: Step 5 -prompt token 444
+04/08/2025, 20:37:36: Predictor time: 0.07s
+04/08/2025, 20:37:36: Predict K: 1
+04/08/2025, 20:37:37: Approximation: Step 5 - Machine Translation -time 1.18 -token 8
+04/08/2025, 20:37:47: Approximation: Step 6 -prompt token 457
+04/08/2025, 20:37:48: Predictor time: 0.11s
+04/08/2025, 20:37:48: Predict K: 1
+04/08/2025, 20:37:49: Approximation: Step 6 - TERMINATE -time 1.55 -token 9
+04/08/2025, 20:38:00: Approximation: Step 7 -prompt token 479
+04/08/2025, 20:38:00: Predictor time: 0.17s
+04/08/2025, 20:38:00: Predict K: 1
+04/08/2025, 20:38:01: Approximation: Step 7 - TERMINATE -time 1.6 -token 9
+04/08/2025, 20:38:15: Approximation: Step 8 -prompt token 499
+04/08/2025, 20:38:15: Predictor time: 0.18s
+04/08/2025, 20:38:15: Predict K: 1
+04/08/2025, 20:38:17: Approximation: Step 8 - TERMINATE -time 1.4 -token 9
+04/08/2025, 20:38:32: Approximation: Step 9 -prompt token 517
+04/08/2025, 20:38:32: Predictor time: 0.12s
+04/08/2025, 20:38:32: Predict K: 1
+04/08/2025, 20:38:36: Approximation: Step 9 - TERMINATE -time 3.99 -token 9

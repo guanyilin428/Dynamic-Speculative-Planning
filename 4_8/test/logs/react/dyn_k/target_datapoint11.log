@@ -1,0 +1,167 @@
+04/08/2025, 18:09:18: task description: Given blurry image, how to return the regular image step by step?
+04/08/2025, 18:09:18: react launch api for thought.
+04/08/2025, 18:09:18: Target step 1 thought prompt token: 382
+04/08/2025, 18:09:25: Target step 1 thought generation token: 121
+04/08/2025, 18:09:25: react launch api for response.
+04/08/2025, 18:09:25: Target step 1 response prompt token: 530
+04/08/2025, 18:09:25: react launch api for thought.
+04/08/2025, 18:09:25: Target step 2 thought prompt token: 397
+04/08/2025, 18:09:26: Target step 1 response generation token: 10
+04/08/2025, 18:09:27: Target: Step 1 - Image Deblurring
+04/08/2025, 18:09:27: Intermediate Target Step 1 - Image Deblurring -gen 131 -prompt 912
+04/08/2025, 18:09:27: Target: Step 1 -time 8.81
+04/08/2025, 18:09:32: Target step 2 thought generation token: 96
+04/08/2025, 18:09:32: react launch api for response.
+04/08/2025, 18:09:32: Target step 2 response prompt token: 520
+04/08/2025, 18:09:33: Target step 2 response generation token: 10
+04/08/2025, 18:09:33: Target: Step 2 - Image Denoising
+04/08/2025, 18:09:33: Intermediate Target Step 2 - Image Denoising -gen 106 -prompt 917
+04/08/2025, 18:09:33: Target: Step 2 -time 7.88
+04/08/2025, 18:09:33: Mismatch at 1. Cancel starts. 
+04/08/2025, 18:09:33: sas tasks: ['Image Deblurring', 'Image Super-Resolution']
+04/08/2025, 18:09:33: flatten_tas: [(0, 'Image Deblurring'), (1, 'Image Denoising')]
+04/08/2025, 18:09:33: step 1 app: Image Super-Resolution, tar: Image Denoising
+04/08/2025, 18:09:33: trajectory: [{'state': 'Given blurry image, how to return the regular image step by step?', 'reward': 1, 'k': 2}, {'state': 'Given blurry image, how to return the regular image step by step?\nPrevious History:\nApproximation Step 1: Image Deblurring\n', 'reward': 1, 'k': 1}]
+04/08/2025, 18:09:33: return sas tasks: ['Image Deblurring', 'Image Denoising']
+04/08/2025, 18:09:33: react launch api for thought.
+04/08/2025, 18:09:33: Target step 3 thought prompt token: 406
+04/08/2025, 18:09:37: react launch api for thought.
+04/08/2025, 18:09:37: Target step 4 thought prompt token: 415
+04/08/2025, 18:09:45: Target step 3 thought generation token: 199
+04/08/2025, 18:09:45: react launch api for response.
+04/08/2025, 18:09:45: Target step 3 response prompt token: 632
+04/08/2025, 18:09:46: Target step 3 response generation token: 10
+04/08/2025, 18:09:46: Target: Step 3 - Image Super-Resolution
+04/08/2025, 18:09:46: Intermediate Target Step 3 - Image Super-Resolution -gen 209 -prompt 1038
+04/08/2025, 18:09:46: Target: Step 3 -time 12.92
+04/08/2025, 18:09:54: Target step 4 thought generation token: 306
+04/08/2025, 18:09:54: react launch api for response.
+04/08/2025, 18:09:54: Target step 4 response prompt token: 748
+04/08/2025, 18:09:55: Target step 4 response generation token: 8
+04/08/2025, 18:09:55: Target: Step 4 - Image Classification
+04/08/2025, 18:09:55: Intermediate Target Step 4 - Image Classification -gen 314 -prompt 1163
+04/08/2025, 18:09:55: Target: Step 4 -time 17.89
+04/08/2025, 18:09:55: Mismatch at 1. Cancel starts. 
+04/08/2025, 18:09:55: sas tasks: ['Image Super-Resolution', 'Image Super-Resolution']
+04/08/2025, 18:09:55: flatten_tas: [(0, 'Image Super-Resolution'), (1, 'Image Classification')]
+04/08/2025, 18:09:55: step 1 app: Image Super-Resolution, tar: Image Classification
+04/08/2025, 18:09:55: trajectory: [{'state': 'Given blurry image, how to return the regular image step by step?\nPrevious History:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Denoising\n', 'reward': 1, 'k': 2}, {'state': 'Given blurry image, how to return the regular image step by step?\nPrevious History:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\n', 'reward': 1, 'k': 1}]
+04/08/2025, 18:09:55: return sas tasks: ['Image Super-Resolution', 'Image Classification']
+04/08/2025, 18:09:55: react launch api for thought.
+04/08/2025, 18:09:55: Target step 5 thought prompt token: 422
+04/08/2025, 18:10:05: Target step 5 thought generation token: 273
+04/08/2025, 18:10:05: react launch api for response.
+04/08/2025, 18:10:05: Target step 5 response prompt token: 722
+04/08/2025, 18:10:08: Target step 5 response generation token: 9
+04/08/2025, 18:10:08: Target: Step 5 - Image Captioning
+04/08/2025, 18:10:08: Intermediate Target Step 5 - Image Captioning -gen 282 -prompt 1144
+04/08/2025, 18:10:08: Target: Step 5 -time 13.8
+04/08/2025, 18:10:08: Mismatch at 0. Cancel starts. 
+04/08/2025, 18:10:08: sas tasks: ['Image Classification']
+04/08/2025, 18:10:08: flatten_tas: [(0, 'Image Captioning')]
+04/08/2025, 18:10:08: step 0 app: Image Classification, tar: Image Captioning
+04/08/2025, 18:10:08: trajectory: [{'state': 'Given blurry image, how to return the regular image step by step?\nPrevious History:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Image Super-Resolution\nTarget Step 3: Image Super-Resolution\nTarget Step 4: Image Classification\n', 'reward': 1, 'k': 1}]
+04/08/2025, 18:10:08: return sas tasks: ['Image Captioning']
+04/08/2025, 18:10:08: react launch api for thought.
+04/08/2025, 18:10:08: Target step 6 thought prompt token: 430
+04/08/2025, 18:10:21: Target step 6 thought generation token: 282
+04/08/2025, 18:10:21: react launch api for response.
+04/08/2025, 18:10:21: Target step 6 response prompt token: 739
+04/08/2025, 18:10:23: Target step 6 response generation token: 10
+04/08/2025, 18:10:23: Target: Step 6 - Visual Question Answering
+04/08/2025, 18:10:23: Intermediate Target Step 6 - Visual Question Answering -gen 292 -prompt 1169
+04/08/2025, 18:10:23: Target: Step 6 -time 14.58
+04/08/2025, 18:10:23: Mismatch at 0. Cancel starts. 
+04/08/2025, 18:10:23: sas tasks: ['Visual Question Answering']
+04/08/2025, 18:10:23: flatten_tas: [(0, 'Visual Question Answering')]
+04/08/2025, 18:10:23: return sas tasks: ['Visual Question Answering']
+04/08/2025, 18:10:23: react launch api for thought.
+04/08/2025, 18:10:23: Target step 7 thought prompt token: 439
+04/08/2025, 18:10:38: Target step 7 thought generation token: 352
+04/08/2025, 18:10:38: react launch api for response.
+04/08/2025, 18:10:38: Target step 7 response prompt token: 818
+04/08/2025, 18:10:40: Target step 7 response generation token: 8
+04/08/2025, 18:10:40: Target: Step 7 - Object Detection
+04/08/2025, 18:10:40: Intermediate Target Step 7 - Object Detection -gen 360 -prompt 1257
+04/08/2025, 18:10:40: Target: Step 7 -time 17.12
+04/08/2025, 18:10:40: Mismatch at 0. Cancel starts. 
+04/08/2025, 18:10:40: sas tasks: ['TERMINATE']
+04/08/2025, 18:10:40: flatten_tas: [(0, 'Object Detection')]
+04/08/2025, 18:10:40: step 0 app: TERMINATE, tar: Object Detection
+04/08/2025, 18:10:40: trajectory: [{'state': 'Given blurry image, how to return the regular image step by step?\nPrevious History:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Image Super-Resolution\nTarget Step 3: Image Super-Resolution\nTarget Step 4: Image Classification\nApproximation Step 5: Image Classification\nTarget Step 5: Image Captioning\n', 'reward': 1, 'k': 2}, {'state': 'Given blurry image, how to return the regular image step by step?\nPrevious History:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Image Super-Resolution\nTarget Step 3: Image Super-Resolution\nTarget Step 4: Image Classification\nApproximation Step 5: Image Classification\nTarget Step 5: Image Captioning\nApproximation Step 6: Visual Question Answering\nTarget Step 6: Visual Question Answering\n', 'reward': 1, 'k': 1}]
+04/08/2025, 18:10:40: return sas tasks: ['Object Detection']
+04/08/2025, 18:10:40: react launch api for thought.
+04/08/2025, 18:10:40: Target step 8 thought prompt token: 446
+04/08/2025, 18:10:52: Target step 8 thought generation token: 273
+04/08/2025, 18:10:52: react launch api for response.
+04/08/2025, 18:10:52: Target step 8 response prompt token: 746
+04/08/2025, 18:10:54: Target step 8 response generation token: 8
+04/08/2025, 18:10:54: Target: Step 8 - Colorization
+04/08/2025, 18:10:54: Intermediate Target Step 8 - Colorization -gen 281 -prompt 1192
+04/08/2025, 18:10:54: Target: Step 8 -time 13.73
+04/08/2025, 18:10:54: Mismatch at 0. Cancel starts. 
+04/08/2025, 18:10:54: sas tasks: ['Object Detection']
+04/08/2025, 18:10:54: flatten_tas: [(0, 'Colorization')]
+04/08/2025, 18:10:54: step 0 app: Object Detection, tar: Colorization
+04/08/2025, 18:10:54: trajectory: [{'state': 'Given blurry image, how to return the regular image step by step?\nPrevious History:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Image Super-Resolution\nTarget Step 3: Image Super-Resolution\nTarget Step 4: Image Classification\nApproximation Step 5: Image Classification\nTarget Step 5: Image Captioning\nApproximation Step 6: Visual Question Answering\nTarget Step 6: Visual Question Answering\nApproximation Step 7: TERMINATE\nTarget Step 7: Object Detection\n', 'reward': 1, 'k': 1}]
+04/08/2025, 18:10:54: return sas tasks: ['Colorization']
+04/08/2025, 18:10:54: react launch api for thought.
+04/08/2025, 18:10:54: Target step 9 thought prompt token: 453
+04/08/2025, 18:11:05: Target step 9 thought generation token: 329
+04/08/2025, 18:11:05: react launch api for response.
+04/08/2025, 18:11:05: Target step 9 response prompt token: 809
+04/08/2025, 18:11:06: Target step 9 response generation token: 10
+04/08/2025, 18:11:06: Target: Step 9 - Text Summarization
+04/08/2025, 18:11:06: Intermediate Target Step 9 - Text Summarization -gen 339 -prompt 1262
+04/08/2025, 18:11:06: Target: Step 9 -time 12.24
+04/08/2025, 18:11:06: Mismatch at 0. Cancel starts. 
+04/08/2025, 18:11:06: sas tasks: ['TERMINATE']
+04/08/2025, 18:11:06: flatten_tas: [(0, 'Text Summarization')]
+04/08/2025, 18:11:06: step 0 app: TERMINATE, tar: Text Summarization
+04/08/2025, 18:11:06: trajectory: [{'state': 'Given blurry image, how to return the regular image step by step?\nPrevious History:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Image Super-Resolution\nTarget Step 3: Image Super-Resolution\nTarget Step 4: Image Classification\nApproximation Step 5: Image Classification\nTarget Step 5: Image Captioning\nApproximation Step 6: Visual Question Answering\nTarget Step 6: Visual Question Answering\nApproximation Step 7: TERMINATE\nTarget Step 7: Object Detection\nApproximation Step 8: Object Detection\nTarget Step 8: Colorization\n', 'reward': 1, 'k': 1}]
+04/08/2025, 18:11:06: return sas tasks: ['Text Summarization']
+04/08/2025, 18:11:06: react launch api for thought.
+04/08/2025, 18:11:06: Target step 10 thought prompt token: 462
+04/08/2025, 18:11:19: Target step 10 thought generation token: 152
+04/08/2025, 18:11:19: react launch api for response.
+04/08/2025, 18:11:19: Target step 10 response prompt token: 641
+04/08/2025, 18:11:21: Target step 10 response generation token: 8
+04/08/2025, 18:11:21: Target: Step 10 - Machine Translation
+04/08/2025, 18:11:21: Intermediate Target Step 10 - Machine Translation -gen 160 -prompt 1103
+04/08/2025, 18:11:21: Target: Step 10 -time 14.48
+04/08/2025, 18:11:21: Mismatch at 0. Cancel starts. 
+04/08/2025, 18:11:21: sas tasks: ['TERMINATE']
+04/08/2025, 18:11:21: flatten_tas: [(0, 'Machine Translation')]
+04/08/2025, 18:11:21: step 0 app: TERMINATE, tar: Machine Translation
+04/08/2025, 18:11:21: trajectory: [{'state': 'Given blurry image, how to return the regular image step by step?\nPrevious History:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Image Super-Resolution\nTarget Step 3: Image Super-Resolution\nTarget Step 4: Image Classification\nApproximation Step 5: Image Classification\nTarget Step 5: Image Captioning\nApproximation Step 6: Visual Question Answering\nTarget Step 6: Visual Question Answering\nApproximation Step 7: TERMINATE\nTarget Step 7: Object Detection\nApproximation Step 8: Object Detection\nTarget Step 8: Colorization\nApproximation Step 9: TERMINATE\nTarget Step 9: Text Summarization\n', 'reward': 1, 'k': 1}]
+04/08/2025, 18:11:21: return sas tasks: ['Machine Translation']
+04/08/2025, 18:11:21: react launch api for thought.
+04/08/2025, 18:11:21: Target step 11 thought prompt token: 469
+04/08/2025, 18:11:34: Target step 11 thought generation token: 228
+04/08/2025, 18:11:34: react launch api for response.
+04/08/2025, 18:11:34: Target step 11 response prompt token: 724
+04/08/2025, 18:11:35: Target step 11 response generation token: 10
+04/08/2025, 18:11:35: Target: Step 11 - Text Summarization
+04/08/2025, 18:11:35: Intermediate Target Step 11 - Text Summarization -gen 238 -prompt 1193
+04/08/2025, 18:11:35: Target: Step 11 -time 14.46
+04/08/2025, 18:11:35: Mismatch at 0. Cancel starts. 
+04/08/2025, 18:11:35: sas tasks: ['Fill Mask']
+04/08/2025, 18:11:35: flatten_tas: [(0, 'Text Summarization')]
+04/08/2025, 18:11:35: step 0 app: Fill Mask, tar: Text Summarization
+04/08/2025, 18:11:35: trajectory: [{'state': 'Given blurry image, how to return the regular image step by step?\nPrevious History:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Image Super-Resolution\nTarget Step 3: Image Super-Resolution\nTarget Step 4: Image Classification\nApproximation Step 5: Image Classification\nTarget Step 5: Image Captioning\nApproximation Step 6: Visual Question Answering\nTarget Step 6: Visual Question Answering\nApproximation Step 7: TERMINATE\nTarget Step 7: Object Detection\nApproximation Step 8: Object Detection\nTarget Step 8: Colorization\nApproximation Step 9: TERMINATE\nTarget Step 9: Text Summarization\nApproximation Step 10: TERMINATE\nTarget Step 10: Machine Translation\n', 'reward': 1, 'k': 1}]
+04/08/2025, 18:11:35: return sas tasks: ['Text Summarization']
+04/08/2025, 18:11:35: react launch api for thought.
+04/08/2025, 18:11:35: Target step 12 thought prompt token: 478
+04/08/2025, 18:11:43: Target step 12 thought generation token: 191
+04/08/2025, 18:11:43: react launch api for response.
+04/08/2025, 18:11:43: Target step 12 response prompt token: 696
+04/08/2025, 18:11:44: Target step 12 response generation token: 9
+04/08/2025, 18:11:44: Target: Step 12 - TERMINATE
+04/08/2025, 18:11:44: Intermediate Target Step 12 - TERMINATE -gen 200 -prompt 1174
+04/08/2025, 18:11:44: Target: Step 12 -time 9.05
+04/08/2025, 18:11:44: Mismatch at 0. Cancel starts. 
+04/08/2025, 18:11:44: sas tasks: ['Fill Mask']
+04/08/2025, 18:11:44: flatten_tas: [(0, 'TERMINATE')]
+04/08/2025, 18:11:44: step 0 app: Fill Mask, tar: TERMINATE
+04/08/2025, 18:11:44: trajectory: [{'state': 'Given blurry image, how to return the regular image step by step?\nPrevious History:\nApproximation Step 1: Image Deblurring\nApproximation Step 2: Image Super-Resolution\nTarget Step 1: Image Deblurring\nTarget Step 2: Image Denoising\nApproximation Step 3: Image Super-Resolution\nApproximation Step 4: Image Super-Resolution\nTarget Step 3: Image Super-Resolution\nTarget Step 4: Image Classification\nApproximation Step 5: Image Classification\nTarget Step 5: Image Captioning\nApproximation Step 6: Visual Question Answering\nTarget Step 6: Visual Question Answering\nApproximation Step 7: TERMINATE\nTarget Step 7: Object Detection\nApproximation Step 8: Object Detection\nTarget Step 8: Colorization\nApproximation Step 9: TERMINATE\nTarget Step 9: Text Summarization\nApproximation Step 10: TERMINATE\nTarget Step 10: Machine Translation\nApproximation Step 11: Fill Mask\nTarget Step 11: Text Summarization\n', 'reward': 1, 'k': 1}]
+04/08/2025, 18:11:44: return sas tasks: ['TERMINATE']

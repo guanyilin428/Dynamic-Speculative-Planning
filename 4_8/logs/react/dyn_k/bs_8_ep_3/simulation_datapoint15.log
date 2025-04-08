@@ -1,0 +1,37 @@
+04/08/2025, 20:35:54: task description: Given low-resolutioned noisy blurry grayscale image, how to return the caption in German step by step?
+04/08/2025, 20:35:55: in breaking, The approximation agent thinks step 1 should be Image Denoising
+04/08/2025, 20:36:01: The target agent thinks step 1 should be Image Super-Resolution, correcting what the approximation agent thinks which is Image Denoising.
+04/08/2025, 20:36:02: in breaking, The approximation agent thinks step 2 should be Image Deblurring
+04/08/2025, 20:36:05: The target agent thinks step 2 should be Image Denoising, correcting what the approximation agent thinks which is Image Deblurring.
+04/08/2025, 20:36:06: in breaking, The approximation agent thinks step 3 should be Image Deblurring
+04/08/2025, 20:36:12: The target agent thinks step 3 should be Image Deblurring, which agrees with the approximation agent.
+04/08/2025, 20:36:12: The approximation agent thinks step 4 should be Image Captioning
+04/08/2025, 20:36:13: The target agent thinks step 4 should be Image Captioning, which agrees with the approximation agent.
+04/08/2025, 20:36:14: in breaking, The approximation agent thinks step 5 should be Machine Translation
+04/08/2025, 20:36:20: The target agent thinks step 5 should be Machine Translation, which agrees with the approximation agent.
+04/08/2025, 20:36:22: in breaking, The approximation agent thinks step 6 should be TERMINATE
+04/08/2025, 20:36:30: The target agent thinks step 6 should be Fill Mask, correcting what the approximation agent thinks which is TERMINATE.
+04/08/2025, 20:36:34: in breaking, The approximation agent thinks step 7 should be Fill Mask
+04/08/2025, 20:36:42: The target agent thinks step 7 should be TERMINATE, correcting what the approximation agent thinks which is Fill Mask.
+04/08/2025, 20:36:42: 2025-04-08 20:36:42.268476 - 2025-04-08 20:35:54.781485 = 0:00:47.486991
+04/08/2025, 20:36:42: final result for the speculative planning ['Image Super-Resolution', 'Image Denoising', 'Image Deblurring', 'Image Captioning', 'Machine Translation', 'Fill Mask', 'TERMINATE']
+04/08/2025, 20:36:42: max concurrent calls: 4
+04/08/2025, 20:36:42: total approximation token generation: 64
+04/08/2025, 20:36:42: total target token prompt: 7325
+04/08/2025, 20:36:42: total target token generation: 1336
+04/08/2025, 20:36:42: total target step time: 52.74
+04/08/2025, 20:36:42: total token prompt: 10808
+04/08/2025, 20:36:42: total token generation: 1400
+04/08/2025, 20:36:42: accuracy of approximation agent: 0.42857142857142855
+04/08/2025, 20:36:42: sp token/step: 200.0
+04/08/2025, 20:36:42: naive token/step: 190.86
+04/08/2025, 20:36:42: generation token cost increased: 4.79%.
+04/08/2025, 20:36:42: sp prompt/step: 1544.0
+04/08/2025, 20:36:42: naive prompt/step: 1046.43
+04/08/2025, 20:36:42: prompt token cost increased: 47.55%.
+04/08/2025, 20:36:42: sp time/step: 6.78
+04/08/2025, 20:36:42: naive time/step: 7.53
+04/08/2025, 20:36:42: time decreased by: 9.96%.
+04/08/2025, 20:36:42: predictor acc: 0.6
+04/08/2025, 20:36:42: step number: 7
+04/08/2025, 20:36:42: dynamic k

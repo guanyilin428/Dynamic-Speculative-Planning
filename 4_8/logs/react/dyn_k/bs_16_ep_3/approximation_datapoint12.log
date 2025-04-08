@@ -1,0 +1,41 @@
+04/08/2025, 22:34:02: task description: Given low-resolutioned noisy image, how to return the regular image step by step?
+04/08/2025, 22:34:02: Approximation: Step 1 -prompt token 367
+04/08/2025, 22:34:03: Approximation: Step 1 - Image Denoising -time 1.59 -token 10
+04/08/2025, 22:34:05: Predictor time: 3.0s
+04/08/2025, 22:34:05: Predict K: 3
+04/08/2025, 22:34:05: Approximation: Step 2 -prompt token 382
+04/08/2025, 22:34:06: Approximation: Step 2 - Image Deblurring -time 0.92 -token 10
+04/08/2025, 22:34:06: Approximation: Step 3 -prompt token 391
+04/08/2025, 22:34:07: Approximation: Step 3 - Image Super-Resolution -time 1.34 -token 10
+04/08/2025, 22:34:11: Approximation: Step 3 -prompt token 412
+04/08/2025, 22:34:12: Approximation: Step 3 - Image Deblurring -time 1.08 -token 10
+04/08/2025, 22:34:15: Predictor time: 3.42s
+04/08/2025, 22:34:15: Predict K: 1
+04/08/2025, 22:34:19: Approximation: Step 4 -prompt token 427
+04/08/2025, 22:34:21: Approximation: Step 4 - Colorization -time 1.59 -token 8
+04/08/2025, 22:34:23: Predictor time: 3.81s
+04/08/2025, 22:34:23: Predict K: 1
+04/08/2025, 22:34:31: Approximation: Step 5 -prompt token 445
+04/08/2025, 22:34:32: Approximation: Step 5 - Colorization -time 1.27 -token 8
+04/08/2025, 22:34:36: Predictor time: 4.37s
+04/08/2025, 22:34:36: Predict K: 0
+04/08/2025, 22:34:50: Approximation: Step 6 -prompt token 463
+04/08/2025, 22:34:50: Predictor time: 0.71s
+04/08/2025, 22:34:50: Predict K: 0
+04/08/2025, 22:34:53: Approximation: Step 6 - Colorization -time 3.59 -token 8
+04/08/2025, 22:35:06: Approximation: Step 7 -prompt token 483
+04/08/2025, 22:35:06: Predictor time: 0.3s
+04/08/2025, 22:35:06: Predict K: 0
+04/08/2025, 22:35:07: Approximation: Step 7 - Visual Question Answering -time 1.49 -token 10
+04/08/2025, 22:35:15: Approximation: Step 8 -prompt token 498
+04/08/2025, 22:35:16: Predictor time: 0.61s
+04/08/2025, 22:35:16: Predict K: 1
+04/08/2025, 22:35:17: Approximation: Step 8 - Colorization -time 1.56 -token 8
+04/08/2025, 22:35:25: Approximation: Step 9 -prompt token 511
+04/08/2025, 22:35:26: Predictor time: 0.47s
+04/08/2025, 22:35:26: Predict K: 1
+04/08/2025, 22:35:28: Approximation: Step 9 - TERMINATE -time 2.51 -token 9
+04/08/2025, 22:35:36: Approximation: Step 10 -prompt token 533
+04/08/2025, 22:35:37: Predictor time: 0.62s
+04/08/2025, 22:35:37: Predict K: 2
+04/08/2025, 22:35:37: Approximation: Step 10 - TERMINATE -time 1.33 -token 9

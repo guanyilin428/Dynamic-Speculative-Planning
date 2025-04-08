@@ -1,0 +1,35 @@
+04/08/2025, 18:16:24: task description: Given low-resolutioned noisy blurry grayscale image, how to return the caption in German step by step?
+04/08/2025, 18:16:26: in breaking, The approximation agent thinks step 1 should be Image Denoising
+04/08/2025, 18:16:33: The target agent thinks step 1 should be Image Super-Resolution, correcting what the approximation agent thinks which is Image Denoising.
+04/08/2025, 18:16:36: in breaking, The approximation agent thinks step 2 should be Image Deblurring
+04/08/2025, 18:16:43: The target agent thinks step 2 should be Image Denoising, correcting what the approximation agent thinks which is Image Deblurring.
+04/08/2025, 18:16:45: in breaking, The approximation agent thinks step 3 should be Image Deblurring
+04/08/2025, 18:16:49: The target agent thinks step 3 should be Image Deblurring, which agrees with the approximation agent.
+04/08/2025, 18:16:49: The approximation agent thinks step 4 should be Image Captioning
+04/08/2025, 18:16:57: The target agent thinks step 4 should be Image Captioning, which agrees with the approximation agent.
+04/08/2025, 18:17:00: in breaking, The approximation agent thinks step 5 should be Machine Translation
+04/08/2025, 18:17:04: The target agent thinks step 5 should be Machine Translation, which agrees with the approximation agent.
+04/08/2025, 18:17:05: in breaking, The approximation agent thinks step 6 should be TERMINATE
+04/08/2025, 18:17:15: The target agent thinks step 6 should be TERMINATE, which agrees with the approximation agent.
+04/08/2025, 18:17:15: 2025-04-08 18:17:15.144288 - 2025-04-08 18:16:24.461950 = 0:00:50.682338
+04/08/2025, 18:17:15: final result for the speculative planning ['Image Super-Resolution', 'Image Denoising', 'Image Deblurring', 'Image Captioning', 'Machine Translation', 'TERMINATE']
+04/08/2025, 18:17:15: max concurrent calls: 4
+04/08/2025, 18:17:15: total approximation token generation: 56
+04/08/2025, 18:17:15: total target token prompt: 5963
+04/08/2025, 18:17:15: total target token generation: 879
+04/08/2025, 18:17:15: total target step time: 54.34
+04/08/2025, 18:17:15: total token prompt: 8509
+04/08/2025, 18:17:15: total token generation: 935
+04/08/2025, 18:17:15: accuracy of approximation agent: 0.6666666666666666
+04/08/2025, 18:17:15: sp token/step: 155.83
+04/08/2025, 18:17:15: naive token/step: 146.5
+04/08/2025, 18:17:15: generation token cost increased: 6.37%.
+04/08/2025, 18:17:15: sp prompt/step: 1418.17
+04/08/2025, 18:17:15: naive prompt/step: 993.83
+04/08/2025, 18:17:15: prompt token cost increased: 42.7%.
+04/08/2025, 18:17:15: sp time/step: 8.45
+04/08/2025, 18:17:15: naive time/step: 9.06
+04/08/2025, 18:17:15: time decreased by: 6.73%.
+04/08/2025, 18:17:15: predictor acc: 0.5
+04/08/2025, 18:17:15: step number: 6
+04/08/2025, 18:17:15: dynamic k

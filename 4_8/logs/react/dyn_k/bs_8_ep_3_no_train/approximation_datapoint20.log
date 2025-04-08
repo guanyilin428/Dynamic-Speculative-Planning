@@ -1,0 +1,47 @@
+04/08/2025, 21:00:34: task description: Given low-resolutioned noisy blurry grayscale image, how to return the object names in English step by step?
+04/08/2025, 21:00:34: Approximation: Step 1 -prompt token 371
+04/08/2025, 21:00:34: Predictor time: 0.08s
+04/08/2025, 21:00:34: Predict K: 2
+04/08/2025, 21:00:36: Approximation: Step 1 - Image Denoising -time 1.93 -token 10
+04/08/2025, 21:00:36: Approximation: Step 2 -prompt token 386
+04/08/2025, 21:00:37: Approximation: Step 2 - Image Deblurring -time 0.97 -token 10
+04/08/2025, 21:00:40: Approximation: Step 2 -prompt token 401
+04/08/2025, 21:00:41: Predictor time: 0.09s
+04/08/2025, 21:00:41: Predict K: 1
+04/08/2025, 21:00:43: Approximation: Step 2 - Image Denoising -time 2.59 -token 10
+04/08/2025, 21:00:46: Approximation: Step 3 -prompt token 416
+04/08/2025, 21:00:46: Predictor time: 0.07s
+04/08/2025, 21:00:46: Predict K: 0
+04/08/2025, 21:00:47: Approximation: Step 3 - Image Super-Resolution -time 0.99 -token 10
+04/08/2025, 21:00:52: Approximation: Step 4 -prompt token 431
+04/08/2025, 21:00:53: Predictor time: 0.08s
+04/08/2025, 21:00:53: Predict K: 1
+04/08/2025, 21:00:56: Approximation: Step 4 - Object Detection -time 3.89 -token 8
+04/08/2025, 21:01:02: Approximation: Step 5 -prompt token 444
+04/08/2025, 21:01:03: Predictor time: 0.07s
+04/08/2025, 21:01:03: Predict K: 1
+04/08/2025, 21:01:04: Approximation: Step 5 - Image Classification -time 1.57 -token 8
+04/08/2025, 21:01:12: Approximation: Step 6 -prompt token 462
+04/08/2025, 21:01:12: Predictor time: 0.07s
+04/08/2025, 21:01:12: Predict K: 1
+04/08/2025, 21:01:15: Approximation: Step 6 - Image Classification -time 3.4 -token 8
+04/08/2025, 21:01:25: Approximation: Step 7 -prompt token 482
+04/08/2025, 21:01:25: Predictor time: 0.07s
+04/08/2025, 21:01:25: Predict K: 1
+04/08/2025, 21:01:28: Approximation: Step 7 - Image Classification -time 3.61 -token 8
+04/08/2025, 21:01:40: Approximation: Step 8 -prompt token 504
+04/08/2025, 21:01:40: Predictor time: 0.07s
+04/08/2025, 21:01:40: Predict K: 1
+04/08/2025, 21:01:42: Approximation: Step 8 - TERMINATE -time 1.37 -token 9
+04/08/2025, 21:01:53: Approximation: Step 9 -prompt token 526
+04/08/2025, 21:01:53: Predictor time: 0.07s
+04/08/2025, 21:01:53: Predict K: 1
+04/08/2025, 21:01:54: Approximation: Step 9 - Machine Translation -time 1.38 -token 8
+04/08/2025, 21:02:06: Approximation: Step 10 -prompt token 539
+04/08/2025, 21:02:06: Predictor time: 0.07s
+04/08/2025, 21:02:06: Predict K: 1
+04/08/2025, 21:02:07: Approximation: Step 10 - TERMINATE -time 1.38 -token 9
+04/08/2025, 21:02:18: Approximation: Step 11 -prompt token 559
+04/08/2025, 21:02:18: Predictor time: 0.09s
+04/08/2025, 21:02:18: Predict K: 1
+04/08/2025, 21:02:19: Approximation: Step 11 - TERMINATE -time 1.23 -token 9

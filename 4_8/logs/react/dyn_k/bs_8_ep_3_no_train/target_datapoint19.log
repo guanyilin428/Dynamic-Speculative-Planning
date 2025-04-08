@@ -1,0 +1,68 @@
+04/08/2025, 20:59:55: task description: Given low-resolutioned noisy blurry grayscale image, how to return the class label in English step by step?
+04/08/2025, 20:59:55: react launch api for thought.
+04/08/2025, 20:59:55: Target step 1 thought prompt token: 389
+04/08/2025, 21:00:00: Target step 1 thought generation token: 112
+04/08/2025, 21:00:00: react launch api for response.
+04/08/2025, 21:00:00: Target step 1 response prompt token: 528
+04/08/2025, 21:00:03: Target step 1 response generation token: 10
+04/08/2025, 21:00:03: Target: Step 1 - Image Super-Resolution
+04/08/2025, 21:00:03: Intermediate Target Step 1 - Image Super-Resolution -gen 122 -prompt 917
+04/08/2025, 21:00:03: Target: Step 1 -time 7.92
+04/08/2025, 21:00:03: Mismatch at 0. Cancel starts. 
+04/08/2025, 21:00:03: sas tasks: ['Image Denoising']
+04/08/2025, 21:00:03: flatten_tas: [(0, 'Image Super-Resolution')]
+04/08/2025, 21:00:03: step 0 app: Image Denoising, tar: Image Super-Resolution
+04/08/2025, 21:00:03: return sas tasks: ['Image Super-Resolution']
+04/08/2025, 21:00:03: react launch api for thought.
+04/08/2025, 21:00:03: Target step 2 thought prompt token: 404
+04/08/2025, 21:00:08: Target step 2 thought generation token: 81
+04/08/2025, 21:00:08: react launch api for response.
+04/08/2025, 21:00:08: Target step 2 response prompt token: 512
+04/08/2025, 21:00:09: Target step 2 response generation token: 10
+04/08/2025, 21:00:09: Target: Step 2 - Image Denoising
+04/08/2025, 21:00:09: Intermediate Target Step 2 - Image Denoising -gen 91 -prompt 916
+04/08/2025, 21:00:09: Target: Step 2 -time 6.31
+04/08/2025, 21:00:09: Mismatch at 0. Cancel starts. 
+04/08/2025, 21:00:09: sas tasks: ['Image Deblurring']
+04/08/2025, 21:00:09: flatten_tas: [(0, 'Image Denoising')]
+04/08/2025, 21:00:09: step 0 app: Image Deblurring, tar: Image Denoising
+04/08/2025, 21:00:09: return sas tasks: ['Image Denoising']
+04/08/2025, 21:00:09: react launch api for thought.
+04/08/2025, 21:00:09: Target step 3 thought prompt token: 413
+04/08/2025, 21:00:12: Target step 3 thought generation token: 90
+04/08/2025, 21:00:12: react launch api for response.
+04/08/2025, 21:00:12: Target step 3 response prompt token: 530
+04/08/2025, 21:00:13: Target step 3 response generation token: 10
+04/08/2025, 21:00:13: Target: Step 3 - Image Deblurring
+04/08/2025, 21:00:13: Intermediate Target Step 3 - Image Deblurring -gen 100 -prompt 943
+04/08/2025, 21:00:13: Target: Step 3 -time 4.09
+04/08/2025, 21:00:13: Mismatch at 0. Cancel starts. 
+04/08/2025, 21:00:13: sas tasks: ['Image Deblurring']
+04/08/2025, 21:00:13: flatten_tas: [(0, 'Image Deblurring')]
+04/08/2025, 21:00:13: return sas tasks: ['Image Deblurring']
+04/08/2025, 21:00:13: react launch api for thought.
+04/08/2025, 21:00:13: Target step 4 thought prompt token: 422
+04/08/2025, 21:00:19: Target step 4 thought generation token: 127
+04/08/2025, 21:00:19: react launch api for response.
+04/08/2025, 21:00:19: Target step 4 response prompt token: 576
+04/08/2025, 21:00:20: Target step 4 response generation token: 8
+04/08/2025, 21:00:20: Target: Step 4 - Image Classification
+04/08/2025, 21:00:20: Intermediate Target Step 4 - Image Classification -gen 135 -prompt 998
+04/08/2025, 21:00:20: Target: Step 4 -time 6.98
+04/08/2025, 21:00:20: Mismatch at 0. Cancel starts. 
+04/08/2025, 21:00:20: sas tasks: ['Image Classification']
+04/08/2025, 21:00:20: flatten_tas: [(0, 'Image Classification')]
+04/08/2025, 21:00:20: return sas tasks: ['Image Classification']
+04/08/2025, 21:00:20: react launch api for thought.
+04/08/2025, 21:00:20: Target step 5 thought prompt token: 429
+04/08/2025, 21:00:31: Target step 5 thought generation token: 265
+04/08/2025, 21:00:31: react launch api for response.
+04/08/2025, 21:00:31: Target step 5 response prompt token: 721
+04/08/2025, 21:00:34: Target step 5 response generation token: 9
+04/08/2025, 21:00:34: Target: Step 5 - TERMINATE
+04/08/2025, 21:00:34: Intermediate Target Step 5 - TERMINATE -gen 274 -prompt 1150
+04/08/2025, 21:00:34: Target: Step 5 -time 13.69
+04/08/2025, 21:00:34: Mismatch at 0. Cancel starts. 
+04/08/2025, 21:00:34: sas tasks: ['TERMINATE']
+04/08/2025, 21:00:34: flatten_tas: [(0, 'TERMINATE')]
+04/08/2025, 21:00:34: return sas tasks: ['TERMINATE']

@@ -522,6 +522,7 @@ async def onebreakingpoint_speculative_planning(args, mismatch_state, executor, 
             config.PREDICT_TOTAL += 1
             pred_k = max(pred_k, 0)
             first = False
+        # approximation_logger.log(f"i is {i}, pred_k is {pred_k}")
         i += 1
 
     # print('====finish approximation loop====')
@@ -589,7 +590,9 @@ async def onebreakingpoint_speculative_planning(args, mismatch_state, executor, 
                 target_logger.log(f"tar {step_number}: {flatten_tas[step_number][1]}")
                 config.PREDICT_CORRECT += collector.build_trajectory(target_logger, config.PREDICT_K) # collector build trajectory when target terminates
                 if args.pred:
-                    asyncio.create_task(executor.async_train(train_logger))
+                    if config.BUILD_TRAJ_TIMES == 0:
+                        asyncio.create_task(executor.async_train(train_logger))
+                    config.BUILD_TRAJ_TIMES = (config.BUILD_TRAJ_TIMES + 1) % config.TRAIN_INTERVAL
                 return sas
             else:
                 # print('need to cancel some tasks')
@@ -646,7 +649,9 @@ async def onebreakingpoint_speculative_planning(args, mismatch_state, executor, 
             target_logger.log(f"step {step_number} app: {s}, tar: {t[1]}")
             config.PREDICT_CORRECT += collector.build_trajectory(target_logger, config.PREDICT_K) # collector build trajectory at mismatch step
             if args.pred:
-                asyncio.create_task(executor.async_train(train_logger))
+                if config.BUILD_TRAJ_TIMES == 0:
+                    asyncio.create_task(executor.async_train(train_logger))
+                config.BUILD_TRAJ_TIMES = (config.BUILD_TRAJ_TIMES + 1) % config.TRAIN_INTERVAL
             sas = sas[:step_number]+[flatten_tas[step_number][1]]
             origin_sa = s
             mismatch = True
@@ -661,7 +666,7 @@ async def speculative_planning(args, executor, encoding, app_assistant, tar_assi
     train_logger = None
     if args.pred:
         pred_type = "dyn_k" if args.pred == True else "fix_k" 
-        train_logger = Logger(f'test/logs/{args.target_type}/{pred_type}/train_datapoint{args.task_id}.log', on=True)
+        train_logger = Logger(f'4_8/logs/{args.target_type}/{pred_type}/bs_16_ep_3/train_datapoint{task_id}.log', on=True)
         # train_event = asyncio.Event()
         # train_event.clear()
         # online_train_task = asyncio.create_task(executor.async_train(train_logger))
@@ -669,25 +674,15 @@ async def speculative_planning(args, executor, encoding, app_assistant, tar_assi
     begin_time = datetime.now()
     collector = executor.collector
     mismatch_state = SharedState()
+    await mismatch_state.initialize()
     steps = []
     breaking_points = 0
     i = 0
     app_prompt = prompt
     tar_prompt = prompt
     while True:
-        # if args.pred == True:
-        #     pred_k, state = executor.predict()
-        #     # approximation_logger.log("Predict Prompt: " + state)
-        # else:
-        #     pred_k = args.k
-        # launch async predictor training task
-        # asyncio.create_task(executor.async_train(), name="predictor_online_training")
-        
-        # approximation_logger.log(f"Predict K: {pred_k}")
-        # pred_k = 1 if pred_k == 0 else pred_k
         result, origin_sa, mismatch = await onebreakingpoint_speculative_planning(args, mismatch_state, executor, collector, encoding, app_assistant, tar_assistant, app_prompt, tar_prompt, len(steps), logger, target_logger, approximation_logger, train_logger, prev_steps=steps)
-        
-        
+                
         # update approximation prompt
         if '## Current Action Trajectory:' not in app_prompt:
             app_prompt += f'\n\n## Current Action Trajectory:\n'
@@ -715,19 +710,11 @@ async def speculative_planning(args, executor, encoding, app_assistant, tar_assi
     end_time = datetime.now()
     logger.log(f'{end_time} - {begin_time} = {end_time - begin_time}')
     config.TOTAL_TIME = round((end_time - begin_time).total_seconds(), 2)
-    # if args.pred:
-    #     train_event.set()
-    #     await online_train_task
+    
     return steps
 
 
-
-if __name__ == '__main__':
-    os.environ['OPENAI_API_KEY'] = "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"
-    encoding = tiktoken.get_encoding("cl100k_base")
-    
-    asyncio.get_event_loop().set_debug(True)
-    
+def run_one_task(args, task_id, executor, encoding, app_assistant, tar_assistant):
     ## gloabl variables
     config.MAX_CONCURRENT_CALLS = 0
     config.TOTAL_APPROXIMATION_CALLS = 0
@@ -749,23 +736,20 @@ if __name__ == '__main__':
     config.PREDICT_CORRECT = 0
     config.PREDICT_TOTAL = 0
 
+    config.TRAIN_INTERVAL = 2
+    config.BUILD_TRAJ_TIMES = 0
+
 
     random.seed(2)
-    parser = argparse.ArgumentParser(description='OpenAGI')
-    parser.add_argument('--data', type=str, default='data/openagi_task_descrition.txt', help='data directory')
-    parser.add_argument('--task_id', type=int, default=15, help='task id')
-    parser.add_argument('--k', type=int, default=2, help='number of approximation steps to generate everytime')
-    parser.add_argument('--target_type', type=str, default='react', help='cot, react, multi-agent, direct')
-    parser.add_argument('--pred', type=bool, default=True, help='speculative planning with predictor')
-    
-    args = parser.parse_args()
     pred_type = "dyn_k" if args.pred == True else "fix_k" 
-    logger = Logger(f'4_7/test/logs/{args.target_type}/{pred_type}/simulation_datapoint{args.task_id}.log', on=True)
-    target_logger = Logger(f'4_7/test/logs/{args.target_type}/{pred_type}/target_datapoint{args.task_id}.log', on=True)
-    approximation_logger = Logger(f'4_7/test/logs/{args.target_type}/{pred_type}/approximation_datapoint{args.task_id}.log', on=True)
+    logger = Logger(f'4_8/logs/{args.target_type}/{pred_type}/bs_16_ep_3/simulation_datapoint{task_id}.log', on=True)
+    target_logger = Logger(f'4_8/logs/{args.target_type}/{pred_type}/bs_16_ep_3/target_datapoint{task_id}.log', on=True)
+    approximation_logger = Logger(f'4_8/logs/{args.target_type}/{pred_type}/bs_16_ep_3/approximation_datapoint{task_id}.log', on=True)
+    
 
     tasks = load_data(args)
-    task_description = tasks[args.task_id]
+    task_description = tasks[task_id]
+    executor.set_initial_task_prompt(task_description)
     logger.log('task description: ' + task_description)
     target_logger.log('task description: ' + task_description)
     approximation_logger.log('task description: ' + task_description)
@@ -795,69 +779,6 @@ Please use xml tags to specify the tool when responsing. For example, <tool>Sent
 
     prompt = "## Problem: " + task_description + "\nPlease solve this problem using the following tools step by step:\n" + tools
 
-    if args.target_type == 'direct':
-        app_config_list = [{
-            "model": "gpt-3.5-turbo",
-            # "api_key": "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",
-            "api_key": os.environ['OPENAI_API_KEY'],
-            "api_type": "openai",
-            "cache_seed": None, 
-            "temperature": 0,
-            "seed":0
-        },]
-    else:
-        app_config_list = [{
-            "model": "gpt-4-turbo",
-            # "model": "gpt-3.5-turbo",
-            "api_key": os.environ['OPENAI_API_KEY'],
-            # "api_key": "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",
-            "api_type": "openai",
-            "cache_seed": None,
-            "temperature": 0,
-            "seed":0
-        },]
-    app_assistant = AssistantAgent("assistant", llm_config={"config_list": app_config_list}, human_input_mode='NEVER')
-
-    
-    tar_config_list = [{
-        "model": "gpt-4-turbo",
-        # "model": "gpt-3.5-turbo",
-        "api_key": os.environ['OPENAI_API_KEY'],
-        # "api_key": "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",
-        "api_type": "openai",
-        "cache_seed": None, 
-        "temperature": 0,
-        "seed":0
-    },]
-    tar_assistant = AssistantAgent("assistant", llm_config={"config_list": tar_config_list}, human_input_mode='NEVER')
-    print(app_assistant.llm_config)
-    print(tar_assistant.llm_config)
-    # online learning preparations
-    model_path = "distilbert-base-uncased"
-    bert_model = AutoModel.from_pretrained(model_path)
-    tokenizer = AutoTokenizer.from_pretrained(model_path)
-    model = DistilBERTValueFunction(bert_model)
-    
-    model_save_path = "cot_value_function_model.pth"
-    model.load_state_dict(torch.load(model_save_path))
-
-
-    executor = OnlineLearningExecutor(
-        model=model,
-        tokenizer=tokenizer,
-        initial_prompt=task_description,
-        buffer_size=1000,
-        batch_size_steps=4,
-        lambda_=0.9,
-        gamma=1,
-        lr=5e-05,
-        epoch_per_train=3
-    )
-    # checkpoint = torch.load('predictor_online_weights.pth')
-    # executor.predict_model.load_state_dict(checkpoint['model_state_dict'])
-    # executor.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
-    
-    # run the speculative planning
     steps = asyncio.run(speculative_planning(args, executor, encoding, app_assistant, tar_assistant, prompt, logger, target_logger, approximation_logger))
 
     # record the metrics
@@ -901,8 +822,87 @@ Please use xml tags to specify the tool when responsing. For example, <tool>Sent
     if not args.pred:
         logger.log(f'k = {args.k}')
     else: logger.log(f'dynamic k')
-    torch.save({
-        'model_state_dict': executor.predict_model.state_dict(),
-        'optimizer_state_dict': executor.optimizer.state_dict()
-    }, 'predictor_online_weights.pth')
-    print("model saved to predictor_online_weights.pth")
+
+
+if __name__ == '__main__':
+    os.environ['OPENAI_API_KEY'] = "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"
+    encoding = tiktoken.get_encoding("cl100k_base")
+        
+    parser = argparse.ArgumentParser(description='OpenAGI')
+    parser.add_argument('--data', type=str, default='data/openagi_task_descrition.txt', help='data directory')
+    # parser.add_argument('--task_id', type=int, default=15, help='task id')
+    parser.add_argument('--k', type=int, default=2, help='number of approximation steps to generate everytime')
+    parser.add_argument('--target_type', type=str, default='react', help='cot, react, multi-agent, direct')
+    parser.add_argument('--pred', type=bool, default=True, help='speculative planning with predictor')
+    
+    args = parser.parse_args()   
+    if args.target_type == 'direct':
+        app_config_list = [{
+            "model": "gpt-3.5-turbo",
+            # "api_key": "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",
+            "api_key": os.environ['OPENAI_API_KEY'],
+            "api_type": "openai",
+            "cache_seed": None, 
+            "temperature": 0,
+            "seed":0
+        },]
+    else:
+        app_config_list = [{
+            "model": "gpt-4-turbo",
+            # "model": "gpt-3.5-turbo",
+            "api_key": os.environ['OPENAI_API_KEY'],
+            # "api_key": "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",
+            "api_type": "openai",
+            "cache_seed": None,
+            "temperature": 0,
+            "seed":0
+        },]
+    app_assistant = AssistantAgent("assistant", llm_config={"config_list": app_config_list}, human_input_mode='NEVER')
+
+    
+    tar_config_list = [{
+        "model": "gpt-4-turbo",
+        # "model": "gpt-3.5-turbo",
+        "api_key": os.environ['OPENAI_API_KEY'],
+        # "api_key": "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",
+        "api_type": "openai",
+        "cache_seed": None, 
+        "temperature": 0,
+        "seed":0
+    },]
+    tar_assistant = AssistantAgent("assistant", llm_config={"config_list": tar_config_list}, human_input_mode='NEVER')
+    # online learning preparations
+    model_path = "distilbert-base-uncased"
+    bert_model = AutoModel.from_pretrained(model_path)
+    tokenizer = AutoTokenizer.from_pretrained(model_path)
+    model = DistilBERTValueFunction(bert_model)
+    
+    model_save_path = "cot_value_function_model.pth"
+    model.load_state_dict(torch.load(model_save_path))
+
+    executor = OnlineLearningExecutor(
+        model=model,
+        tokenizer=tokenizer,
+        buffer_size=1000,
+        batch_size_steps=16,
+        lambda_=0.9,
+        gamma=1,
+        lr=5e-05,
+        epoch_per_train=3
+    )
+    # checkpoint = torch.load('predictor_online_weights.pth')
+    # executor.predict_model.load_state_dict(checkpoint['model_state_dict'])
+    # executor.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+    
+    # run the speculative planning for multiple tasks
+    # task_list = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+    task_list = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+    # task_list = [11]
+    for task_id in task_list:
+        run_one_task(args, task_id, executor, encoding, app_assistant, tar_assistant)
+    
+    # torch.save({
+    #     'model_state_dict': executor.predict_model.state_dict(),
+    #     'optimizer_state_dict': executor.optimizer.state_dict()
+    # }, 'predictor_online_weights.pth')
+    # print("model saved to predictor_online_weights.pth")

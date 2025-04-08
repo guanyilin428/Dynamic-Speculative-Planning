@@ -1,0 +1,41 @@
+04/08/2025, 22:16:43: task description: Given noisy image, how to return the regular image step by step?
+04/08/2025, 22:16:45: in breaking, The approximation agent thinks step 1 should be Image Denoising
+04/08/2025, 22:16:49: The target agent thinks step 1 should be Image Denoising, which agrees with the approximation agent.
+04/08/2025, 22:16:50: in breaking, The approximation agent thinks step 2 should be Image Deblurring
+04/08/2025, 22:16:56: The target agent thinks step 2 should be Image Deblurring, which agrees with the approximation agent.
+04/08/2025, 22:16:56: The approximation agent thinks step 3 should be Image Super-Resolution
+04/08/2025, 22:16:57: The target agent thinks step 3 should be Image Super-Resolution, which agrees with the approximation agent.
+04/08/2025, 22:16:58: in breaking, The approximation agent thinks step 4 should be Colorization
+04/08/2025, 22:17:10: The target agent thinks step 4 should be Image Classification, correcting what the approximation agent thinks which is Colorization.
+04/08/2025, 22:17:12: in breaking, The approximation agent thinks step 5 should be Colorization
+04/08/2025, 22:17:24: The target agent thinks step 5 should be Colorization, which agrees with the approximation agent.
+04/08/2025, 22:17:24: The approximation agent thinks step 6 should be Image Captioning
+04/08/2025, 22:17:24: The target agent thinks step 6 should be Image Captioning, which agrees with the approximation agent.
+04/08/2025, 22:17:25: in breaking, The approximation agent thinks step 7 should be Visual Question Answering
+04/08/2025, 22:17:33: The target agent thinks step 7 should be Visual Question Answering, which agrees with the approximation agent.
+04/08/2025, 22:17:35: in breaking, The approximation agent thinks step 8 should be TERMINATE
+04/08/2025, 22:17:41: The target agent thinks step 8 should be Text-to-Image Generation, correcting what the approximation agent thinks which is TERMINATE.
+04/08/2025, 22:17:43: in breaking, The approximation agent thinks step 9 should be TERMINATE
+04/08/2025, 22:17:49: The target agent thinks step 9 should be TERMINATE, which agrees with the approximation agent.
+04/08/2025, 22:17:49: 2025-04-08 22:17:49.377994 - 2025-04-08 22:16:43.778908 = 0:01:05.599086
+04/08/2025, 22:17:49: final result for the speculative planning ['Image Denoising', 'Image Deblurring', 'Image Super-Resolution', 'Image Classification', 'Colorization', 'Image Captioning', 'Visual Question Answering', 'Text-to-Image Generation', 'TERMINATE']
+04/08/2025, 22:17:49: max concurrent calls: 4
+04/08/2025, 22:17:49: total approximation token generation: 83
+04/08/2025, 22:17:49: total target token prompt: 9712
+04/08/2025, 22:17:49: total target token generation: 1974
+04/08/2025, 22:17:49: total target step time: 81.66
+04/08/2025, 22:17:49: total token prompt: 14033
+04/08/2025, 22:17:49: total token generation: 2057
+04/08/2025, 22:17:49: accuracy of approximation agent: 0.7777777777777778
+04/08/2025, 22:17:49: sp token/step: 228.56
+04/08/2025, 22:17:49: naive token/step: 219.33
+04/08/2025, 22:17:49: generation token cost increased: 4.21%.
+04/08/2025, 22:17:49: sp prompt/step: 1559.22
+04/08/2025, 22:17:49: naive prompt/step: 1079.11
+04/08/2025, 22:17:49: prompt token cost increased: 44.49%.
+04/08/2025, 22:17:49: sp time/step: 7.29
+04/08/2025, 22:17:49: naive time/step: 9.07
+04/08/2025, 22:17:49: time decreased by: 19.63%.
+04/08/2025, 22:17:49: predictor acc: 0.2
+04/08/2025, 22:17:49: step number: 9
+04/08/2025, 22:17:49: dynamic k

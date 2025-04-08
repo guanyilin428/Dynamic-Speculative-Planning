@@ -1,0 +1,39 @@
+04/08/2025, 20:50:41: task description: Given blurry image, how to return the regular image step by step?
+04/08/2025, 20:50:44: in breaking, The approximation agent thinks step 1 should be Image Deblurring
+04/08/2025, 20:50:51: The target agent thinks step 1 should be Image Deblurring, which agrees with the approximation agent.
+04/08/2025, 20:50:51: The approximation agent thinks step 2 should be Image Super-Resolution
+04/08/2025, 20:50:51: The target agent thinks step 2 should be Image Denoising, correcting what the approximation agent thinks which is Image Super-Resolution.
+04/08/2025, 20:50:55: in breaking, The approximation agent thinks step 3 should be Image Super-Resolution
+04/08/2025, 20:51:00: The target agent thinks step 3 should be Image Super-Resolution, which agrees with the approximation agent.
+04/08/2025, 20:51:00: The approximation agent thinks step 4 should be Image Super-Resolution
+04/08/2025, 20:51:08: The target agent thinks step 4 should be Image Classification, correcting what the approximation agent thinks which is Image Super-Resolution.
+04/08/2025, 20:51:09: in breaking, The approximation agent thinks step 5 should be Image Classification
+04/08/2025, 20:51:21: The target agent thinks step 5 should be Object Detection, correcting what the approximation agent thinks which is Image Classification.
+04/08/2025, 20:51:22: in breaking, The approximation agent thinks step 6 should be Visual Question Answering
+04/08/2025, 20:51:31: The target agent thinks step 6 should be Image Captioning, correcting what the approximation agent thinks which is Visual Question Answering.
+04/08/2025, 20:51:33: in breaking, The approximation agent thinks step 7 should be Visual Question Answering
+04/08/2025, 20:51:45: The target agent thinks step 7 should be Visual Question Answering, which agrees with the approximation agent.
+04/08/2025, 20:51:46: in breaking, The approximation agent thinks step 8 should be TERMINATE
+04/08/2025, 20:51:55: The target agent thinks step 8 should be TERMINATE, which agrees with the approximation agent.
+04/08/2025, 20:51:55: 2025-04-08 20:51:55.942046 - 2025-04-08 20:50:41.249194 = 0:01:14.692852
+04/08/2025, 20:51:55: final result for the speculative planning ['Image Deblurring', 'Image Denoising', 'Image Super-Resolution', 'Image Classification', 'Object Detection', 'Image Captioning', 'Visual Question Answering', 'TERMINATE']
+04/08/2025, 20:51:55: max concurrent calls: 4
+04/08/2025, 20:51:55: total approximation token generation: 77
+04/08/2025, 20:51:55: total target token prompt: 8569
+04/08/2025, 20:51:55: total target token generation: 1759
+04/08/2025, 20:51:55: total target step time: 84.64
+04/08/2025, 20:51:55: total token prompt: 12028
+04/08/2025, 20:51:55: total token generation: 1836
+04/08/2025, 20:51:55: accuracy of approximation agent: 0.5
+04/08/2025, 20:51:55: sp token/step: 229.5
+04/08/2025, 20:51:55: naive token/step: 219.88
+04/08/2025, 20:51:55: generation token cost increased: 4.38%.
+04/08/2025, 20:51:55: sp prompt/step: 1503.5
+04/08/2025, 20:51:55: naive prompt/step: 1071.12
+04/08/2025, 20:51:55: prompt token cost increased: 40.37%.
+04/08/2025, 20:51:55: sp time/step: 9.34
+04/08/2025, 20:51:55: naive time/step: 10.58
+04/08/2025, 20:51:55: time decreased by: 11.72%.
+04/08/2025, 20:51:55: predictor acc: 0.6
+04/08/2025, 20:51:55: step number: 8
+04/08/2025, 20:51:55: dynamic k

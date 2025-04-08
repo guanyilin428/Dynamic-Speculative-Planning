@@ -1,0 +1,45 @@
+04/08/2025, 21:00:34: task description: Given low-resolutioned noisy blurry grayscale image, how to return the object names in English step by step?
+04/08/2025, 21:00:36: in breaking, The approximation agent thinks step 1 should be Image Denoising
+04/08/2025, 21:00:40: The target agent thinks step 1 should be Image Deblurring, correcting what the approximation agent thinks which is Image Denoising.
+04/08/2025, 21:00:43: in breaking, The approximation agent thinks step 2 should be Image Denoising
+04/08/2025, 21:00:46: The target agent thinks step 2 should be Image Denoising, which agrees with the approximation agent.
+04/08/2025, 21:00:47: in breaking, The approximation agent thinks step 3 should be Image Super-Resolution
+04/08/2025, 21:00:52: The target agent thinks step 3 should be Image Super-Resolution, which agrees with the approximation agent.
+04/08/2025, 21:00:56: in breaking, The approximation agent thinks step 4 should be Object Detection
+04/08/2025, 21:01:02: The target agent thinks step 4 should be Object Detection, which agrees with the approximation agent.
+04/08/2025, 21:01:04: in breaking, The approximation agent thinks step 5 should be Image Classification
+04/08/2025, 21:01:12: The target agent thinks step 5 should be Colorization, correcting what the approximation agent thinks which is Image Classification.
+04/08/2025, 21:01:15: in breaking, The approximation agent thinks step 6 should be Image Classification
+04/08/2025, 21:01:25: The target agent thinks step 6 should be Image Captioning, correcting what the approximation agent thinks which is Image Classification.
+04/08/2025, 21:01:28: in breaking, The approximation agent thinks step 7 should be Image Classification
+04/08/2025, 21:01:40: The target agent thinks step 7 should be Visual Question Answering, correcting what the approximation agent thinks which is Image Classification.
+04/08/2025, 21:01:42: in breaking, The approximation agent thinks step 8 should be TERMINATE
+04/08/2025, 21:01:53: The target agent thinks step 8 should be Text Summarization, correcting what the approximation agent thinks which is TERMINATE.
+04/08/2025, 21:01:54: in breaking, The approximation agent thinks step 9 should be Machine Translation
+04/08/2025, 21:02:06: The target agent thinks step 9 should be Machine Translation, which agrees with the approximation agent.
+04/08/2025, 21:02:07: in breaking, The approximation agent thinks step 10 should be TERMINATE
+04/08/2025, 21:02:18: The target agent thinks step 10 should be Question Answering, correcting what the approximation agent thinks which is TERMINATE.
+04/08/2025, 21:02:19: in breaking, The approximation agent thinks step 11 should be TERMINATE
+04/08/2025, 21:02:42: The target agent thinks step 11 should be TERMINATE, which agrees with the approximation agent.
+04/08/2025, 21:02:42: 2025-04-08 21:02:42.564659 - 2025-04-08 21:00:34.537864 = 0:02:08.026795
+04/08/2025, 21:02:42: final result for the speculative planning ['Image Deblurring', 'Image Denoising', 'Image Super-Resolution', 'Object Detection', 'Colorization', 'Image Captioning', 'Visual Question Answering', 'Text Summarization', 'Machine Translation', 'Question Answering', 'TERMINATE']
+04/08/2025, 21:02:42: max concurrent calls: 4
+04/08/2025, 21:02:42: total approximation token generation: 107
+04/08/2025, 21:02:42: total target token prompt: 12608
+04/08/2025, 21:02:42: total target token generation: 2816
+04/08/2025, 21:02:42: total target step time: 127.77
+04/08/2025, 21:02:42: total token prompt: 22187
+04/08/2025, 21:02:42: total token generation: 2923
+04/08/2025, 21:02:42: accuracy of approximation agent: 0.45454545454545453
+04/08/2025, 21:02:42: sp token/step: 265.73
+04/08/2025, 21:02:42: naive token/step: 256.0
+04/08/2025, 21:02:42: generation token cost increased: 3.8%.
+04/08/2025, 21:02:42: sp prompt/step: 2017.0
+04/08/2025, 21:02:42: naive prompt/step: 1146.18
+04/08/2025, 21:02:42: prompt token cost increased: 75.98%.
+04/08/2025, 21:02:42: sp time/step: 11.64
+04/08/2025, 21:02:42: naive time/step: 11.62
+04/08/2025, 21:02:42: time decreased by: -0.17%.
+04/08/2025, 21:02:42: predictor acc: 0.25
+04/08/2025, 21:02:42: step number: 11
+04/08/2025, 21:02:42: dynamic k

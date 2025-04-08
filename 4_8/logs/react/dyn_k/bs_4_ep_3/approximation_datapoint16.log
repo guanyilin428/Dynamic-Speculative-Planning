@@ -1,0 +1,36 @@
+04/08/2025, 22:19:22: task description: Given low-resolutioned noisy blurry grayscale image, how to return the class label in German step by step?
+04/08/2025, 22:19:22: Approximation: Step 1 -prompt token 371
+04/08/2025, 22:19:22: Predictor time: 0.49s
+04/08/2025, 22:19:22: Predict K: 4
+04/08/2025, 22:19:23: Approximation: Step 1 - Image Denoising -time 1.71 -token 10
+04/08/2025, 22:19:23: Approximation: Step 2 -prompt token 386
+04/08/2025, 22:19:25: Approximation: Step 2 - Image Deblurring -time 1.35 -token 10
+04/08/2025, 22:19:25: Approximation: Step 3 -prompt token 395
+04/08/2025, 22:19:27: Approximation: Step 3 - Image Super-Resolution -time 2.05 -token 10
+04/08/2025, 22:19:27: Approximation: Step 4 -prompt token 404
+04/08/2025, 22:19:28: Approximation: Step 4 -prompt token 404
+04/08/2025, 22:19:28: Approximation: Step 4 -prompt token 404
+04/08/2025, 22:19:29: Approximation: Step 4 -prompt token 404
+04/08/2025, 22:19:29: Approximation: Step 4 -prompt token 404
+04/08/2025, 22:19:30: Approximation: Step 4 - Image Classification -time 3.61 -token 8
+04/08/2025, 22:19:30: Approximation: Step 2 -prompt token 401
+04/08/2025, 22:19:31: Predictor time: 0.54s
+04/08/2025, 22:19:31: Predict K: 2
+04/08/2025, 22:19:31: Approximation: Step 2 - Image Deblurring -time 1.13 -token 10
+04/08/2025, 22:19:31: Approximation: Step 3 -prompt token 410
+04/08/2025, 22:19:32: Approximation: Step 3 - Image Denoising -time 0.99 -token 10
+04/08/2025, 22:19:35: Approximation: Step 3 -prompt token 425
+04/08/2025, 22:19:36: Predictor time: 0.22s
+04/08/2025, 22:19:36: Predict K: 1
+04/08/2025, 22:19:38: Approximation: Step 3 - Image Deblurring -time 2.1 -token 10
+04/08/2025, 22:19:42: Approximation: Step 4 -prompt token 440
+04/08/2025, 22:19:42: Approximation: Step 4 -prompt token 440
+04/08/2025, 22:19:42: Predictor time: 0.58s
+04/08/2025, 22:19:42: Predict K: 1
+04/08/2025, 22:19:42: Approximation: Step 4 - Image Classification -time 0.88 -token 8
+04/08/2025, 22:19:49: Approximation: Step 5 -prompt token 453
+04/08/2025, 22:19:49: Predictor time: 0.32s
+04/08/2025, 22:19:49: Predict K: 2
+04/08/2025, 22:19:51: Approximation: Step 5 - Machine Translation -time 1.92 -token 8
+04/08/2025, 22:19:51: Approximation: Step 6 -prompt token 460
+04/08/2025, 22:19:53: Approximation: Step 6 - TERMINATE -time 2.08 -token 9

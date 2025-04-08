@@ -1,0 +1,37 @@
+04/08/2025, 18:14:55: task description: Given low-resolutioned image, how to return the regular image step by step?
+04/08/2025, 18:14:55: Approximation: Step 1 -prompt token 366
+04/08/2025, 18:14:55: Predictor time: 0.08s
+04/08/2025, 18:14:55: Predict K: 1
+04/08/2025, 18:14:57: Approximation: Step 1 - Image Super-Resolution -time 2.0 -token 10
+04/08/2025, 18:15:01: Approximation: Step 2 -prompt token 387
+04/08/2025, 18:15:01: Predictor time: 0.08s
+04/08/2025, 18:15:01: Predict K: 1
+04/08/2025, 18:15:04: Approximation: Step 2 - TERMINATE -time 2.77 -token 9
+04/08/2025, 18:15:07: Approximation: Step 3 -prompt token 409
+04/08/2025, 18:15:07: Predictor time: 0.1s
+04/08/2025, 18:15:07: Predict K: 1
+04/08/2025, 18:15:08: Approximation: Step 3 - Image Deblurring -time 1.23 -token 10
+04/08/2025, 18:15:14: Approximation: Step 4 -prompt token 424
+04/08/2025, 18:15:14: Predictor time: 0.06s
+04/08/2025, 18:15:14: Predict K: 1
+04/08/2025, 18:15:20: Approximation: Step 4 - TERMINATE -time 6.39 -token 9
+04/08/2025, 18:15:23: Approximation: Step 5 -prompt token 442
+04/08/2025, 18:15:23: Predictor time: 0.08s
+04/08/2025, 18:15:23: Predict K: 1
+04/08/2025, 18:15:24: Approximation: Step 5 - TERMINATE -time 1.51 -token 9
+04/08/2025, 18:15:34: Approximation: Step 6 -prompt token 460
+04/08/2025, 18:15:34: Predictor time: 0.09s
+04/08/2025, 18:15:34: Predict K: 1
+04/08/2025, 18:15:35: Approximation: Step 6 - Visual Question Answering -time 1.5 -token 10
+04/08/2025, 18:15:45: Approximation: Step 7 -prompt token 482
+04/08/2025, 18:15:45: Predictor time: 0.09s
+04/08/2025, 18:15:45: Predict K: 1
+04/08/2025, 18:15:48: Approximation: Step 7 - Visual Question Answering -time 3.4 -token 10
+04/08/2025, 18:16:04: Approximation: Step 8 -prompt token 497
+04/08/2025, 18:16:04: Predictor time: 0.06s
+04/08/2025, 18:16:04: Predict K: 1
+04/08/2025, 18:16:08: Approximation: Step 8 - TERMINATE -time 3.73 -token 9
+04/08/2025, 18:16:15: Approximation: Step 9 -prompt token 521
+04/08/2025, 18:16:15: Predictor time: 0.09s
+04/08/2025, 18:16:15: Predict K: 1
+04/08/2025, 18:16:17: Approximation: Step 9 - TERMINATE -time 1.87 -token 9

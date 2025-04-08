@@ -1,0 +1,47 @@
+04/08/2025, 20:55:06: task description: Given low-resolutioned image, how to return the regular image step by step?
+04/08/2025, 20:55:07: in breaking, The approximation agent thinks step 1 should be Image Super-Resolution
+04/08/2025, 20:55:12: The target agent thinks step 1 should be Image Super-Resolution, which agrees with the approximation agent.
+04/08/2025, 20:55:12: The approximation agent thinks step 2 should be TERMINATE
+04/08/2025, 20:55:16: The target agent thinks step 2 should be Image Denoising, correcting what the approximation agent thinks which is TERMINATE.
+04/08/2025, 20:55:18: in breaking, The approximation agent thinks step 3 should be Image Deblurring
+04/08/2025, 20:55:25: The target agent thinks step 3 should be Image Deblurring, which agrees with the approximation agent.
+04/08/2025, 20:55:25: The approximation agent thinks step 4 should be TERMINATE
+04/08/2025, 20:55:33: The target agent thinks step 4 should be Colorization, correcting what the approximation agent thinks which is TERMINATE.
+04/08/2025, 20:55:35: in breaking, The approximation agent thinks step 5 should be TERMINATE
+04/08/2025, 20:55:42: The target agent thinks step 5 should be Image Classification, correcting what the approximation agent thinks which is TERMINATE.
+04/08/2025, 20:55:44: in breaking, The approximation agent thinks step 6 should be Object Detection
+04/08/2025, 20:55:53: The target agent thinks step 6 should be Image Captioning, correcting what the approximation agent thinks which is Object Detection.
+04/08/2025, 20:55:55: in breaking, The approximation agent thinks step 7 should be Object Detection
+04/08/2025, 20:56:10: The target agent thinks step 7 should be Visual Question Answering, correcting what the approximation agent thinks which is Object Detection.
+04/08/2025, 20:56:12: in breaking, The approximation agent thinks step 8 should be Object Detection
+04/08/2025, 20:56:23: The target agent thinks step 8 should be Text-to-Image Generation, correcting what the approximation agent thinks which is Object Detection.
+04/08/2025, 20:56:24: in breaking, The approximation agent thinks step 9 should be Object Detection
+04/08/2025, 20:56:40: The target agent thinks step 9 should be Object Detection, which agrees with the approximation agent.
+04/08/2025, 20:56:41: in breaking, The approximation agent thinks step 10 should be TERMINATE
+04/08/2025, 20:56:54: The target agent thinks step 10 should be Machine Translation, correcting what the approximation agent thinks which is TERMINATE.
+04/08/2025, 20:56:55: in breaking, The approximation agent thinks step 11 should be TERMINATE
+04/08/2025, 20:57:02: The target agent thinks step 11 should be Text Summarization, correcting what the approximation agent thinks which is TERMINATE.
+04/08/2025, 20:57:04: in breaking, The approximation agent thinks step 12 should be Fill Mask
+04/08/2025, 20:57:12: The target agent thinks step 12 should be TERMINATE, correcting what the approximation agent thinks which is Fill Mask.
+04/08/2025, 20:57:12: 2025-04-08 20:57:12.963618 - 2025-04-08 20:55:06.162082 = 0:02:06.801536
+04/08/2025, 20:57:12: final result for the speculative planning ['Image Super-Resolution', 'Image Denoising', 'Image Deblurring', 'Colorization', 'Image Classification', 'Image Captioning', 'Visual Question Answering', 'Text-to-Image Generation', 'Object Detection', 'Machine Translation', 'Text Summarization', 'TERMINATE']
+04/08/2025, 20:57:12: max concurrent calls: 4
+04/08/2025, 20:57:12: total approximation token generation: 105
+04/08/2025, 20:57:12: total target token prompt: 13664
+04/08/2025, 20:57:12: total target token generation: 2999
+04/08/2025, 20:57:12: total target step time: 139.51999999999998
+04/08/2025, 20:57:12: total token prompt: 19323
+04/08/2025, 20:57:12: total token generation: 3104
+04/08/2025, 20:57:12: accuracy of approximation agent: 0.25
+04/08/2025, 20:57:12: sp token/step: 258.67
+04/08/2025, 20:57:12: naive token/step: 249.92
+04/08/2025, 20:57:12: generation token cost increased: 3.5%.
+04/08/2025, 20:57:12: sp prompt/step: 1610.25
+04/08/2025, 20:57:12: naive prompt/step: 1138.67
+04/08/2025, 20:57:12: prompt token cost increased: 41.41%.
+04/08/2025, 20:57:12: sp time/step: 10.57
+04/08/2025, 20:57:12: naive time/step: 11.63
+04/08/2025, 20:57:12: time decreased by: 9.11%.
+04/08/2025, 20:57:12: predictor acc: 0.71
+04/08/2025, 20:57:12: step number: 12
+04/08/2025, 20:57:12: dynamic k

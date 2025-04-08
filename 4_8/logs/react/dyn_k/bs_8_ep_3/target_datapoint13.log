@@ -1,0 +1,148 @@
+04/08/2025, 20:32:55: task description: Given noisy image, how to return the regular image step by step?
+04/08/2025, 20:32:55: react launch api for thought.
+04/08/2025, 20:32:55: Target step 1 thought prompt token: 382
+04/08/2025, 20:33:02: Target step 1 thought generation token: 137
+04/08/2025, 20:33:03: react launch api for response.
+04/08/2025, 20:33:03: Target step 1 response prompt token: 546
+04/08/2025, 20:33:06: Target step 1 response generation token: 10
+04/08/2025, 20:33:06: Target: Step 1 - Image Denoising
+04/08/2025, 20:33:06: Intermediate Target Step 1 - Image Denoising -gen 147 -prompt 928
+04/08/2025, 20:33:06: Target: Step 1 -time 10.7
+04/08/2025, 20:33:06: Mismatch at 0. Cancel starts. 
+04/08/2025, 20:33:06: sas tasks: ['Image Denoising']
+04/08/2025, 20:33:06: flatten_tas: [(0, 'Image Denoising')]
+04/08/2025, 20:33:06: return sas tasks: ['Image Denoising']
+04/08/2025, 20:33:06: react launch api for thought.
+04/08/2025, 20:33:06: Target step 2 thought prompt token: 397
+04/08/2025, 20:33:10: Target step 2 thought generation token: 100
+04/08/2025, 20:33:10: react launch api for response.
+04/08/2025, 20:33:10: Target step 2 response prompt token: 524
+04/08/2025, 20:33:13: Target step 2 response generation token: 10
+04/08/2025, 20:33:14: Target: Step 2 - Image Deblurring
+04/08/2025, 20:33:14: Intermediate Target Step 2 - Image Deblurring -gen 110 -prompt 921
+04/08/2025, 20:33:14: Target: Step 2 -time 7.67
+04/08/2025, 20:33:14: Mismatch at 0. Cancel starts. 
+04/08/2025, 20:33:14: sas tasks: ['Image Deblurring']
+04/08/2025, 20:33:14: flatten_tas: [(0, 'Image Deblurring')]
+04/08/2025, 20:33:14: return sas tasks: ['Image Deblurring']
+04/08/2025, 20:33:14: react launch api for thought.
+04/08/2025, 20:33:14: Target step 3 thought prompt token: 406
+04/08/2025, 20:33:15: react launch api for thought.
+04/08/2025, 20:33:15: Target step 4 thought prompt token: 415
+04/08/2025, 20:33:23: Target step 3 thought generation token: 248
+04/08/2025, 20:33:23: react launch api for response.
+04/08/2025, 20:33:23: Target step 3 response prompt token: 681
+04/08/2025, 20:33:23: Target step 4 thought generation token: 242
+04/08/2025, 20:33:23: react launch api for response.
+04/08/2025, 20:33:23: Target step 4 response prompt token: 684
+04/08/2025, 20:33:25: Target step 4 response generation token: 8
+04/08/2025, 20:33:25: Intermediate Target Step 4 - Image Classification -gen 250 -prompt 1099
+04/08/2025, 20:33:25: Target: Step 4 -time 9.35
+04/08/2025, 20:33:25: Mismatch at 1. Cancel starts. 
+04/08/2025, 20:33:28: Target step 3 response generation token: 10
+04/08/2025, 20:33:28: Target: Step 3 - Image Super-Resolution
+04/08/2025, 20:33:28: Target: Step 4 - Image Classification
+04/08/2025, 20:33:28: Intermediate Target Step 3 - Image Super-Resolution -gen 258 -prompt 1087
+04/08/2025, 20:33:28: Target: Step 3 -time 13.93
+04/08/2025, 20:33:28: sas tasks: ['Image Super-Resolution', 'Image Super-Resolution']
+04/08/2025, 20:33:28: flatten_tas: [(0, 'Image Super-Resolution'), (1, 'Image Classification')]
+04/08/2025, 20:33:28: step 1 app: Image Super-Resolution, tar: Image Classification
+04/08/2025, 20:33:28: return sas tasks: ['Image Super-Resolution', 'Image Classification']
+04/08/2025, 20:33:28: react launch api for thought.
+04/08/2025, 20:33:28: Target step 5 thought prompt token: 422
+04/08/2025, 20:33:35: Target step 5 thought generation token: 281
+04/08/2025, 20:33:35: react launch api for response.
+04/08/2025, 20:33:35: Target step 5 response prompt token: 730
+04/08/2025, 20:33:37: Target step 5 response generation token: 9
+04/08/2025, 20:33:37: Target: Step 5 - Image Captioning
+04/08/2025, 20:33:37: Intermediate Target Step 5 - Image Captioning -gen 290 -prompt 1152
+04/08/2025, 20:33:37: Target: Step 5 -time 9.15
+04/08/2025, 20:33:37: Mismatch at 0. Cancel starts. 
+04/08/2025, 20:33:37: sas tasks: ['Image Classification']
+04/08/2025, 20:33:37: flatten_tas: [(0, 'Image Captioning')]
+04/08/2025, 20:33:37: step 0 app: Image Classification, tar: Image Captioning
+04/08/2025, 20:33:37: return sas tasks: ['Image Captioning']
+04/08/2025, 20:33:37: react launch api for thought.
+04/08/2025, 20:33:37: Target step 6 thought prompt token: 430
+04/08/2025, 20:33:45: Target step 6 thought generation token: 284
+04/08/2025, 20:33:45: react launch api for response.
+04/08/2025, 20:33:45: Target step 6 response prompt token: 741
+04/08/2025, 20:33:46: Target step 6 response generation token: 10
+04/08/2025, 20:33:46: Target: Step 6 - Visual Question Answering
+04/08/2025, 20:33:46: Intermediate Target Step 6 - Visual Question Answering -gen 294 -prompt 1171
+04/08/2025, 20:33:46: Target: Step 6 -time 9.12
+04/08/2025, 20:33:46: Mismatch at 0. Cancel starts. 
+04/08/2025, 20:33:46: sas tasks: ['Visual Question Answering']
+04/08/2025, 20:33:46: flatten_tas: [(0, 'Visual Question Answering')]
+04/08/2025, 20:33:46: return sas tasks: ['Visual Question Answering']
+04/08/2025, 20:33:46: react launch api for thought.
+04/08/2025, 20:33:46: Target step 7 thought prompt token: 439
+04/08/2025, 20:33:55: Target step 7 thought generation token: 282
+04/08/2025, 20:33:55: react launch api for response.
+04/08/2025, 20:33:55: Target step 7 response prompt token: 748
+04/08/2025, 20:33:56: Target step 7 response generation token: 11
+04/08/2025, 20:33:56: Target: Step 7 - Text-to-Image Generation
+04/08/2025, 20:33:56: Intermediate Target Step 7 - Text-to-Image Generation -gen 293 -prompt 1187
+04/08/2025, 20:33:56: Target: Step 7 -time 9.83
+04/08/2025, 20:33:56: Mismatch at 0. Cancel starts. 
+04/08/2025, 20:33:56: sas tasks: ['TERMINATE']
+04/08/2025, 20:33:56: flatten_tas: [(0, 'Text-to-Image Generation')]
+04/08/2025, 20:33:56: step 0 app: TERMINATE, tar: Text-to-Image Generation
+04/08/2025, 20:33:56: return sas tasks: ['Text-to-Image Generation']
+04/08/2025, 20:33:56: react launch api for thought.
+04/08/2025, 20:33:56: Target step 8 thought prompt token: 449
+04/08/2025, 20:34:12: Target step 8 thought generation token: 392
+04/08/2025, 20:34:12: react launch api for response.
+04/08/2025, 20:34:12: Target step 8 response prompt token: 868
+04/08/2025, 20:34:15: Target step 8 response generation token: 8
+04/08/2025, 20:34:15: Target: Step 8 - Object Detection
+04/08/2025, 20:34:15: Intermediate Target Step 8 - Object Detection -gen 400 -prompt 1317
+04/08/2025, 20:34:15: Target: Step 8 -time 19.24
+04/08/2025, 20:34:15: Mismatch at 0. Cancel starts. 
+04/08/2025, 20:34:15: sas tasks: ['TERMINATE']
+04/08/2025, 20:34:15: flatten_tas: [(0, 'Object Detection')]
+04/08/2025, 20:34:15: step 0 app: TERMINATE, tar: Object Detection
+04/08/2025, 20:34:15: return sas tasks: ['Object Detection']
+04/08/2025, 20:34:15: react launch api for thought.
+04/08/2025, 20:34:15: Target step 9 thought prompt token: 456
+04/08/2025, 20:34:15: react launch api for thought.
+04/08/2025, 20:34:15: Target step 9 thought prompt token: 456
+04/08/2025, 20:34:19: Target step 9 thought generation token: 151
+04/08/2025, 20:34:19: react launch api for response.
+04/08/2025, 20:34:19: Target step 9 response prompt token: 634
+04/08/2025, 20:34:20: Target step 9 response generation token: 8
+04/08/2025, 20:34:20: Target: Step 9 - Colorization
+04/08/2025, 20:34:20: Intermediate Target Step 9 - Colorization -gen 159 -prompt 1090
+04/08/2025, 20:34:20: Target: Step 9 -time 5.48
+04/08/2025, 20:34:20: Mismatch at 0. Cancel starts. 
+04/08/2025, 20:34:20: sas tasks: ['Colorization']
+04/08/2025, 20:34:20: flatten_tas: [(0, 'Colorization')]
+04/08/2025, 20:34:20: return sas tasks: ['Colorization']
+04/08/2025, 20:34:20: react launch api for thought.
+04/08/2025, 20:34:20: Target step 10 thought prompt token: 463
+04/08/2025, 20:34:27: Target step 10 thought generation token: 171
+04/08/2025, 20:34:28: react launch api for response.
+04/08/2025, 20:34:28: Target step 10 response prompt token: 661
+04/08/2025, 20:34:29: Target step 10 response generation token: 10
+04/08/2025, 20:34:30: Target: Step 10 - Text Summarization
+04/08/2025, 20:34:30: Intermediate Target Step 10 - Text Summarization -gen 181 -prompt 1124
+04/08/2025, 20:34:30: Target: Step 10 -time 9.17
+04/08/2025, 20:34:30: Mismatch at 0. Cancel starts. 
+04/08/2025, 20:34:30: sas tasks: ['TERMINATE']
+04/08/2025, 20:34:30: flatten_tas: [(0, 'Text Summarization')]
+04/08/2025, 20:34:30: step 0 app: TERMINATE, tar: Text Summarization
+04/08/2025, 20:34:30: return sas tasks: ['Text Summarization']
+04/08/2025, 20:34:30: react launch api for thought.
+04/08/2025, 20:34:30: Target step 11 thought prompt token: 472
+04/08/2025, 20:34:37: Target step 11 thought generation token: 167
+04/08/2025, 20:34:37: react launch api for response.
+04/08/2025, 20:34:37: Target step 11 response prompt token: 666
+04/08/2025, 20:34:39: Target step 11 response generation token: 9
+04/08/2025, 20:34:39: Target: Step 11 - TERMINATE
+04/08/2025, 20:34:39: Intermediate Target Step 11 - TERMINATE -gen 176 -prompt 1138
+04/08/2025, 20:34:39: Target: Step 11 -time 9.6
+04/08/2025, 20:34:39: Mismatch at 0. Cancel starts. 
+04/08/2025, 20:34:39: sas tasks: ['Machine Translation']
+04/08/2025, 20:34:39: flatten_tas: [(0, 'TERMINATE')]
+04/08/2025, 20:34:39: step 0 app: Machine Translation, tar: TERMINATE
+04/08/2025, 20:34:39: return sas tasks: ['TERMINATE']

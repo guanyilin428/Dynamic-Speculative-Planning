@@ -1,0 +1,27 @@
+04/08/2025, 20:57:12: task description: Given low-resolutioned noisy blurry grayscale image, how to return the caption in German step by step?
+04/08/2025, 20:57:12: Approximation: Step 1 -prompt token 370
+04/08/2025, 20:57:13: Predictor time: 0.1s
+04/08/2025, 20:57:13: Predict K: 1
+04/08/2025, 20:57:14: Approximation: Step 1 - Image Denoising -time 1.7 -token 10
+04/08/2025, 20:57:19: Approximation: Step 2 -prompt token 400
+04/08/2025, 20:57:19: Predictor time: 0.08s
+04/08/2025, 20:57:19: Predict K: 3
+04/08/2025, 20:57:21: Approximation: Step 2 - Image Deblurring -time 2.49 -token 10
+04/08/2025, 20:57:21: Approximation: Step 3 -prompt token 409
+04/08/2025, 20:57:23: Approximation: Step 3 - Image Denoising -time 2.05 -token 10
+04/08/2025, 20:57:23: Approximation: Step 4 -prompt token 418
+04/08/2025, 20:57:24: Approximation: Step 4 -prompt token 418
+04/08/2025, 20:57:24: Approximation: Step 4 -prompt token 418
+04/08/2025, 20:57:26: Approximation: Step 4 - Image Captioning -time 2.65 -token 9
+04/08/2025, 20:57:26: Approximation: Step 3 -prompt token 424
+04/08/2025, 20:57:26: Predictor time: 0.08s
+04/08/2025, 20:57:26: Predict K: 2
+04/08/2025, 20:57:27: Approximation: Step 3 - Image Deblurring -time 1.15 -token 10
+04/08/2025, 20:57:27: Approximation: Step 4 -prompt token 433
+04/08/2025, 20:57:29: Approximation: Step 4 - Image Captioning -time 2.06 -token 9
+04/08/2025, 20:57:39: Approximation: Step 5 -prompt token 453
+04/08/2025, 20:57:39: Predictor time: 0.08s
+04/08/2025, 20:57:39: Predict K: 2
+04/08/2025, 20:57:41: Approximation: Step 5 - Machine Translation -time 1.58 -token 8
+04/08/2025, 20:57:41: Approximation: Step 6 -prompt token 460
+04/08/2025, 20:57:42: Approximation: Step 6 - Machine Translation -time 1.12 -token 8

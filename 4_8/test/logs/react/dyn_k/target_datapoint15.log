@@ -1,0 +1,79 @@
+04/08/2025, 18:16:24: task description: Given low-resolutioned noisy blurry grayscale image, how to return the caption in German step by step?
+04/08/2025, 18:16:24: react launch api for thought.
+04/08/2025, 18:16:24: Target step 1 thought prompt token: 388
+04/08/2025, 18:16:31: Target step 1 thought generation token: 119
+04/08/2025, 18:16:31: react launch api for response.
+04/08/2025, 18:16:31: Target step 1 response prompt token: 534
+04/08/2025, 18:16:33: Target step 1 response generation token: 10
+04/08/2025, 18:16:33: Target: Step 1 - Image Super-Resolution
+04/08/2025, 18:16:33: Intermediate Target Step 1 - Image Super-Resolution -gen 129 -prompt 922
+04/08/2025, 18:16:33: Target: Step 1 -time 8.76
+04/08/2025, 18:16:33: Mismatch at 0. Cancel starts. 
+04/08/2025, 18:16:33: sas tasks: ['Image Denoising']
+04/08/2025, 18:16:33: flatten_tas: [(0, 'Image Super-Resolution')]
+04/08/2025, 18:16:33: step 0 app: Image Denoising, tar: Image Super-Resolution
+04/08/2025, 18:16:33: trajectory: [{'state': 'Given low-resolutioned noisy blurry grayscale image, how to return the caption in German step by step?', 'reward': 0, 'k': 0}, {'state': 'Given low-resolutioned noisy blurry grayscale image, how to return the caption in German step by step?\nPrevious History:\nApproximation Step 9: TERMINATE\nTarget Step 9: TERMINATE\n', 'reward': 1, 'k': 1}]
+04/08/2025, 18:16:33: return sas tasks: ['Image Super-Resolution']
+04/08/2025, 18:16:33: react launch api for thought.
+04/08/2025, 18:16:33: Target step 2 thought prompt token: 403
+04/08/2025, 18:16:40: Target step 2 thought generation token: 90
+04/08/2025, 18:16:40: react launch api for response.
+04/08/2025, 18:16:40: Target step 2 response prompt token: 520
+04/08/2025, 18:16:43: Target step 2 response generation token: 10
+04/08/2025, 18:16:43: Target: Step 2 - Image Denoising
+04/08/2025, 18:16:43: Intermediate Target Step 2 - Image Denoising -gen 100 -prompt 923
+04/08/2025, 18:16:43: Target: Step 2 -time 10.24
+04/08/2025, 18:16:43: Mismatch at 0. Cancel starts. 
+04/08/2025, 18:16:43: sas tasks: ['Image Deblurring']
+04/08/2025, 18:16:43: flatten_tas: [(0, 'Image Denoising')]
+04/08/2025, 18:16:43: step 0 app: Image Deblurring, tar: Image Denoising
+04/08/2025, 18:16:43: trajectory: [{'state': 'Given low-resolutioned noisy blurry grayscale image, how to return the caption in German step by step?\nPrevious History:\nApproximation Step 9: TERMINATE\nTarget Step 9: TERMINATE\nApproximation Step 1: Image Denoising\nTarget Step 1: Image Super-Resolution\n', 'reward': 1, 'k': 1}]
+04/08/2025, 18:16:43: return sas tasks: ['Image Denoising']
+04/08/2025, 18:16:43: react launch api for thought.
+04/08/2025, 18:16:43: Target step 3 thought prompt token: 412
+04/08/2025, 18:16:45: react launch api for thought.
+04/08/2025, 18:16:45: Target step 4 thought prompt token: 421
+04/08/2025, 18:16:48: Target step 3 thought generation token: 91
+04/08/2025, 18:16:48: react launch api for response.
+04/08/2025, 18:16:48: Target step 3 response prompt token: 530
+04/08/2025, 18:16:49: Target step 3 response generation token: 10
+04/08/2025, 18:16:49: Target: Step 3 - Image Deblurring
+04/08/2025, 18:16:49: Intermediate Target Step 3 - Image Deblurring -gen 101 -prompt 942
+04/08/2025, 18:16:49: Target: Step 3 -time 5.52
+04/08/2025, 18:16:55: Target step 4 thought generation token: 160
+04/08/2025, 18:16:55: react launch api for response.
+04/08/2025, 18:16:55: Target step 4 response prompt token: 608
+04/08/2025, 18:16:57: Target step 4 response generation token: 9
+04/08/2025, 18:16:57: Target: Step 4 - Image Captioning
+04/08/2025, 18:16:57: Intermediate Target Step 4 - Image Captioning -gen 169 -prompt 1029
+04/08/2025, 18:16:57: Target: Step 4 -time 11.76
+04/08/2025, 18:16:57: Mismatch at 1. Cancel starts. 
+04/08/2025, 18:16:57: sas tasks: ['Image Deblurring', 'Image Captioning']
+04/08/2025, 18:16:57: flatten_tas: [(0, 'Image Deblurring'), (1, 'Image Captioning')]
+04/08/2025, 18:16:57: return sas tasks: ['Image Deblurring', 'Image Captioning']
+04/08/2025, 18:16:57: react launch api for thought.
+04/08/2025, 18:16:57: Target step 5 thought prompt token: 429
+04/08/2025, 18:17:02: Target step 5 thought generation token: 128
+04/08/2025, 18:17:02: react launch api for response.
+04/08/2025, 18:17:02: Target step 5 response prompt token: 584
+04/08/2025, 18:17:04: Target step 5 response generation token: 8
+04/08/2025, 18:17:04: Target: Step 5 - Machine Translation
+04/08/2025, 18:17:04: Intermediate Target Step 5 - Machine Translation -gen 136 -prompt 1013
+04/08/2025, 18:17:04: Target: Step 5 -time 7.71
+04/08/2025, 18:17:04: Mismatch at 0. Cancel starts. 
+04/08/2025, 18:17:04: sas tasks: ['Machine Translation']
+04/08/2025, 18:17:04: flatten_tas: [(0, 'Machine Translation')]
+04/08/2025, 18:17:04: return sas tasks: ['Machine Translation']
+04/08/2025, 18:17:04: react launch api for thought.
+04/08/2025, 18:17:04: Target step 6 thought prompt token: 436
+04/08/2025, 18:17:13: Target step 6 thought generation token: 235
+04/08/2025, 18:17:13: react launch api for response.
+04/08/2025, 18:17:13: Target step 6 response prompt token: 698
+04/08/2025, 18:17:15: Target step 6 response generation token: 9
+04/08/2025, 18:17:15: Target: Step 6 - TERMINATE
+04/08/2025, 18:17:15: Intermediate Target Step 6 - TERMINATE -gen 244 -prompt 1134
+04/08/2025, 18:17:15: Target: Step 6 -time 10.35
+04/08/2025, 18:17:15: Mismatch at 0. Cancel starts. 
+04/08/2025, 18:17:15: sas tasks: ['TERMINATE']
+04/08/2025, 18:17:15: flatten_tas: [(0, 'TERMINATE')]
+04/08/2025, 18:17:15: return sas tasks: ['TERMINATE']

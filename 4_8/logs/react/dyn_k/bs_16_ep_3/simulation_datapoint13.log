@@ -1,0 +1,37 @@
+04/08/2025, 22:35:48: task description: Given noisy image, how to return the regular image step by step?
+04/08/2025, 22:35:50: in breaking, The approximation agent thinks step 1 should be Image Denoising
+04/08/2025, 22:35:53: The target agent thinks step 1 should be Image Denoising, which agrees with the approximation agent.
+04/08/2025, 22:35:54: in breaking, The approximation agent thinks step 2 should be Image Deblurring
+04/08/2025, 22:36:00: The target agent thinks step 2 should be Image Deblurring, which agrees with the approximation agent.
+04/08/2025, 22:36:02: in breaking, The approximation agent thinks step 3 should be Image Super-Resolution
+04/08/2025, 22:36:06: The target agent thinks step 3 should be Image Super-Resolution, which agrees with the approximation agent.
+04/08/2025, 22:36:07: in breaking, The approximation agent thinks step 4 should be Colorization
+04/08/2025, 22:36:19: The target agent thinks step 4 should be Image Classification, correcting what the approximation agent thinks which is Colorization.
+04/08/2025, 22:36:28: in breaking, The approximation agent thinks step 5 should be Colorization
+04/08/2025, 22:36:41: The target agent thinks step 5 should be Image Captioning, correcting what the approximation agent thinks which is Colorization.
+04/08/2025, 22:36:43: in breaking, The approximation agent thinks step 6 should be Visual Question Answering
+04/08/2025, 22:36:51: The target agent thinks step 6 should be Visual Question Answering, which agrees with the approximation agent.
+04/08/2025, 22:36:51: The approximation agent thinks step 7 should be Colorization
+04/08/2025, 22:36:52: The target agent thinks step 7 should be TERMINATE, correcting what the approximation agent thinks which is Colorization.
+04/08/2025, 22:36:52: 2025-04-08 22:36:52.540731 - 2025-04-08 22:35:48.549944 = 0:01:03.990787
+04/08/2025, 22:36:52: final result for the speculative planning ['Image Denoising', 'Image Deblurring', 'Image Super-Resolution', 'Image Classification', 'Image Captioning', 'Visual Question Answering', 'TERMINATE']
+04/08/2025, 22:36:52: max concurrent calls: 4
+04/08/2025, 22:36:52: total approximation token generation: 64
+04/08/2025, 22:36:52: total target token prompt: 7481
+04/08/2025, 22:36:52: total target token generation: 1576
+04/08/2025, 22:36:52: total target step time: 72.09
+04/08/2025, 22:36:52: total token prompt: 11568
+04/08/2025, 22:36:52: total token generation: 1944
+04/08/2025, 22:36:52: accuracy of approximation agent: 0.5714285714285714
+04/08/2025, 22:36:52: sp token/step: 277.71
+04/08/2025, 22:36:52: naive token/step: 225.14
+04/08/2025, 22:36:52: generation token cost increased: 23.35%.
+04/08/2025, 22:36:52: sp prompt/step: 1652.57
+04/08/2025, 22:36:52: naive prompt/step: 1068.71
+04/08/2025, 22:36:52: prompt token cost increased: 54.63%.
+04/08/2025, 22:36:52: sp time/step: 9.14
+04/08/2025, 22:36:52: naive time/step: 10.3
+04/08/2025, 22:36:52: time decreased by: 11.26%.
+04/08/2025, 22:36:52: predictor acc: 0.5
+04/08/2025, 22:36:52: step number: 7
+04/08/2025, 22:36:52: dynamic k

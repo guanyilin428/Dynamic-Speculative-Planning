@@ -1,0 +1,37 @@
+04/08/2025, 22:21:08: task description: Given low-resolutioned noisy blurry grayscale image, how to return the caption in English step by step?
+04/08/2025, 22:21:08: Approximation: Step 1 -prompt token 370
+04/08/2025, 22:21:08: Predictor time: 0.15s
+04/08/2025, 22:21:08: Predict K: 1
+04/08/2025, 22:21:11: Approximation: Step 1 - Image Denoising -time 3.01 -token 10
+04/08/2025, 22:21:14: Approximation: Step 2 -prompt token 391
+04/08/2025, 22:21:15: Predictor time: 0.45s
+04/08/2025, 22:21:15: Predict K: 1
+04/08/2025, 22:21:16: Approximation: Step 2 - Image Deblurring -time 1.65 -token 10
+04/08/2025, 22:21:22: Approximation: Step 3 -prompt token 406
+04/08/2025, 22:21:22: Predictor time: 0.29s
+04/08/2025, 22:21:22: Predict K: 1
+04/08/2025, 22:21:24: Approximation: Step 3 - Image Super-Resolution -time 2.15 -token 10
+04/08/2025, 22:21:29: Approximation: Step 4 -prompt token 421
+04/08/2025, 22:21:30: Predictor time: 0.2s
+04/08/2025, 22:21:30: Predict K: 1
+04/08/2025, 22:21:31: Approximation: Step 4 - Image Captioning -time 1.88 -token 9
+04/08/2025, 22:21:36: Approximation: Step 5 -prompt token 435
+04/08/2025, 22:21:37: Predictor time: 0.33s
+04/08/2025, 22:21:37: Predict K: 1
+04/08/2025, 22:21:38: Approximation: Step 5 - TERMINATE -time 1.52 -token 9
+04/08/2025, 22:21:51: Approximation: Step 6 -prompt token 453
+04/08/2025, 22:21:51: Predictor time: 0.29s
+04/08/2025, 22:21:51: Predict K: 1
+04/08/2025, 22:21:53: Approximation: Step 6 - Fill Mask -time 1.77 -token 8
+04/08/2025, 22:22:10: Approximation: Step 7 -prompt token 471
+04/08/2025, 22:22:10: Predictor time: 0.53s
+04/08/2025, 22:22:10: Predict K: 1
+04/08/2025, 22:22:12: Approximation: Step 7 - TERMINATE -time 2.74 -token 9
+04/08/2025, 22:22:20: Approximation: Step 8 -prompt token 493
+04/08/2025, 22:22:20: Predictor time: 0.32s
+04/08/2025, 22:22:20: Predict K: 1
+04/08/2025, 22:22:23: Approximation: Step 8 - TERMINATE -time 2.78 -token 9
+04/08/2025, 22:22:33: Approximation: Step 9 -prompt token 515
+04/08/2025, 22:22:34: Predictor time: 0.29s
+04/08/2025, 22:22:34: Predict K: 1
+04/08/2025, 22:22:35: Approximation: Step 9 - TERMINATE -time 1.38 -token 9

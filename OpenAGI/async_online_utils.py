@@ -19,7 +19,6 @@ class OnlineLearningExecutor:
     def __init__(self, 
                  model: nn.Module,
                  tokenizer,
-                 initial_prompt: str,
                  buffer_size=1000,
                  batch_size_steps=32,
                  max_length=512,
@@ -30,7 +29,7 @@ class OnlineLearningExecutor:
         
         self.tokenizer = tokenizer
         self.buffer = FiniteReplay(tokenizer=tokenizer, model=model, max_length=max_length, replay_size=buffer_size)
-        self.collector = OnlineTrajectoryCollector(initial_prompt, self.buffer)
+        self.collector = OnlineTrajectoryCollector(self.buffer)
         self.batch_size_steps = batch_size_steps
         self.criterion = nn.MSELoss()
         self.max_length = max_length
@@ -108,7 +107,7 @@ class OnlineLearningExecutor:
     def _train(self, logger):
         for epoch in range(self.epoch_per_train):
             self.train_model.train()
-            batch = self.buffer.sample(self.batch_size_steps)
+            batch = self.buffer.sample(self.batch_size_steps, logger)
         
             if batch is None:
                 return
@@ -165,19 +164,23 @@ class OnlineLearningExecutor:
         logger.log(f'Predictor time: {round(time.time()-start, 2)}s')
         logger.log(f'Predict K: {k}')
         return k
-        
+    
+    def set_initial_task_prompt(self, initial_task):
+        self.collector.set_initial_task_prompt(initial_task)
 
 class OnlineTrajectoryCollector:
-    def __init__(self, initial_task, replay_buffer: "FiniteReplay"):
-        self.reset(initial_task)
+    def __init__(self, replay_buffer: "FiniteReplay"):
+        self.reset()
         self.replay_buffer = replay_buffer
         
-    def reset(self, initial_task):
-        self.initial_task = initial_task        
-        self.prefix = initial_task
+    def reset(self):        
         self.approx_logs = [] # approximation_steps in current breakingpoint
         self.target_logs = [] # target steps in current breakingpoint
     
+    def set_initial_task_prompt(self, initial_task):
+        self.initial_task = initial_task        
+        self.prefix = initial_task
+
     def _reset_trajectory(self):
         self.approx_logs = []
         self.target_logs = []
@@ -197,13 +200,15 @@ class OnlineTrajectoryCollector:
         # start = time.time()
         # when reach a breakingpoint, call build_trajectory
         # print("Build Trajectory")
+        if len(self.approx_logs) == 0:
+            return 0
         combined_logs = sorted(self.approx_logs + self.target_logs, key=lambda x: (x[0], x[2], 0 if x[1] == "Approximation" else 1))
         target_logs_sorted_by_step = sorted(self.target_logs, key=lambda x: x[2])
         i, j = 0, 0
         trajectory = []
         gt_k = 0
         
-        while j < len(target_logs_sorted_by_step):
+        while j < len(target_logs_sorted_by_step) and i < len(self.approx_logs):
             target_timestamp, _, target_step, target_desc = target_logs_sorted_by_step[j]
             approx_timestamp, _, approx_step, approx_desc = self.approx_logs[i]
             if approx_desc == target_desc and j != len(target_logs_sorted_by_step) - 1:
@@ -241,13 +246,13 @@ class OnlineTrajectoryCollector:
         # update prefix
         bp_state = [f"{log[1]} Step {log[2]}: {log[3]}" for log in combined_logs]
         self.prefix += "\n".join(bp_state) + "\n"    
-        logger.log(f"trajectory: {trajectory}")
+        # logger.log(f"trajectory: {trajectory}")
         # add trajectory to replay buffer
         self.replay_buffer.add_trajectory(trajectory)
         self._reset_trajectory()
 
         # print(f'Build trajectory time: {round(time.time()-start, 2)}s') # 0.0s
-        logger.log(f"pred ks {predict_ks}, gt k: {gt_k}")
+        # logger.log(f"pred ks {predict_ks}, gt k: {gt_k}")
         if len(predict_ks) == 1:
             return 1 if (predict_ks[0] == gt_k or predict_ks[0] == gt_k+1) else 0
         else:
@@ -321,7 +326,7 @@ class FiniteReplay:
         
         return (input_ids, attention_masks, rewards, gt_ks)
 
-    def sample(self, batch_size_steps: int) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+    def sample(self, batch_size_steps: int, logger) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         indices = []
         total_steps = 0
         available_indices = list(range(len(self)))
@@ -332,6 +337,8 @@ class FiniteReplay:
         rewards_list = []
         gt_k_list = []
         total_steps = 0
+
+        chosen_idx = []
         for idx in available_indices:
             input_ids, attention_mask, rewards, gt_ks = self.replay_buffer[idx]
             input_ids_list.append(input_ids)
@@ -339,13 +346,19 @@ class FiniteReplay:
             rewards_list.append(rewards)
             gt_k_list.append(gt_ks)
             total_steps += self.trajectory_lengths[idx]
+            chosen_idx.append(idx)
             if total_steps >= batch_size_steps:
                 break
-        
         if total_steps < batch_size_steps:
             return None
+        logger.log(f"chosen index {chosen_idx}")
+        
         return input_ids_list, attention_mask_list, rewards_list, gt_k_list
 
 class SharedState:
-    mismatch_detected = asyncio.Event()
-    mismatch_step_id = None
+    def __init__(self):
+        mismatch_detected = None
+        mismatch_step_id = None
+
+    async def initialize(self):
+        self.mismatch_detected = asyncio.Event()
