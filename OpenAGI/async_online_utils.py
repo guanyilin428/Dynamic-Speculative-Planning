@@ -193,7 +193,7 @@ class OnlineTrajectoryCollector:
         else:
             self.target_logs.append((timestamp, source.strip(), step, description))
     
-    def build_trajectory(self, logger):
+    def build_trajectory(self, logger, predict_ks):
         # start = time.time()
         # when reach a breakingpoint, call build_trajectory
         # print("Build Trajectory")
@@ -201,6 +201,7 @@ class OnlineTrajectoryCollector:
         target_logs_sorted_by_step = sorted(self.target_logs, key=lambda x: x[2])
         i, j = 0, 0
         trajectory = []
+        gt_k = 0
         
         while j < len(target_logs_sorted_by_step):
             target_timestamp, _, target_step, target_desc = target_logs_sorted_by_step[j]
@@ -215,6 +216,7 @@ class OnlineTrajectoryCollector:
                 while approx_index < len(self.approx_logs):
                     cur_approx_timestamp, _, cur_approx_step, cur_approx_desc = self.approx_logs[approx_index]
                     current_k = max(0, target_step - (cur_approx_step - 1))
+                    gt_k = max(gt_k, current_k)
                     state = []
                     
                     for log in combined_logs:
@@ -243,9 +245,18 @@ class OnlineTrajectoryCollector:
         # add trajectory to replay buffer
         self.replay_buffer.add_trajectory(trajectory)
         self._reset_trajectory()
+
         # print(f'Build trajectory time: {round(time.time()-start, 2)}s') # 0.0s
-        
-        
+        logger.log(f"pred ks {predict_ks}, gt k: {gt_k}")
+        if len(predict_ks) == 1:
+            return 1 if (predict_ks[0] == gt_k or predict_ks[0] == gt_k+1) else 0
+        else:
+            acc = 0
+            for i in range(len(predict_ks)):
+                if predict_ks[i] == gt_k or predict_ks[i] == gt_k+1:
+                    acc += 1
+                gt_k -= predict_ks[i]
+            return acc
                     
     def get_current_trajectory(self):
         # start = time.time()

@@ -518,6 +518,8 @@ async def onebreakingpoint_speculative_planning(args, mismatch_state, executor, 
         
         if args.pred and first:
             pred_k = await prediction_task
+            config.PREDICT_K.append(pred_k)
+            config.PREDICT_TOTAL += 1
             pred_k = max(pred_k, 0)
             first = False
         i += 1
@@ -585,7 +587,7 @@ async def onebreakingpoint_speculative_planning(args, mismatch_state, executor, 
                         sas = sas[:step_number]+[flatten_tas[step_number][1]]
                         break
                 target_logger.log(f"tar {step_number}: {flatten_tas[step_number][1]}")
-                collector.build_trajectory(target_logger) # collector build trajectory when target terminates
+                config.PREDICT_CORRECT += collector.build_trajectory(target_logger, config.PREDICT_K) # collector build trajectory when target terminates
                 if args.pred:
                     asyncio.create_task(executor.async_train(train_logger))
                 return sas
@@ -642,7 +644,7 @@ async def onebreakingpoint_speculative_planning(args, mismatch_state, executor, 
     for step_number, (s, t) in enumerate(zip(sas, flatten_tas)):
         if t[0] == step_number and not judge_to_be_true(s, t[1]):# t[1] != s:
             target_logger.log(f"step {step_number} app: {s}, tar: {t[1]}")
-            collector.build_trajectory(target_logger) # collector build trajectory at mismatch step
+            config.PREDICT_CORRECT += collector.build_trajectory(target_logger, config.PREDICT_K) # collector build trajectory at mismatch step
             if args.pred:
                 asyncio.create_task(executor.async_train(train_logger))
             sas = sas[:step_number]+[flatten_tas[step_number][1]]
@@ -650,7 +652,8 @@ async def onebreakingpoint_speculative_planning(args, mismatch_state, executor, 
             mismatch = True
             break
     
-    target_logger.log(f"return sas tasks: {sas}")    
+    target_logger.log(f"return sas tasks: {sas}")   
+    config.PREDICT_K = [] 
     return sas, origin_sa, mismatch
 
 
@@ -742,19 +745,24 @@ if __name__ == '__main__':
     config.TARGET_TOTAL_PROMPT = {}
     config.APPROXIMATION_TOTAL_PROMPT = 0
 
+    config.PREDICT_K = []
+    config.PREDICT_CORRECT = 0
+    config.PREDICT_TOTAL = 0
+
+
     random.seed(2)
     parser = argparse.ArgumentParser(description='OpenAGI')
     parser.add_argument('--data', type=str, default='data/openagi_task_descrition.txt', help='data directory')
-    parser.add_argument('--task_id', type=int, default=12, help='task id')
+    parser.add_argument('--task_id', type=int, default=15, help='task id')
     parser.add_argument('--k', type=int, default=2, help='number of approximation steps to generate everytime')
     parser.add_argument('--target_type', type=str, default='react', help='cot, react, multi-agent, direct')
-    parser.add_argument('--pred', type=bool, default=False, help='speculative planning with predictor')
+    parser.add_argument('--pred', type=bool, default=True, help='speculative planning with predictor')
     
     args = parser.parse_args()
     pred_type = "dyn_k" if args.pred == True else "fix_k" 
-    logger = Logger(f'4_7/logs/{args.target_type}/{pred_type}/simulation_datapoint{args.task_id}.log', on=True)
-    target_logger = Logger(f'4_7/logs/{args.target_type}/{pred_type}/target_datapoint{args.task_id}.log', on=True)
-    approximation_logger = Logger(f'4_7/logs/{args.target_type}/{pred_type}/approximation_datapoint{args.task_id}.log', on=True)
+    logger = Logger(f'4_7/test/logs/{args.target_type}/{pred_type}/simulation_datapoint{args.task_id}.log', on=True)
+    target_logger = Logger(f'4_7/test/logs/{args.target_type}/{pred_type}/target_datapoint{args.task_id}.log', on=True)
+    approximation_logger = Logger(f'4_7/test/logs/{args.target_type}/{pred_type}/approximation_datapoint{args.task_id}.log', on=True)
 
     tasks = load_data(args)
     task_description = tasks[args.task_id]
@@ -825,7 +833,7 @@ Please use xml tags to specify the tool when responsing. For example, <tool>Sent
     print(app_assistant.llm_config)
     print(tar_assistant.llm_config)
     # online learning preparations
-    model_path = "../weights/distilbert-base-uncased"
+    model_path = "distilbert-base-uncased"
     bert_model = AutoModel.from_pretrained(model_path)
     tokenizer = AutoTokenizer.from_pretrained(model_path)
     model = DistilBERTValueFunction(bert_model)
@@ -887,6 +895,7 @@ Please use xml tags to specify the tool when responsing. For example, <tool>Sent
     avg_naive_time = round(naive_plan_time/step_num, 2)
     logger.log('naive time/step: ' + str(avg_naive_time))
     logger.log('time decreased by: ' + str(round((1-avg_sp_time/avg_naive_time)*100, 2))+"%.")
+    logger.log(f'predictor acc: {round(config.PREDICT_CORRECT / config.PREDICT_TOTAL, 2)}')
     logger.log(f'step number: {step_num}')
 
     if not args.pred:
