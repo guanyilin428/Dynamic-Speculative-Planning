@@ -590,7 +590,7 @@ async def onebreakingpoint_speculative_planning(args, mismatch_state, executor, 
                 target_logger.log(f"tar {step_number}: {flatten_tas[step_number][1]}")
                 config.PREDICT_CORRECT += collector.build_trajectory(target_logger, config.PREDICT_K) # collector build trajectory when target terminates
                 if args.pred:
-                    if config.BUILD_TRAJ_TIMES == 0:
+                    if config.BUILD_TRAJ_TIMES == config.TRAIN_INTERVAL:
                         asyncio.create_task(executor.async_train(train_logger))
                     config.BUILD_TRAJ_TIMES = (config.BUILD_TRAJ_TIMES + 1) % config.TRAIN_INTERVAL
                 return sas
@@ -649,7 +649,7 @@ async def onebreakingpoint_speculative_planning(args, mismatch_state, executor, 
             target_logger.log(f"step {step_number} app: {s}, tar: {t[1]}")
             config.PREDICT_CORRECT += collector.build_trajectory(target_logger, config.PREDICT_K) # collector build trajectory at mismatch step
             if args.pred:
-                if config.BUILD_TRAJ_TIMES == 0:
+                if config.BUILD_TRAJ_TIMES == config.TRAIN_INTERVAL:
                     asyncio.create_task(executor.async_train(train_logger))
                 config.BUILD_TRAJ_TIMES = (config.BUILD_TRAJ_TIMES + 1) % config.TRAIN_INTERVAL
             sas = sas[:step_number]+[flatten_tas[step_number][1]]
@@ -831,9 +831,15 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='OpenAGI')
     parser.add_argument('--data', type=str, default='data/openagi_task_descrition.txt', help='data directory')
     # parser.add_argument('--task_id', type=int, default=15, help='task id')
-    parser.add_argument('--k', type=int, default=2, help='number of approximation steps to generate everytime')
+    parser.add_argument('--k', type=int, default=6, help='number of approximation steps to generate everytime')
     parser.add_argument('--target_type', type=str, default='react', help='cot, react, multi-agent, direct')
     parser.add_argument('--pred', type=bool, default=True, help='speculative planning with predictor')
+    parser.add_argument('--lr', type=float, default=5e-5, help='online learning lr')
+    parser.add_argument('--ep', type=int, default=3, help='online learning epoch per train')
+    parser.add_argument('--bf', type=int, default=100, help='online learning buffer size')
+    parser.add_argument('--bs', type=int, default=8, help='online learning batch size')
+    parser.add_argument('--gma', type=float, default=1, help='online learning gamma for lambda return calculation')
+    parser.add_argument('--lmd', type=float, default=0.9, help='online learning lambda for lambda return calculation')
     
     args = parser.parse_args()   
     if args.target_type == 'direct':
@@ -872,7 +878,7 @@ if __name__ == '__main__':
     },]
     tar_assistant = AssistantAgent("assistant", llm_config={"config_list": tar_config_list}, human_input_mode='NEVER')
     # online learning preparations
-    model_path = "distilbert-base-uncased"
+    model_path = "../weights/distilbert-base-uncased"
     bert_model = AutoModel.from_pretrained(model_path)
     tokenizer = AutoTokenizer.from_pretrained(model_path)
     model = DistilBERTValueFunction(bert_model)
@@ -883,12 +889,12 @@ if __name__ == '__main__':
     executor = OnlineLearningExecutor(
         model=model,
         tokenizer=tokenizer,
-        buffer_size=1000,
-        batch_size_steps=16,
-        lambda_=0.9,
-        gamma=1,
-        lr=5e-05,
-        epoch_per_train=3
+        buffer_size=args.bf,
+        batch_size_steps=args.bs,
+        lambda_=args.lmd,
+        gamma=args.gma,
+        lr=args.lr,
+        epoch_per_train=args.ep
     )
     # checkpoint = torch.load('predictor_online_weights.pth')
     # executor.predict_model.load_state_dict(checkpoint['model_state_dict'])
@@ -896,8 +902,8 @@ if __name__ == '__main__':
     
     # run the speculative planning for multiple tasks
     # task_list = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
-    task_list = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
-    # task_list = [11]
+    # task_list = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+    task_list = [11]
     for task_id in task_list:
         run_one_task(args, task_id, executor, encoding, app_assistant, tar_assistant)
     
