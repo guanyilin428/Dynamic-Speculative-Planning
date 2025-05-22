@@ -1,0 +1,313 @@
+Given low-resolutioned noisy blurry grayscale image, how to return the regular image step by step?
+Given noisy blurry grayscale image, how to return the regular image step by step?
+Given low-resolutioned blurry grayscale image, how to return the regular image step by step?
+Given blurry grayscale image, how to return the regular image step by step?
+Given low-resolutioned noisy grayscale image, how to return the regular image step by step?
+Given noisy grayscale image, how to return the regular image step by step?
+Given low-resolutioned grayscale image, how to return the regular image step by step?
+Given grayscale image, how to return the regular image step by step?
+Given low-resolutioned noisy blurry image, how to return the regular image step by step?
+Given noisy blurry image, how to return the regular image step by step?
+Given low-resolutioned blurry image, how to return the regular image step by step?
+Given blurry image, how to return the regular image step by step?
+Given low-resolutioned noisy image, how to return the regular image step by step?
+Given noisy image, how to return the regular image step by step?
+Given low-resolutioned image, how to return the regular image step by step?
+Given low-resolutioned noisy blurry grayscale image, how to return the caption in German step by step?
+Given low-resolutioned noisy blurry grayscale image, how to return the class label in German step by step?
+Given low-resolutioned noisy blurry grayscale image, how to return the object names in German step by step?
+Given low-resolutioned noisy blurry grayscale image, how to return the caption in English step by step?
+Given low-resolutioned noisy blurry grayscale image, how to return the class label in English step by step?
+Given low-resolutioned noisy blurry grayscale image, how to return the object names in English step by step?
+Given noisy blurry grayscale image, how to return the caption in German step by step?
+Given noisy blurry grayscale image, how to return the class label in German step by step?
+Given noisy blurry grayscale image, how to return the object names in German step by step?
+Given noisy blurry grayscale image, how to return the caption in English step by step?
+Given noisy blurry grayscale image, how to return the class label in English step by step?
+Given noisy blurry grayscale image, how to return the object names in English step by step?
+Given low-resolutioned blurry grayscale image, how to return the caption in German step by step?
+Given low-resolutioned blurry grayscale image, how to return the class label in German step by step?
+Given low-resolutioned blurry grayscale image, how to return the object names in German step by step?
+Given low-resolutioned blurry grayscale image, how to return the caption in English step by step?
+Given low-resolutioned blurry grayscale image, how to return the class label in English step by step?
+Given low-resolutioned blurry grayscale image, how to return the object names in English step by step?
+Given blurry grayscale image, how to return the caption in German step by step?
+Given blurry grayscale image, how to return the class label in German step by step?
+Given blurry grayscale image, how to return the object names in German step by step?
+Given blurry grayscale image, how to return the caption in English step by step?
+Given blurry grayscale image, how to return the class label in English step by step?
+Given blurry grayscale image, how to return the object names in English step by step?
+Given low-resolutioned noisy grayscale image, how to return the caption in German step by step?
+Given low-resolutioned noisy grayscale image, how to return the class label in German step by step?
+Given low-resolutioned noisy grayscale image, how to return the object names in German step by step?
+Given low-resolutioned noisy grayscale image, how to return the caption in English step by step?
+Given low-resolutioned noisy grayscale image, how to return the class label in English step by step?
+Given low-resolutioned noisy grayscale image, how to return the object names in English step by step?
+Given noisy grayscale image, how to return the caption in German step by step?
+Given noisy grayscale image, how to return the class label in German step by step?
+Given noisy grayscale image, how to return the object names in German step by step?
+Given noisy grayscale image, how to return the caption in English step by step?
+Given noisy grayscale image, how to return the class label in English step by step?
+Given noisy grayscale image, how to return the object names in English step by step?
+Given low-resolutioned grayscale image, how to return the caption in German step by step?
+Given low-resolutioned grayscale image, how to return the class label in German step by step?
+Given low-resolutioned grayscale image, how to return the object names in German step by step?
+Given low-resolutioned grayscale image, how to return the caption in English step by step?
+Given low-resolutioned grayscale image, how to return the class label in English step by step?
+Given low-resolutioned grayscale image, how to return the object names in English step by step?
+Given grayscale image, how to return the caption in German step by step?
+Given grayscale image, how to return the class label in German step by step?
+Given grayscale image, how to return the object names in German step by step?
+Given grayscale image, how to return the caption in English step by step?
+Given grayscale image, how to return the class label in English step by step?
+Given grayscale image, how to return the object names in English step by step?
+Given low-resolutioned noisy blurry image, how to return the caption in German step by step?
+Given low-resolutioned noisy blurry image, how to return the class label in German step by step?
+Given low-resolutioned noisy blurry image, how to return the object names in German step by step?
+Given low-resolutioned noisy blurry image, how to return the caption in English step by step?
+Given low-resolutioned noisy blurry image, how to return the class label in English step by step?
+Given low-resolutioned noisy blurry image, how to return the object names in English step by step?
+Given noisy blurry image, how to return the caption in German step by step?
+Given noisy blurry image, how to return the class label in German step by step?
+Given noisy blurry image, how to return the object names in German step by step?
+Given noisy blurry image, how to return the caption in English step by step?
+Given noisy blurry image, how to return the class label in English step by step?
+Given noisy blurry image, how to return the object names in English step by step?
+Given low-resolutioned blurry image, how to return the caption in German step by step?
+Given low-resolutioned blurry image, how to return the class label in German step by step?
+Given low-resolutioned blurry image, how to return the object names in German step by step?
+Given low-resolutioned blurry image, how to return the caption in English step by step?
+Given low-resolutioned blurry image, how to return the class label in English step by step?
+Given low-resolutioned blurry image, how to return the object names in English step by step?
+Given blurry image, how to return the caption in German step by step?
+Given blurry image, how to return the class label in German step by step?
+Given blurry image, how to return the object names in German step by step?
+Given blurry image, how to return the caption in English step by step?
+Given blurry image, how to return the class label in English step by step?
+Given blurry image, how to return the object names in English step by step?
+Given low-resolutioned noisy image, how to return the caption in German step by step?
+Given low-resolutioned noisy image, how to return the class label in German step by step?
+Given low-resolutioned noisy image, how to return the object names in German step by step?
+Given low-resolutioned noisy image, how to return the caption in English step by step?
+Given low-resolutioned noisy image, how to return the class label in English step by step?
+Given low-resolutioned noisy image, how to return the object names in English step by step?
+Given noisy image, how to return the caption in German step by step?
+Given noisy image, how to return the class label in German step by step?
+Given noisy image, how to return the object names in German step by step?
+Given noisy image, how to return the caption in English step by step?
+Given noisy image, how to return the class label in English step by step?
+Given noisy image, how to return the object names in English step by step?
+Given low-resolutioned image, how to return the caption in German step by step?
+Given low-resolutioned image, how to return the class label in German step by step?
+Given low-resolutioned image, how to return the object names in German step by step?
+Given low-resolutioned image, how to return the caption in English step by step?
+Given low-resolutioned image, how to return the class label in English step by step?
+Given low-resolutioned image, how to return the object names in English step by step?
+Given clozed English text, how to generate a image step by step?
+Given English text, how to generate a image step by step?
+Given clozed English text, how to return the summarization in German step by step?
+Given clozed English text, how to translate the text in German step by step?
+Given clozed English text, how to return the sentiment in German step by step?
+Given clozed English text, how to return the summarization in English step by step?
+Given clozed English text, how to return the sentiment in English step by step?
+Given English text, how to return the summarization in German step by step?
+Given English text, how to translate the text in German step by step?
+Given English text, how to return the sentiment in German step by step?
+Given English text, how to return the summarization in English step by step?
+Given English text, how to return the sentiment in English step by step?
+Given low-resolutioned noisy blurry grayscale image and clozed English query, how to answer the question in English step by step?
+Given low-resolutioned noisy blurry grayscale image and clozed English query, how to answer the question in German step by step?
+Given low-resolutioned noisy blurry grayscale image and English query, how to answer the question in English step by step?
+Given low-resolutioned noisy blurry grayscale image and English query, how to answer the question in German step by step?
+Given noisy blurry grayscale image and clozed English query, how to answer the question in English step by step?
+Given noisy blurry grayscale image and clozed English query, how to answer the question in German step by step?
+Given noisy blurry grayscale image and English query, how to answer the question in English step by step?
+Given noisy blurry grayscale image and English query, how to answer the question in German step by step?
+Given low-resolutioned blurry grayscale image and clozed English query, how to answer the question in English step by step?
+Given low-resolutioned blurry grayscale image and clozed English query, how to answer the question in German step by step?
+Given low-resolutioned blurry grayscale image and English query, how to answer the question in English step by step?
+Given low-resolutioned blurry grayscale image and English query, how to answer the question in German step by step?
+Given blurry grayscale image and clozed English query, how to answer the question in English step by step?
+Given blurry grayscale image and clozed English query, how to answer the question in German step by step?
+Given blurry grayscale image and English query, how to answer the question in English step by step?
+Given blurry grayscale image and English query, how to answer the question in German step by step?
+Given low-resolutioned noisy grayscale image and clozed English query, how to answer the question in English step by step?
+Given low-resolutioned noisy grayscale image and clozed English query, how to answer the question in German step by step?
+Given low-resolutioned noisy grayscale image and English query, how to answer the question in English step by step?
+Given low-resolutioned noisy grayscale image and English query, how to answer the question in German step by step?
+Given noisy grayscale image and clozed English query, how to answer the question in English step by step?
+Given noisy grayscale image and clozed English query, how to answer the question in German step by step?
+Given noisy grayscale image and English query, how to answer the question in English step by step?
+Given noisy grayscale image and English query, how to answer the question in German step by step?
+Given low-resolutioned grayscale image and clozed English query, how to answer the question in English step by step?
+Given low-resolutioned grayscale image and clozed English query, how to answer the question in German step by step?
+Given low-resolutioned grayscale image and English query, how to answer the question in English step by step?
+Given low-resolutioned grayscale image and English query, how to answer the question in German step by step?
+Given grayscale image and clozed English query, how to answer the question in English step by step?
+Given grayscale image and clozed English query, how to answer the question in German step by step?
+Given grayscale image and English query, how to answer the question in English step by step?
+Given grayscale image and English query, how to answer the question in German step by step?
+Given low-resolutioned noisy blurry image and clozed English query, how to answer the question in English step by step?
+Given low-resolutioned noisy blurry image and clozed English query, how to answer the question in German step by step?
+Given low-resolutioned noisy blurry image and English query, how to answer the question in English step by step?
+Given low-resolutioned noisy blurry image and English query, how to answer the question in German step by step?
+Given noisy blurry image and clozed English query, how to answer the question in English step by step?
+Given noisy blurry image and clozed English query, how to answer the question in German step by step?
+Given noisy blurry image and English query, how to answer the question in English step by step?
+Given noisy blurry image and English query, how to answer the question in German step by step?
+Given low-resolutioned blurry image and clozed English query, how to answer the question in English step by step?
+Given low-resolutioned blurry image and clozed English query, how to answer the question in German step by step?
+Given low-resolutioned blurry image and English query, how to answer the question in English step by step?
+Given low-resolutioned blurry image and English query, how to answer the question in German step by step?
+Given blurry image and clozed English query, how to answer the question in English step by step?
+Given blurry image and clozed English query, how to answer the question in German step by step?
+Given blurry image and English query, how to answer the question in English step by step?
+Given blurry image and English query, how to answer the question in German step by step?
+Given low-resolutioned noisy image and clozed English query, how to answer the question in English step by step?
+Given low-resolutioned noisy image and clozed English query, how to answer the question in German step by step?
+Given low-resolutioned noisy image and English query, how to answer the question in English step by step?
+Given low-resolutioned noisy image and English query, how to answer the question in German step by step?
+Given noisy image and clozed English query, how to answer the question in English step by step?
+Given noisy image and clozed English query, how to answer the question in German step by step?
+Given noisy image and English query, how to answer the question in English step by step?
+Given noisy image and English query, how to answer the question in German step by step?
+Given low-resolutioned image and clozed English query, how to answer the question in English step by step?
+Given low-resolutioned image and clozed English query, how to answer the question in German step by step?
+Given low-resolutioned image and English query, how to answer the question in English step by step?
+Given low-resolutioned image and English query, how to answer the question in German step by step?
+Given clozed English document and clozed English query, how to answer the question in German step by step?
+Given clozed English document and clozed English query, how to answer the question in English step by step?
+Given clozed English document and English query, how to answer the question in German step by step?
+Given clozed English document and English query, how to answer the question in English step by step?
+Given English document and clozed English query, how to answer the question in German step by step?
+Given English document and clozed English query, how to answer the question in English step by step?
+Given English document and English query, how to answer the question in German step by step?
+Given English document and English query, how to answer the question in English step by step?
+Given a low-resolution image of a landscape, how to transform it into a vibrant high-quality version?
+Given a noisy nighttime photograph, how to produce a clear image with identifiable objects?
+Given a blurry photo of a street scene, how to create a detailed English description of what it contains?
+Given a grayscale historical photograph, how to modernize it and identify its historical period?
+Given a low-quality security camera image, how to improve it and identify all persons present?
+Given a blurry grayscale medical scan, how to transform it for diagnostic analysis?
+Given a degraded artwork image, how to restore it to its original appearance and explain its contents?
+Given a noisy satellite image, how to clean it up and count specific geographic features?
+Given an image of wildlife, how to describe it comprehensively in German?
+Given an image of a crowded scene, how to catalog all items present and explain their relationships?
+Given an image of a retail store, how to identify products and analyze customer experience impressions?
+Given a historical image, how to bring it to life and provide historical context?
+Given an image of a cityscape, how to identify architectural features and explain urban design principles?
+Given an image of a natural disaster, how to identify the event type and assess potential impacts?
+Given an image of a social gathering, how to identify attendees and determine the mood of the event?
+Given an image with multiple objects, how to complete a description with missing information about object relationships?
+Given a product description with missing information and a product image, how to complete the description?
+Given a news article summary, how to create a visual representation of the main story?
+Given customer feedback analysis, how to create a visual representation of customer satisfaction?
+Given a translated technical document, how to create visual aids for complex concepts?
+Given a question about an image, how to provide an answer and identify the key visual elements?
+Given a research paper summary, how to visualize the main findings?
+Given an incomplete description and its corresponding image, how to fill the information gaps?
+Given movie review sentiment data, how to create a visual representation of the film's reception?
+Given a severely degraded grayscale photograph, how to transform it into a modern, clear, colorful image and identify its contents?
+Given a low-quality product image, how to enhance it and create compelling marketing text?
+Given a poor-quality surveillance image, how to improve it and answer security-related questions?
+Given a historical document image, how to restore it and translate the content to German?
+Given a low-resolution medical image, how to improve it and answer diagnostic questions?
+Given a blurry wildlife photo, how to clarify it and provide information about the species and habitat?
+Given a noisy underwater image, how to improve visibility and describe the marine ecosystem?
+Given a degraded aerial image, how to restore it and analyze urban development patterns?
+Given an image and related text with missing information, how to complete the text and answer questions about the content?
+Given an image of a landmark and a question about its history, how to provide comprehensive historical information?
+Given an image of a product and customer reviews, how to answer questions about features and customer satisfaction?
+Given an image with multiple objects and a question about their relationship, how to describe the scene accurately?
+Given an image of a scientific experiment and a technical question, how to provide an expert-level explanation?
+Given an image of an artwork and questions about style, how to analyze the artistic techniques?
+Given an image of food and nutrition questions, how to identify ingredients and answer health queries?
+Given an image of a natural phenomenon and a question about causes, how to explain the scientific principles involved?
+Given a blurry image, how to restore it and create a detailed description?
+Given a noisy grayscale photograph, how to transform it into a vibrant image with a descriptive caption?
+Given a low-resolution product image, how to enhance it and create effective marketing content?
+Given a historical black and white portrait, how to modernize it and create a biographical sketch?
+Given a degraded landscape image, how to restore it and describe its geographical features?
+Given an image with poor lighting, how to optimize visibility and provide a scene analysis?
+Given a blurry architectural image, how to clarify it and analyze its architectural significance?
+Given a faded historical document, how to restore legibility and translate the content?
+Given a text description, how to visualize it and expand on the description based on the visualization?
+Given a basic image and an emotion, how to transform the image to evoke that emotional response?
+Given an image, how to create a story based on its elements and then visualize a key moment from that story?
+Given a vacation photo, how to enhance it and create a German-language travel description?
+Given a product image, how to create compelling marketing text with creative elements?
+Given an image of cultural significance, how to analyze its origin and create educational content?
+Given a nature image, how to identify species and create conservation-focused information?
+Given a historical event image, how to restore it and create content about its modern relevance?
+Given a scanned newspaper with faded text, how to make the article readable and provide its main points in German?
+Given a screenshot of social media comments, how to identify the overall public opinion and create a visual representation of it?
+Given an old family photo album page, how to restore the images and create captions for each photograph?
+Given a film still from a classic movie, how to modernize its appearance and analyze its cinematic significance?
+Given a poorly captured whiteboard from a meeting, how to make the content clear and summarize the key discussion points?
+Given an image of ancient inscriptions, how to clarify the text and translate its meaning to English?
+Given a graph with pixelated text and lines, how to create a clean version and explain the data trends?
+Given a collection of product labels, how to extract the information and identify potentially misleading claims?
+Given an image of a busy intersection, how to identify safety hazards and recommend improvements?
+Given a photograph of a room interior, how to identify all furniture items and suggest design improvements?
+Given an image of a sports play, how to identify player positions and explain the strategy?
+Given an aerial view of farmland, how to identify crop types and assess agricultural health?
+Given an image of a construction site, how to identify equipment and assess safety compliance?
+Given a photograph of a geological formation, how to identify its type and explain its formation process?
+Given an image of a night sky, how to identify celestial objects and create an educational guide?
+Given a photograph of an archaeological site, how to identify artifacts and explain their historical context?
+Given a technical diagram, how to create a simplified version with explanatory text for non-experts?
+Given a children's drawing, how to transform it into a professional-looking illustration with a story?
+Given a weather map, how to convert it into a travel advisory for tourists?
+Given a candid photograph, how to transform it into a professional portrait with appropriate background?
+Given a rough sketch of a product idea, how to create a polished concept image with feature descriptions?
+Given a concert photograph, how to enhance it and create an evocative review of the performance?
+Given a photograph of ingredients, how to create a recipe with preparation instructions?
+Given an image of a fashion outfit, how to identify the style elements and suggest complementary items?
+Given an image of a busy street in a foreign country, how to create a cultural guide for visitors?
+Given a photograph of an unusual animal, how to identify the species and create an informative fact sheet?
+Given a snapshot of a board game in progress, how to explain the current state and possible next moves?
+Given an image of a mechanical device, how to create an operation manual with labeled parts?
+Given a photograph of a restaurant dish, how to identify ingredients and estimate nutritional information?
+Given an image of a damaged vehicle, how to assess the extent of damage and estimate repair needs?
+Given a candid photo of a celebrity, how to analyze the context and create an appropriate news caption?
+Given an image of a protest or public gathering, how to analyze the event while respecting privacy concerns?
+Given an image of a biological specimen, how to create a labeled diagram with educational notes?
+Given a historical battlefield image, how to create a strategic analysis for history students?
+Given a photograph of a chemical reaction, how to explain the underlying scientific principles?
+Given an astronomical image, how to create an age-appropriate explanation for elementary school students?
+Given an image of a mathematical graph, how to explain the represented concept in simple terms?
+Given an engineering prototype photograph, how to create technical specifications and design rationale?
+Given a geographical landmark image, how to create a geological history and formation explanation?
+Given an image of a physics experiment, how to create step-by-step instructions with expected outcomes?
+Given visual art, how to create a descriptive text that enables blind individuals to appreciate it?
+Given a complex infographic, how to convert it into a plain text explanation while preserving all information?
+Given an image-heavy instructional guide, how to create an audio-friendly version with the same information?
+Given a visual warning sign, how to create universal symbols and multi-language alternatives?
+Given a colorful data visualization, how to recreate it in a colorblind-friendly format?
+Given a visually busy website screenshot, how to suggest accessibility improvements?
+Given a map image, how to create turn-by-turn directions in text format?
+Given a visual timeline, how to convert it into a narrative history?
+Given before and after images of a renovation project, how to identify all changes and assess quality improvements?
+Given images of similar products from different brands, how to create an objective comparison guide?
+Given images of the same location in different seasons, how to analyze environmental changes?
+Given reference and test images of the same subject, how to identify and explain all differences?
+Given an image of a structure before and after a natural disaster, how to assess damage and suggest reinforcements?
+Given images of a child at different ages, how to create a developmental progress report?
+Given original and counterfeit product images, how to identify distinguishing features?
+Given healthy and diseased plant images, how to create a diagnostic guide with treatment recommendations?
+Given an image of a person in a specific environment, how to determine their profession and activities?
+Given an image of an unusual tool, how to identify its purpose and instructions for use?
+Given a photograph with mixed languages on signs, how to translate all text to English and explain the location?
+Given an image of an interaction between people, how to determine their relationship and conversation topic?
+Given a photograph of an unusual natural phenomenon, how to explain what is happening scientifically?
+Given an image of a machine malfunction, how to diagnose the problem and suggest repairs?
+Given a photograph of an animal's tracks or signs, how to identify the species and its recent activities?
+Given an image of a person's expression, how to analyze their emotional state and potential causes?
+Given abstract art, how to create a poem that captures its essence?
+Given a crowded urban scene, how to transform it into a peaceful natural setting while preserving key elements?
+Given a photograph of a mundane object, how to create an advertisement that makes it appear luxurious?
+Given a daytime cityscape, how to transform it into a futuristic night scene with descriptive text?
+Given a portrait photograph, how to create different artistic interpretations in various historical art styles?
+Given a modern building, how to reimagine it in classical architectural style with appropriate descriptions?
+Given an image of ordinary food, how to transform it into gourmet presentation with a menu description?
+Given a simple landscape, how to create four seasonal variations with appropriate mood descriptions?

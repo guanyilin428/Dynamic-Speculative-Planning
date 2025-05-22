@@ -15,6 +15,7 @@ import time
 import json
 import hashlib
 import os
+import nltk
 
 class ExpectileLoss(nn.Module):
     def __init__(self, tau=0.5):
@@ -32,13 +33,13 @@ class OnlineLearningExecutor:
                  model_save_path,
                  model: nn.Module,
                  tokenizer,
-                 buffer_size=2500,
+                 buffer_size=200,
                  batch_size_steps=32,
                  max_length=512,
-                 lambda_=0.95,
+                 lambda_=0.9,
                  gamma=1,
-                 lr=1e-5,
-                 epoch_per_train=3,
+                 lr=5e-5,
+                 epoch_per_train=5,
                  load=False,
                  traj_file=None,
                  tau = 0.5
@@ -51,7 +52,6 @@ class OnlineLearningExecutor:
         if tau == 0.5:
             self.criterion = nn.MSELoss()
         else: self.criterion = ExpectileLoss(tau)
-        
         self.max_length = max_length
         self.lambda_ = lambda_
         self.gamma = gamma
@@ -121,24 +121,27 @@ class OnlineLearningExecutor:
         flat_gt_k = torch.stack(all_gt_k, dim=0).to(self.device)
         return flat_input_ids, flat_attention_mask, flat_G_lambda, flat_gt_k
         
-    async def async_train(self):
+    async def async_train(self, logger):
         async with self.train_lock:
             loop = asyncio.get_running_loop()
+            # logger.log("Starting training")
             current_train_task = loop.run_in_executor(
                 self.train_executor,
-                self._train                
+                self._train,
+                logger
             )
             try:
                 await current_train_task
             except Exception as e:
-                pass
+                logger.log(f"Training failed with exception: {e}")
 
-    def _train(self):
-        batch = self.buffer.sample(self.batch_size_steps)
+    def _train(self, logger):
+        batch = self.buffer.sample(self.batch_size_steps, logger)
         for epoch in range(self.epoch_per_train):
             self.train_model.train()
         
             if batch is None:
+                logger.log("Batch is None, skipping training.")
                 return
             input_ids_batch, attention_mask_batch, rewards_batch, gt_k_batch = batch
 
@@ -147,11 +150,10 @@ class OnlineLearningExecutor:
             
             self.optimizer.zero_grad()
             k_pred = self.train_model(flat_input_ids, flat_attention_mask).squeeze()
-            # diff = flat_G_lambda - k_pred
             loss = self.criterion(flat_G_lambda, k_pred)
             diff = torch.round(k_pred) - flat_gt_k
             acc = ((diff == 0) | (diff == 1)).float().mean().item()
-            # logger.log(f'Epoch {epoch + 1} - Loss: {loss.item()} - Accuracy: {round(acc * 100, 2)}%')
+            logger.log(f'Epoch {epoch + 1} - Loss: {loss.item()} - Accuracy: {round(acc * 100, 2)}%')
 
             loss.backward()
             self.optimizer.step()
@@ -179,8 +181,12 @@ class OnlineLearningExecutor:
         start = time.time()
         
         state = self.collector.get_current_trajectory()
+        logger.log(f"Predict state: {state}")
         with self.model_lock:
-            
+            # param_tensor = torch.cat([p.flatten() for p in self.predict_model.parameters()])
+            # checksum = hashlib.md5(param_tensor.detach().cpu().numpy().tobytes()).hexdigest()
+            # logger.log(f"Predict model checksum: {checksum}") # log model updates
+
             inputs = self.tokenizer(
                 state,
                 return_tensors="pt",
@@ -190,6 +196,7 @@ class OnlineLearningExecutor:
             ).to(self.device)
             k_pred = self.predict_model(**inputs).squeeze().cpu()
         k = int(torch.round(k_pred).item()) + k_offset
+        # logger.log(f'Predictor time: {round(time.time()-start, 2)}s')
         logger.log(f'Predict K: {k}')
         return k
     
@@ -215,7 +222,7 @@ class OnlineTrajectoryCollector:
     
     def set_initial_task_prompt(self, initial_task):
         self.initial_task = initial_task        
-        self.prefix = initial_task
+        self.prefix = initial_task+"\n"
 
     def _reset_trajectory(self):
         self.approx_logs = []
@@ -232,6 +239,39 @@ class OnlineTrajectoryCollector:
         else:
             self.target_logs.append((timestamp, source.strip(), step, description))
     
+    
+    def judge_to_be_true(self, s, t):
+        try:
+            approximation_function_name = s.split("[")[0].strip()
+            target_function_name = t.split("[")[0].strip()
+
+            approximation_function_arg = s[s.index("[") : s.index("]")].strip()
+            target_function_arg = t[t.index("[") : t.index("]")].strip()
+
+            def token_edit_levenstein_similarity_normalized(
+                text1: str, text2: str
+            ) -> float:
+                """
+                Compute the normalized levenstein distance between two texts.
+                """
+                return 1 - nltk.edit_distance(text1, text2) / max(len(text1), len(text2))
+
+            if approximation_function_name == target_function_name:
+                if (
+                    token_edit_levenstein_similarity_normalized(
+                        approximation_function_arg, target_function_arg
+                    )
+                    > 0.5
+                ):
+                    return True
+
+            return False
+        except:
+            if s == t:
+                return True
+            else:
+                return False
+
     def build_trajectory(self, logger, predict_ks):
         # start = time.time()
         # when reach a breakingpoint, call build_trajectory
@@ -243,11 +283,15 @@ class OnlineTrajectoryCollector:
         i, j = 0, 0
         trajectory = []
         gt_k = 0
-        
+        # logger.log(f"\napp_logs: {self.approx_logs}\n")
+        # logger.log(f"\ntar_logs: {self.target_logs}\n")
+        # logger.log(f"\nprefix: {self.prefix}\n")
+        # breakpoint()
+
         while j < len(target_logs_sorted_by_step) and i < len(self.approx_logs):
             target_timestamp, _, target_step, target_desc = target_logs_sorted_by_step[j]
             approx_timestamp, _, approx_step, approx_desc = self.approx_logs[i]
-            if approx_desc == target_desc and j != len(target_logs_sorted_by_step) - 1:
+            if self.judge_to_be_true(approx_desc, target_desc) and j != len(target_logs_sorted_by_step) - 1:
                 i += 1
                 j += 1
             else: # mismatch, breakingpoint
@@ -270,8 +314,8 @@ class OnlineTrajectoryCollector:
                     reward = 1 if current_k > 0 else 0
                     # construct prompt
                     if state:
-                        if self.prefix == self.initial_task:
-                            self.prefix += "\nPrevious History:\n"
+                        # if self.prefix == self.initial_task:
+                        #     self.prefix += "\nPrevious History:\n"
                         prompt = self.prefix + "\n".join(state) + "\n"
                     else:
                         prompt = self.prefix
@@ -284,7 +328,7 @@ class OnlineTrajectoryCollector:
                 break
         # update prefix
         self.prefix += "\n".join(bp_state) + "\n"    
-        # logger.log(f"trajectory: {trajectory}")
+        logger.log(f"trajectory: {trajectory}")
         # add trajectory to replay buffer
         self.traj_list.append({"trajectory": trajectory})
         self.replay_buffer.add_trajectory(trajectory)
@@ -302,9 +346,9 @@ class OnlineTrajectoryCollector:
                     
     def get_current_trajectory(self):
         bp_state = [f"Step {log[2]}: {log[3]}" for log in self.approx_logs]
-        if self.prefix == self.initial_task and bp_state:
-            prefix = self.prefix + "\nPrevious History:\n"
-        else: prefix = self.prefix
+        # if self.prefix == self.initial_task and bp_state:
+        #     prefix = self.prefix + "\nPrevious History:\n"
+        prefix = self.prefix
         prefix += "\n".join(bp_state) + "\n"    
         
         return prefix    
@@ -379,7 +423,7 @@ class FiniteReplay:
         
         return (input_ids, attention_masks, rewards, gt_ks)
 
-    def sample(self, batch_size_steps: int) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+    def sample(self, batch_size_steps: int, logger) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         indices = []
         total_steps = 0
         available_indices = list(range(len(self)))
@@ -405,6 +449,7 @@ class FiniteReplay:
                 break
         if total_steps < batch_size_steps:
             return None
+        logger.log(f"chosen index {chosen_idx}")
         
         return input_ids_list, attention_mask_list, rewards_list, gt_k_list
 
