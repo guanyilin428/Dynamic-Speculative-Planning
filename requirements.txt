@@ -6,3 +6,5 @@ colorama
 async-timeout==4.0.2
 config==0.5.1
 inputimeout
+torch==2.7.0
+transformers==4.51.3

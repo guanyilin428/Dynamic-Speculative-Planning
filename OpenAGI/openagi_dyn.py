@@ -1,35 +1,23 @@
-###################################################
-# This version is currently the most optimzed one
-###################################################
 import os
 import config
 import asyncio
 import time
-from datetime import datetime
-import random
-import subprocess
 import random
 import json 
 import torch
 import argparse 
 # from color import slow_type_approximation, slow_type_target
 import autogen 
-from autogen import AssistantAgent, UserProxyAgent, config_list_from_json, GroupChat, GroupChatManager
-from autogen.agentchat.contrib.agent_builder import AgentBuilder
-from util import Logger, cancel, register_async_handler
-
 import tiktoken
-from tiktoken.load import load_tiktoken_bpe
-
 import openai
 from openai import OpenAI
-
-bpe_path = "cl100k_base.tiktoken"
-bpe_ranks = load_tiktoken_bpe(bpe_path)
+from datetime import datetime
+from autogen import AssistantAgent
+from util import Logger, cancel, register_async_handler
 
 from transformers import AutoModel, AutoTokenizer
 from predictor import DistilBERTValueFunction
-from OpenAGI.async_online_utils import OnlineTrajectoryCollector, OnlineLearningExecutor, SharedState
+from OpenAGI.async_online_utils import OnlineLearningExecutor, SharedState
 
 
 def concurrent_calls():
@@ -61,7 +49,6 @@ def interaction_function(collector, sas, tas, to_print_id, logger, target_logger
     step = t[0][0] + len(prev_steps) + 1
     desc = t[0][1]
     collector.record_step(timestamp, source, step, desc)
-    # print(f'{timestamp} Target: Step {t[0][0] + len(prev_steps)+1} - {t[0][1]}')
     
     try:
         config.TOTAL_APPROXIMATION_CALLS += 1
@@ -154,7 +141,6 @@ def simulate_within_T_interaction(collector, sas, tas, flatten_tas, printed_ids,
                     break
             printed_ids[to_print_id].append(to_print_id)
             user_input = interaction_function(collector, sas, tas, to_print_id, logger, target_logger, prev_steps, target_tasks)
-            # print('user_input', user_input.lower())
             if str(user_input) == str(tas[to_print_id][0][1]) and user_input.lower() != 'terminate':
                 continue 
             elif str(user_input) == str(tas[to_print_id][0][1]) and user_input.lower() == 'terminate':
@@ -230,7 +216,6 @@ async def A_generate(args, collector, encoding, assistant, prompt, total_step_nu
             approximation_logger.log(f'Approximation: Step {total_step_number+1} -prompt token {prompt_token}')
             response = await assistant.a_generate_reply(messages=[{'content':prompt, 'role':'user'}])
             
-            # approximation_logger.log(f"Approximation tokens: {len(encoding.encode(response))}") 
             app_tokens = len(encoding.encode(response))
             config.TOTAL_TOKEN_GENERATION += app_tokens
             config.APPROX_SP_GENERATION += app_tokens
@@ -392,10 +377,8 @@ async def postprocess_T_generation(prediction_task, mismatch_state, collector, r
             target_logger.log(f"step number:{step_number}, t[0]: {t[0]}, t[1]: {t[1]}")
             if t[1].lower() == 'terminate':
                 end = time.time()
-                # target_logger.log(f"lock status at line 318: {mismatch_state.mismatch_detected.is_set()}")
                 if not mismatch_state.mismatch_detected.is_set():
                     mismatch_state.mismatch_step_id = t[0]
-                    # target_logger.log(f"mismatch step id: {mismatch_state.mismatch_step_id}")
                     mismatch_state.mismatch_detected.set()
                 raise Exception('terminate the whole process!')
 
@@ -610,7 +593,6 @@ async def onebreakingpoint_speculative_planning(args, mismatch_state, executor, 
             first = False
         i += 1
 
-    # print('====finish approximation loop====')
     # after halting the approximation loop
     # we need to collect the target results
     # organize to sas, see how much we want to preserve
@@ -686,7 +668,6 @@ async def onebreakingpoint_speculative_planning(args, mismatch_state, executor, 
             mismatch = True
             break
     
-    # target_logger.log(f"return sas tasks: {sas}")   
     return sas, origin_sa, mismatch
 
 
@@ -722,7 +703,6 @@ async def speculative_planning(args, executor, encoding, app_assistant, tar_assi
 
         steps += result
         breaking_points += 1
-        # logger.log('the number of breaking points: ' + str(breaking_points))
         i += len(result)
 
         # if the last action is terminate, we break the generation process
@@ -767,9 +747,9 @@ def run_one_task(args, task_id, executor, encoding, app_assistant, tar_assistant
 
     log_dir = f"data/{args.approx_type}_{args.target_type}/{args.model_type}/{pred_type}"
     if config.ENABLE_TRAIN: 
-        logger = Logger(f'{log_dir}/online_warmup/tau_{args.tau}_offset_{args.offset}/simulation_datapoint{task_id}.log', on=True)
-        target_logger = Logger(f'{log_dir}/online_warmup/tau_{args.tau}_offset_{args.offset}/target_datapoint{task_id}.log', on=True)
-        approximation_logger = Logger(f'{log_dir}/online_warmup/tau_{args.tau}_offset_{args.offset}/approximation_datapoint{task_id}.log', on=True)
+        logger = Logger(f'{log_dir}/tau_{args.tau}_offset_{args.offset}/simulation_datapoint{task_id}.log', on=True)
+        target_logger = Logger(f'{log_dir}/tau_{args.tau}_offset_{args.offset}/target_datapoint{task_id}.log', on=True)
+        approximation_logger = Logger(f'{log_dir}/tau_{args.tau}_offset_{args.offset}/approximation_datapoint{task_id}.log', on=True)
     else:
         logger = Logger(f'{log_dir}/k_{args.k}/simulation_datapoint{task_id}.log', on=True)
         target_logger = Logger(f'{log_dir}/k_{args.k}/target_datapoint{task_id}.log', on=True)
@@ -807,13 +787,12 @@ Please use xml tags to specify the tool when responsing. For example, <tool>Sent
 
     prompt = "## Problem: " + task_description + "\nPlease solve this problem using the following tools step by step:\n" + tools
 
-    steps = asyncio.run(speculative_planning(args, executor, encoding, app_assistant, tar_assistant, prompt, logger, target_logger, approximation_logger, task_id))
+    steps = asyncio.run(speculative_planning(args, executor, encoding, app_assistant, tar_assistant, prompt, logger, target_logger, approximation_logger))
 
     # record the metrics
     logger.log('final result for the speculative planning ' + str(steps))
     logger.log('max concurrent calls: ' + str(config.MAX_CONCURRENT_CALLS-1)) # speculative_planning will add one more call
     sp_plan_token = config.TOTAL_TOKEN_GENERATION
-    # logger.log('sp approximation token generation: ' + str(config.APPROX_SP_GENERATION))
     step_num = len(steps)
 
     normal_plan_time       = sum(config.TARGET_NORMAL_TIME[i] for i in range(1, step_num+1))
@@ -874,8 +853,8 @@ Please use xml tags to specify the tool when responsing. For example, <tool>Sent
 
 
 if __name__ == '__main__':
-    os.environ['DEEPSEEK_API_KEY'] = "sk-c90cbece82fa4f11a591e2a6fb038d8b" # ywl
-    os.environ['OPENAI_API_KEY'] = "sk-proj-63356Jpw2FMjcVGeEuGeT3BlbkFJybCAHoQsyssjkyuf2SZY" #lwy
+    os.environ['DEEPSEEK_API_KEY'] = ""
+    os.environ['OPENAI_API_KEY'] = ""
     encoding = tiktoken.get_encoding("cl100k_base")
     
     parser = argparse.ArgumentParser(description='OpenAGI')
@@ -887,17 +866,17 @@ if __name__ == '__main__':
     parser.add_argument('--pred', action='store_true', help='enable speculative planning with predictor')
     parser.add_argument('--no-pred', dest='pred', action='store_false', help='disable speculative planning with predictor')
     parser.set_defaults(pred=True)
-    parser.add_argument('--lr', type=float, default=6e-5, help='online learning lr')
-    parser.add_argument('--ep', type=int, default=5, help='online learning epoch per train')
-    parser.add_argument('--bf', type=int, default=200, help='online learning buffer size')
+    parser.add_argument('--lr', type=float, default=1e-5, help='online learning lr')
+    parser.add_argument('--ep', type=int, default=3, help='online learning epoch per train')
+    parser.add_argument('--bf', type=int, default=2500, help='online learning buffer size')
     parser.add_argument('--bs', type=int, default=16, help='online learning batch size')
     parser.add_argument('--gma', type=float, default=1, help='online learning gamma for lambda return calculation')
-    parser.add_argument('--lmd', type=float, default=0.9, help='online learning lambda for lambda return calculation')
+    parser.add_argument('--lmd', type=float, default=0.95, help='online learning lambda for lambda return calculation')
     parser.add_argument('--load', dest='load', action='store_true', help='load previous trajectory and model')
     parser.add_argument('--no-load', dest='load', action='store_false', help='do not load previous trajectory and model')
     parser.add_argument('--tau', type=float, default=0.5, help='expectile loss tau')
-    parser.add_argument('--s_task', type=int, default=1, help='online learning buffer size')
-    parser.add_argument('--freq', type=int, default=1, help='online learning buffer size')
+    parser.add_argument('--s_task', type=int, default=1, help='start task id')
+    parser.add_argument('--freq', type=int, default=1, help='online learning training frequency')
     parser.add_argument('--offset', type=int, default=0, help='biased inference offset for k')
     
     parser.set_defaults(load=False)

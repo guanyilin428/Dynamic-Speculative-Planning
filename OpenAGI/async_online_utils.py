@@ -98,7 +98,6 @@ class OnlineLearningExecutor:
         all_gt_k = []
         # compute current G_lambda for batch data and flatten steps
         for i in range(len(input_ids_batch)):
-            # [steps_num, hid_dim]
             input_ids = input_ids_batch[i]
             attention_mask = attention_mask_batch[i]
             rewards = rewards_batch[i]
@@ -113,10 +112,8 @@ class OnlineLearningExecutor:
             all_gt_k.extend(gt_k_batch[i])
             
         
-        # [total_step_num, hid_dim]: total_step_num in this batch
         flat_input_ids = torch.stack(all_input_ids, dim=0).to(self.device)
         flat_attention_mask = torch.stack(all_attention_mask, dim=0).to(self.device)
-        # [total_step_num]
         flat_G_lambda = torch.tensor(all_G_lambda).to(self.device)
         flat_gt_k = torch.stack(all_gt_k, dim=0).to(self.device)
         return flat_input_ids, flat_attention_mask, flat_G_lambda, flat_gt_k
@@ -233,9 +230,7 @@ class OnlineTrajectoryCollector:
             self.target_logs.append((timestamp, source.strip(), step, description))
     
     def build_trajectory(self, logger, predict_ks):
-        # start = time.time()
         # when reach a breakingpoint, call build_trajectory
-        # print("Build Trajectory")
         if len(self.approx_logs) == 0:
             return 0
         # combined_logs = sorted(self.approx_logs + self.target_logs, key=lambda x: (x[0], x[2], 0 if x[1] == "Approximation" else 1))
@@ -284,7 +279,6 @@ class OnlineTrajectoryCollector:
                 break
         # update prefix
         self.prefix += "\n".join(bp_state) + "\n"    
-        # logger.log(f"trajectory: {trajectory}")
         # add trajectory to replay buffer
         self.traj_list.append({"trajectory": trajectory})
         self.replay_buffer.add_trajectory(trajectory)

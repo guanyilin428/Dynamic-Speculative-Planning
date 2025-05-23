@@ -137,40 +137,6 @@ class ReactAgent:
         self.current_observation = ""
         self.current_data = None
 
-        # if "gpt-3.5" in react_llm_name:
-        #     stop_list = ["\n"]
-        #     self.max_token_length = 15000
-        #     config_list = [
-        #         {
-        #             "model": "gpt-3.5-turbo",
-        #             "api_key": os.environ["OPENAI_API_KEY"],
-        #             "api_type": "openai",
-        #             "cache_seed": None, 
-        #             "seed":0
-        #         },]
-        #     self.llm = AssistantAgent(
-        #         "assistant",
-        #         llm_config={"config_list": config_list},
-        #         human_input_mode="NEVER",
-        #     )
-
-        # elif "gpt-4-turbo" in react_llm_name:
-        #     stop_list = ["\n"]
-        #     self.max_token_length = 30000
-
-        #     config_list = [
-        #         {
-        #             "model": "gpt-4-turbo",
-        #             "api_key": os.environ["OPENAI_API_KEY"],
-        #             "api_type": "openai",
-        #             "cache_seed": None, 
-        #             "seed":0
-        #         },]
-        #     self.llm = AssistantAgent(
-        #         "assistant",
-        #         llm_config={"config_list": config_list},
-        #         human_input_mode="NEVER",
-        #     )
         if "gpt-4.1-mini" in react_llm_name:
             stop_list = ["\n"]
             self.max_token_length = 30000
@@ -719,39 +685,6 @@ class DirectAgent:
         self.current_observation = ""
         self.current_data = None
 
-        # if "gpt-3.5" in react_llm_name:
-        #     stop_list = ["\n"]
-        #     self.max_token_length = 15000
-        #     config_list = [
-        #         {
-        #             "model": "gpt-3.5-turbo",                    
-        #             "api_key": os.environ["OPENAI_API_KEY"],
-        #             "api_type": "openai",
-        #             "cache_seed": None, 
-        #             "seed":0
-        #         },]
-        #     self.llm = AssistantAgent(
-        #         "assistant",
-        #         llm_config={"config_list": config_list},
-        #         human_input_mode="NEVER",
-        #     )
-
-        # elif "gpt-4" in react_llm_name:
-        #     stop_list = ["\n"]
-        #     self.max_token_length = 30000
-        #     config_list = [
-        #         {
-        #             "model": "gpt-4-turbo",
-        #             "api_key": os.environ["OPENAI_API_KEY"],
-        #             "api_type": "openai",
-        #             "cache_seed": None, 
-        #             "seed":0
-        #         },]
-        #     self.llm = AssistantAgent(
-        #         "assistant",
-        #         llm_config={"config_list": config_list},
-        #         human_input_mode="NEVER",
-        #     )
         if "gpt-4.1-mini" in react_llm_name:
             stop_list = ["\n"]
             self.max_token_length = 30000
@@ -1264,39 +1197,6 @@ class CoTAgent:
         self.current_observation = ""
         self.current_data = None
 
-        # if "gpt-3.5" in react_llm_name:
-        #     stop_list = ["\n"]
-        #     self.max_token_length = 15000
-        #     config_list = [
-        #         {
-        #             "model": "gpt-3.5-turbo",
-        #             "api_key": OPENAI_API_KEY,
-        #             "api_type": "openai",
-        #             "cache_seed": None, 
-        #             "seed":0
-        #         },]
-        #     self.llm = AssistantAgent(
-        #         "assistant",
-        #         llm_config={"config_list": config_list},
-        #         human_input_mode="NEVER",
-        #     )
-
-        # elif "gpt-4" in react_llm_name:
-        #     stop_list = ["\n"]
-        #     self.max_token_length = 30000
-        #     config_list = [
-        #         {
-        #             "model": "gpt-4-turbo",
-        #             "api_key": OPENAI_API_KEY,
-        #             "api_type": "openai",
-        #             "cache_seed": None, 
-        #             "seed":0
-        #         },]
-        #     self.llm = AssistantAgent(
-        #         "assistant",
-        #         llm_config={"config_list": config_list},
-        #         human_input_mode="NEVER",
-        #     )
         if "gpt-4.1-mini" in react_llm_name:
             stop_list = ["\n"]
             self.max_token_length = 30000

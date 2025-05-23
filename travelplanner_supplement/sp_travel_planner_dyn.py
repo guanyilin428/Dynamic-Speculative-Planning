@@ -1,13 +1,8 @@
-###################################################
-# This version is currently the most optimzed one
-###################################################
 import asyncio
 import time
 from datetime import datetime
 import random
-import subprocess
 import json
-import jsonlines
 import autogen
 import argparse
 # from color import slow_type_approximation, slow_type_target
@@ -125,9 +120,6 @@ def interaction_function(s, t, logger, collector, previous_steps):
     return user_input
 
 
-
-
-############# autogen code for speculative planning #############
 def ordinal(n):
     if 11 <= (n % 100) <= 13:
         suffix = "th"
@@ -406,7 +398,6 @@ async def onebreakingpoint_speculative_planning(
 
         tas.append([])
         printed_ids.append([])
-        # return action, observation
 
         a_start_time = time.time()
         approximation = asyncio.create_task(
@@ -841,9 +832,9 @@ if __name__ == "__main__":
         help="number of approximation steps to generate everytime",
     )
     parser.add_argument('--tau', type=float, default=0.5, help='tau for expectile loss')
-    parser.add_argument('--lr', type=float, default=2e-5, help='online learning lr')
+    parser.add_argument('--lr', type=float, default=1e-5, help='online learning lr')
     parser.add_argument('--ep', type=int, default=3, help='online learning epoch per train')
-    parser.add_argument('--bf', type=int, default=3000, help='online learning buffer size')
+    parser.add_argument('--bf', type=int, default=2500, help='online learning buffer size')
     parser.add_argument('--bs', type=int, default=16, help='online learning batch size')
     parser.add_argument('--gma', type=float, default=1, help='online learning gamma for lambda return calculation')
     parser.add_argument('--lmd', type=float, default=0.95, help='online learning lambda for lambda return calculation')
@@ -922,10 +913,7 @@ if __name__ == "__main__":
         )
     else: approximation_agent = None
     # online learning preparations
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    model_path = os.path.join(BASE_DIR, "../../weights/distilbert-base-uncased")
-    model_path = os.path.abspath(model_path)
-
+    model_path = "distilbert-base-uncased"
     bert_model = AutoModel.from_pretrained(model_path)
     tokenizer = AutoTokenizer.from_pretrained(model_path)
     model = DistilBERTValueFunction(bert_model).to(device)
@@ -942,7 +930,6 @@ if __name__ == "__main__":
     ckpt_dir = f"../ckpt/travel_planner/online/{args.approx_type}_{args.target_type}/{args.model_type}"
     os.makedirs(ckpt_dir, exist_ok=True)
     ckpt_path = f"{ckpt_dir}/tau_{args.tau}_offset_{args.offset}.pth"
-    print(f"ckpt_path {ckpt_path}")
     executor = OnlineLearningExecutor(
         device=device,
         model_save_path=ckpt_path,
