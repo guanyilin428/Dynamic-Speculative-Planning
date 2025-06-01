@@ -350,7 +350,8 @@ async def T_generate(
                 )
     if config.ENABLE_PRED: 
         k = await prediction_task
-    else: k = args.k
+    else: 
+        k = args.k
 
     end = time.time()
     t_time = round(end-start, 2)
@@ -597,7 +598,7 @@ async def onebreakingpoint_speculative_planning(
             flatten_tas += t
     flatten_tas = sorted(flatten_tas, key=lambda x: x[0], reverse=False)
     
-    target_logger.log(f"sas tasks: {[(sa[0], False if sa[1] != True else True) for sa in sas]}")    
+    target_logger.log(f"sas tasks: {[(sa[0], False if sa[1] is not True else True) for sa in sas]}")    
     target_logger.log(f"flatten_tas: {flatten_tas}")
     t0 = time.time()
  
@@ -632,7 +633,7 @@ async def onebreakingpoint_speculative_planning(
     if all_match:
         sas = sas = sas[:len(flatten_tas)]
     t2 = time.time()    
-    target_logger.log(f"return sas is {[(sa[0], False if sa[1] != True else True) for sa in sas]}")
+    target_logger.log(f"return sas is {[(sa[0], False if sa[1] is not True else True) for sa in sas]}")
     return sas
 
 
@@ -661,7 +662,7 @@ async def speculative_planning(args, executor, encoding, app_assistant, tar_assi
         i += len(result)
 
         # if the last action is terminate, we break the generation process
-        if result[-1][0].lower() == "terminate" or result[-1][1] == True or len(steps) >= config.MAX_STEP:
+        if result[-1][0].lower() == "terminate" or result[-1][1] is True or len(steps) >= config.MAX_STEP:
             break
 
     end_time = datetime.now()

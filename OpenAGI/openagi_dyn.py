@@ -296,7 +296,7 @@ async def MultiAgent(encoding, assistants, prompt, total_step_number, target_log
     target_logger.log(f"Target step {total_step_number+1} thought B prompt token: {prompt4B_token}")
 
     thoughtB = await assistants[1].a_generate_reply(messages=[{'content':prompt4B, 'role':'user'}])
-    if type(thoughtB) != str:
+    if type(thoughtB) is not str:
         thoughtB = thoughtB['content']
     
     thoughtB_token = len(encoding.encode(thoughtB))
@@ -546,10 +546,10 @@ async def onebreakingpoint_speculative_planning(args, mismatch_state, executor, 
 
             # modify the prompt based on latest approximation result
             if '## Current Action Trajectory:' not in app_prompt:
-                app_prompt += f'\n\n## Current Action Trajectory:\n'
+                app_prompt += '\n\n## Current Action Trajectory:\n'
             app_prompt += f'\nAction {current_step+i+1}: {str(sa)}.'
             if '## Current Action Trajectory:' not in tar_prompt:
-                tar_prompt += f'\n\n## Current Action Trajectory:\n'
+                tar_prompt += '\n\n## Current Action Trajectory:\n'
             tar_prompt += f'\nAction {current_step+i+1}: {str(sa)}.'
         except asyncio.CancelledError as e:
             target_logger.log("exception happens.")
@@ -688,7 +688,7 @@ async def speculative_planning(args, executor, encoding, app_assistant, tar_assi
         
         # update approximation prompt
         if '## Current Action Trajectory:' not in app_prompt:
-            app_prompt += f'\n\n## Current Action Trajectory:\n'
+            app_prompt += '\n\n## Current Action Trajectory:\n'
         previous_action_trajectory = [f'\nAction {len(steps) + j+1}: {result[j]}. Your prediction aligned with Target.' for j in range(len(result))]
         if mismatch:
             app_prompt += ''.join(previous_action_trajectory[:-1])
@@ -697,7 +697,7 @@ async def speculative_planning(args, executor, encoding, app_assistant, tar_assi
 
         # update target prompt
         if '## Current Action Trajectory:' not in tar_prompt:
-            tar_prompt += f'\n\n## Current Action Trajectory:\n'
+            tar_prompt += '\n\n## Current Action Trajectory:\n'
         previous_action_trajectory = [f'\nAction {len(steps) + j+1}: {result[j]}.' for j in range(len(result))]
         tar_prompt += ''.join(previous_action_trajectory)
 
@@ -847,7 +847,8 @@ Please use xml tags to specify the tool when responsing. For example, <tool>Sent
     if not args.pred:
         logger.log(f'k = {args.k}')
         traj_file = traj_file.format(task_id)
-    else: logger.log(f'dynamic k')
+    else: 
+        logger.log('dynamic k')
 
     executor.save_trajectory(traj_file, config.ENABLE_TRAIN)
 
