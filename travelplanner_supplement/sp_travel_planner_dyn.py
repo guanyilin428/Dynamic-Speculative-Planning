@@ -1,31 +1,21 @@
 import asyncio
 import time
-from datetime import datetime
+import nltk
+import torch
+import os
 import random
 import json
 import autogen
 import argparse
-# from color import slow_type_approximation, slow_type_target
-from tool_agents_sp import DirectAgent, ReactAgent, CoTAgent, MultiAgent
-from TravelPlanner.async_online_utils import OnlineLearningExecutor, SharedState
+from datetime import datetime
+from agents.tool_agents_sp import DirectAgent, ReactAgent, CoTAgent, MultiAgent
+from async_online_utils import OnlineLearningExecutor, SharedState
 from predictor import DistilBERTValueFunction
-import argparse
 from datasets import load_dataset
-import nltk
-import torch
-from transformers import AutoModel, AutoTokenizer
-import os
-from collections import defaultdict
 
-from autogen import AssistantAgent, UserProxyAgent, config_list_from_json
-from autogen import (
-    AssistantAgent,
-    UserProxyAgent,
-    config_list_from_json,
-    GroupChat,
-    GroupChatManager,
-)
-from autogen.agentchat.contrib.agent_builder import AgentBuilder
+from collections import defaultdict
+from transformers import AutoModel, AutoTokenizer
+
 
 from util import Logger, cancel
 import config
@@ -444,7 +434,7 @@ async def onebreakingpoint_speculative_planning(
         # if sa == terminate, and ta == terminate, we break the loop
         # if sa == terminate, and ta != terminate, we also break the loop
         # thus as long as sa == terminate, we break the loop
-        if sa[1] == True or sa[0].lower == 'terminate': ## terminate
+        if sa[1] is True or sa[0].lower == 'terminate': ## terminate
             break_out_approximation = True
 
         # tas is now a list of lists, so we need to flatten it in order to compare with sas
@@ -804,7 +794,7 @@ def run_one_task(args, task_id, numbers, query_data_list, executor, encoding, ap
     if not args.pred:
         logger.log(f'k = {args.k}')
         traj_file = traj_file.format(task_id)
-    else: logger.log(f'dynamic k')
+    else: logger.log('dynamic k')
     executor.save_trajectory(traj_file, config.ENABLE_TRAIN)
 
 

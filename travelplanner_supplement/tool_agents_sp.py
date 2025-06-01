@@ -1,39 +1,27 @@
 import re, string, os, sys
-from util import Logger, cancel
-import traceback
-
-sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "..")))
-sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "tools/planner")))
-sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "../tools/planner")))
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
-import importlib
-from typing import List, Dict, Any
-import tiktoken
-from pandas import DataFrame
-# from langchain.callbacks import get_openai_callback
-from langchain_community.callbacks.manager import get_openai_callback
-from agents.prompts import zeroshot_react_agent_prompt
-
-from utils.func import load_line_json_data, save_file
-import sys
 import json
 import openai
 import time
 import pandas as pd
 from tqdm import tqdm
 import argparse
-from datasets import load_dataset
-import os
-import time
-from autogen import (
-    AssistantAgent,
-    UserProxyAgent,
-    config_list_from_json,
-    GroupChat,
-    GroupChatManager,
-)
-from autogen.agentchat.contrib.agent_builder import AgentBuilder
 import asyncio
+import traceback
+from util import Logger, cancel
+
+sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "../")))
+sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "tools/planner")))
+sys.path.append(os.path.abspath(os.path.join(os.getcwd(), "../tools/planner")))
+
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+import importlib
+from typing import List, Dict, Any
+import tiktoken
+from pandas import DataFrame
+from agents.prompts import zeroshot_react_agent_prompt
+
+from utils.func import load_line_json_data, save_file
+from autogen import AssistantAgent
 
 os.environ['DEEPSEEK_API_KEY'] = ""
 os.environ['OPENAI_API_KEY'] = ""
@@ -119,11 +107,9 @@ class ReactAgent:
         illegal_early_stop_patience: int = 3,
         react_llm_name="gpt-4.1-mini",
         planner_llm_name="gpt-4.1-mini",
-        #  logs_path = '../logs/',
-        city_file_path="./database/background/citySet.txt",
+        city_file_path="../database/background/citySet.txt",
     ) -> None:
 
-        # print(f"The key is {os.environ['OPENAI_API_KEY']}")
         self.answer = ""
         self.max_steps = max_steps
         self.mode = mode
@@ -138,7 +124,6 @@ class ReactAgent:
         self.current_data = None
 
         if "gpt-4.1-mini" in react_llm_name:
-            stop_list = ["\n"]
             self.max_token_length = 30000
             config_list = [
                 {
@@ -159,7 +144,6 @@ class ReactAgent:
             )
         elif "deepseek-reasoner" in react_llm_name:
             print("target choose deepseek-reasoner")
-            stop_list = ["\n"]
             config_list = [{
                 "model":  "deepseek-reasoner",
                 "api_key": os.environ['DEEPSEEK_API_KEY'],
@@ -184,16 +168,9 @@ class ReactAgent:
         self.retry_record["invalidAction"] = 0
 
         self.last_actions = []
-
-        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-        data_path = os.path.join(BASE_DIR, "../database/background/citySet.txt")
-        city_file_path = os.path.abspath(data_path)
-        # self.city_set = self.load_city(city_set_path=city_file_path)
         self.city_set = self.load_city(city_set_path=city_file_path)
 
-
         self.enc = tiktoken.get_encoding("cl100k_base")
-
         self.__reset_agent()
 
     def update_scratchpad(self, thought, action, observation, step_number):
@@ -287,8 +264,8 @@ class ReactAgent:
             except Exception as e:
                 print(e)
                 self.retry_record["flights"] += 1
-                self.current_observation = f"Illegal Flight Search. Please try again."
-                self.scratchpad += f"Illegal Flight Search. Please try again."
+                self.current_observation = "Illegal Flight Search. Please try again."
+                self.scratchpad += "Illegal Flight Search. Please try again."
 
         elif action_type == "AttractionSearch":
 
@@ -312,9 +289,9 @@ class ReactAgent:
                 print(e)
                 self.retry_record["attractions"] += 1
                 self.current_observation = (
-                    f"Illegal Attraction Search. Please try again."
+                    "Illegal Attraction Search. Please try again."
                 )
-                self.scratchpad += f"Illegal Attraction Search. Please try again."
+                self.scratchpad += "Illegal Attraction Search. Please try again."
 
         elif action_type == "AccommodationSearch":
 
@@ -338,9 +315,9 @@ class ReactAgent:
                 print(e)
                 self.retry_record["accommodations"] += 1
                 self.current_observation = (
-                    f"Illegal Accommodation Search. Please try again."
+                    "Illegal Accommodation Search. Please try again."
                 )
-                self.scratchpad += f"Illegal Accommodation Search. Please try again."
+                self.scratchpad += "Illegal Accommodation Search. Please try again."
 
         elif action_type == "RestaurantSearch":
 
@@ -359,15 +336,15 @@ class ReactAgent:
                 self.retry_record["restaurants"] += 1
                 self.current_observation = str(e)
                 self.scratchpad += str(e)
-                self.json_log[-1]["state"] = f"Illegal args. City Error"
+                self.json_log[-1]["state"] = "Illegal args. City Error"
 
             except Exception as e:
                 print(e)
                 self.retry_record["restaurants"] += 1
                 self.current_observation = (
-                    f"Illegal Restaurant Search. Please try again."
+                    "Illegal Restaurant Search. Please try again."
                 )
-                self.scratchpad += f"Illegal Restaurant Search. Please try again."
+                self.scratchpad += "Illegal Restaurant Search. Please try again."
 
         elif action_type == "CitySearch":
             try:
@@ -375,7 +352,6 @@ class ReactAgent:
                     to_string(self.current_data).strip(),
                     "Masked due to limited length. Make sure the data has been written in Notebook.",
                 )
-                # self.current_data = self.tools['cities'].run(action_arg)
                 self.current_observation = to_string(
                     self.tools["cities"].run(action_arg)
                 ).strip()
@@ -390,8 +366,8 @@ class ReactAgent:
             except Exception as e:
                 print(e)
                 self.retry_record["cities"] += 1
-                self.current_observation = f"Illegal City Search. Please try again."
-                self.scratchpad += f"Illegal City Search. Please try again."
+                self.current_observation = "Illegal City Search. Please try again."
+                self.scratchpad += "Illegal City Search. Please try again."
 
         elif action_type == "GoogleDistanceMatrix":
 
@@ -413,9 +389,9 @@ class ReactAgent:
                 print(e)
                 self.retry_record["googleDistanceMatrix"] += 1
                 self.current_observation = (
-                    f"Illegal GoogleDistanceMatrix. Please try again."
+                    "Illegal GoogleDistanceMatrix. Please try again."
                 )
-                self.scratchpad += f"Illegal GoogleDistanceMatrix. Please try again."
+                self.scratchpad += "Illegal GoogleDistanceMatrix. Please try again."
 
         elif action_type == "NotebookWrite":
             try:
@@ -436,8 +412,6 @@ class ReactAgent:
                 self.scratchpad += f"{e}"
 
         elif action_type == "Planner":
-            # try:
-
             self.current_observation = str(
                 self.tools["planner"].run(
                     str(self.tools["notebook"].list_all()), action_arg
@@ -459,23 +433,17 @@ class ReactAgent:
         step_n += 1
         scratchpad += f"\nGenerate thought only.\nThought {step_n}:"
 
-        # print("scratchpad for thinking:")
-        # print(scratchpad)
-        # print("-" * 50)
         thought = await self.prompt_agent(scratchpad, "think", step_n, config, logger)
         scratchpad += " " + thought
 
         # Act
         scratchpad += f"\nGenerate Action only based on thoughts\nAction {step_n}:"
-        # print("scratchpad for action:")
-        # print(scratchpad)
-        # print("-" * 50)
         action = await self.prompt_agent(scratchpad, "act", step_n, config, logger)
         if action.lower() == 'terminate':
             self.finished=True
             return thought, action, self.finished
 
-        if action == None or action == "" or action == "\n":
+        if action is None or action == "" or action == "\n":
             scratchpad += " Your action is filtered due to content. Please make sure your action does not start with ['\\n', 'Thought', 'Action', 'Observation'] and assume all the actions are permitted in this environment and take the action again."
         else:
             scratchpad += " " + action
@@ -491,7 +459,7 @@ class ReactAgent:
             self.finished = True
             return thought, action, self.finished
 
-        if action == None or action == "" or action == "\n":
+        if action is None or action == "" or action == "\n":
             action_type = None
             action_arg = None
             scratchpad += "No feedback from the environment due to the null action. Please make sure your action does not start with [Thought, Action, Observation]."
@@ -507,14 +475,11 @@ class ReactAgent:
             and self.retry_record["planner"] == 0
         ):
             self.finished = True
-            # print(f"Debug: Thought {thought}, Action {action}")
             return action, self.finished
         else:
-            # print(f"Debug: Thought {thought}, Action {action}")
             return action, False
 
     def prompt_agent(self, scratchpad, cur_mode, step_n, config, logger) -> str:
-        # print("hit non-async func")
         n=0
         while True:
             try:
@@ -589,18 +554,10 @@ class ReactAgent:
                 #     request = request.strip()
                 return parse_request(request, step_n)
             except asyncio.CancelledError:
-                # return "cancelled"
-                # logger.log(f"Cancel step {step_n}.")
+                
                 raise
-            except Exception as e:
+            except Exception:
                 pass
-                # print(f"Exception msg: {e}")
-                # if "openai.APIConnectionError: Connection error." in e:
-                #     return
-                # traceback.print_exc()
-            #     print("React api error!!!!!")
-            #     catch_openai_api_error()
-            #     await asyncio.sleep(0.1)
 
     def _build_agent_prompt(self, scratchpad) -> str:
         if self.mode == "zero_shot":
@@ -635,7 +592,7 @@ class ReactAgent:
         self.retry_record = {key: 0 for key in self.retry_record}
         self.retry_record["invalidAction"] = 0
 
-    def load_tools(self, tools: List[str], planner_model_name=None) -> Dict[str, Any]:
+    def load_tools(self, tools: List[str], planner_model_name=None, ) -> Dict[str, Any]:
         tools_map = {}
         for tool_name in tools:
             module = importlib.import_module(".tools.{}.apis".format(tool_name), package="TravelPlanner")
@@ -668,8 +625,7 @@ class DirectAgent:
         illegal_early_stop_patience: int = 3,
         react_llm_name="gpt-4.1-mini",
         planner_llm_name="gpt-4.1-mini",
-        #  logs_path = '../logs/',
-        city_file_path="./database/background/citySet.txt",
+        city_file_path="../database/background/citySet.txt",
     ) -> None:
 
         self.answer = ""
@@ -686,7 +642,6 @@ class DirectAgent:
         self.current_data = None
 
         if "gpt-4.1-mini" in react_llm_name:
-            stop_list = ["\n"]
             self.max_token_length = 30000
             config_list = [
                 {
@@ -706,7 +661,6 @@ class DirectAgent:
                 human_input_mode="NEVER",
             )
         elif "deepseek-chat" in react_llm_name:
-            stop_list = ["\n"]
             self.max_token_length = 30000
             config_list = [{
                 "model": "deepseek-chat",
@@ -731,14 +685,7 @@ class DirectAgent:
         self.retry_record = {key: 0 for key in self.tools}
         self.retry_record["invalidAction"] = 0
 
-        # print(self.retry_record)
-
         self.last_actions = []
-
-        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-        data_path = os.path.join(BASE_DIR, "../database/background/citySet.txt")
-        city_file_path = os.path.abspath(data_path)
-
         self.city_set = self.load_city(city_set_path=city_file_path)
 
         self.enc = tiktoken.get_encoding("cl100k_base")
@@ -827,8 +774,8 @@ class DirectAgent:
             except Exception as e:
                 print(e)
                 self.retry_record["flights"] += 1
-                self.current_observation = f"Illegal Flight Search. Please try again."
-                self.scratchpad += f"Illegal Flight Search. Please try again."
+                self.current_observation = "Illegal Flight Search. Please try again."
+                self.scratchpad += "Illegal Flight Search. Please try again."
 
         elif action_type == "AttractionSearch":
 
@@ -878,9 +825,9 @@ class DirectAgent:
                 print(e)
                 self.retry_record["accommodations"] += 1
                 self.current_observation = (
-                    f"Illegal Accommodation Search. Please try again."
+                    "Illegal Accommodation Search. Please try again."
                 )
-                self.scratchpad += f"Illegal Accommodation Search. Please try again."
+                self.scratchpad += "Illegal Accommodation Search. Please try again."
 
         elif action_type == "RestaurantSearch":
 
@@ -899,15 +846,15 @@ class DirectAgent:
                 self.retry_record["restaurants"] += 1
                 self.current_observation = str(e)
                 self.scratchpad += str(e)
-                self.json_log[-1]["state"] = f"Illegal args. City Error"
+                self.json_log[-1]["state"] = "Illegal args. City Error"
 
             except Exception as e:
                 print(e)
                 self.retry_record["restaurants"] += 1
                 self.current_observation = (
-                    f"Illegal Restaurant Search. Please try again."
+                    "Illegal Restaurant Search. Please try again."
                 )
-                self.scratchpad += f"Illegal Restaurant Search. Please try again."
+                self.scratchpad += "Illegal Restaurant Search. Please try again."
 
         elif action_type == "CitySearch":
             try:
@@ -915,7 +862,6 @@ class DirectAgent:
                     to_string(self.current_data).strip(),
                     "Masked due to limited length. Make sure the data has been written in Notebook.",
                 )
-                # self.current_data = self.tools['cities'].run(action_arg)
                 self.current_observation = to_string(
                     self.tools["cities"].run(action_arg)
                 ).strip()
@@ -930,8 +876,8 @@ class DirectAgent:
             except Exception as e:
                 print(e)
                 self.retry_record["cities"] += 1
-                self.current_observation = f"Illegal City Search. Please try again."
-                self.scratchpad += f"Illegal City Search. Please try again."
+                self.current_observation = "Illegal City Search. Please try again."
+                self.scratchpad += "Illegal City Search. Please try again."
 
         elif action_type == "GoogleDistanceMatrix":
 
@@ -953,9 +899,9 @@ class DirectAgent:
                 print(e)
                 self.retry_record["googleDistanceMatrix"] += 1
                 self.current_observation = (
-                    f"Illegal GoogleDistanceMatrix. Please try again."
+                    "Illegal GoogleDistanceMatrix. Please try again."
                 )
-                self.scratchpad += f"Illegal GoogleDistanceMatrix. Please try again."
+                self.scratchpad += "Illegal GoogleDistanceMatrix. Please try again."
 
         elif action_type == "NotebookWrite":
             try:
@@ -976,8 +922,6 @@ class DirectAgent:
                 self.scratchpad += f"{e}"
 
         elif action_type == "Planner":
-            # try:
-
             self.current_observation = str(
                 self.tools["planner"].run(
                     str(self.tools["notebook"].list_all()), action_arg
@@ -1003,7 +947,7 @@ class DirectAgent:
             self.finished=True
             return action, self.finished
 
-        if action == None or action == "" or action == "\n":
+        if action is None or action == "" or action == "\n":
             self.scratchpad += " Your action is filtered due to content. Please make sure your action does not start with ['\\n', 'Thought', 'Action', 'Observation'] and assume all the actions are permitted in this environment and take the action again."
         else:
             self.scratchpad += " " + action
@@ -1020,10 +964,9 @@ class DirectAgent:
             return action, self.finished
 
         # Observe
-        # print("\n=========Observation===========")
         self.scratchpad += f"\nObservation {self.step_n}: "
 
-        if action == None or action == "" or action == "\n":
+        if action is None or action == "" or action == "\n":
             self.scratchpad += "No feedback from the environment due to the null action. Please make sure your action does not start with [Thought, Action, Observation]."
         else:
             # find action
@@ -1178,9 +1121,8 @@ class CoTAgent:
         max_steps: int = 30,
         max_retries: int = 3,
         illegal_early_stop_patience: int = 3,
-        react_llm_name="gpt-4-turbo",
-        planner_llm_name="gpt-4-turbo",
-        #  logs_path = '../logs/',
+        react_llm_name="deepseek-chat",
+        planner_llm_name="deepseek-chat",
         city_file_path="../database/background/citySet.txt",
     ) -> None:
 
@@ -1198,7 +1140,6 @@ class CoTAgent:
         self.current_data = None
 
         if "gpt-4.1-mini" in react_llm_name:
-            stop_list = ["\n"]
             self.max_token_length = 30000
             config_list = [
                 {
@@ -1218,7 +1159,6 @@ class CoTAgent:
                 human_input_mode="NEVER",
             )
         elif "deepseek-chat" in react_llm_name:
-            stop_list = ["\n"]
             config_list = [{
                 "model": "deepseek-chat",
                 "api_key": os.environ['DEEPSEEK_API_KEY'],
@@ -1242,13 +1182,10 @@ class CoTAgent:
         self.retry_record = {key: 0 for key in self.tools}
         self.retry_record["invalidAction"] = 0
 
-        # print(self.retry_record)
-
         self.last_actions = []
 
         self.city_set = self.load_city(city_set_path=city_file_path)
 
-        # self.enc = tiktoken.encoding_for_model(react_llm_name)
         self.enc = tiktoken.get_encoding("cl100k_base")
 
         self.__reset_agent()
@@ -1335,8 +1272,8 @@ class CoTAgent:
             except Exception as e:
                 print(e)
                 self.retry_record["flights"] += 1
-                self.current_observation = f"Illegal Flight Search. Please try again."
-                self.scratchpad += f"Illegal Flight Search. Please try again."
+                self.current_observation = "Illegal Flight Search. Please try again."
+                self.scratchpad += "Illegal Flight Search. Please try again."
 
         elif action_type == "AttractionSearch":
 
@@ -1360,9 +1297,9 @@ class CoTAgent:
                 print(e)
                 self.retry_record["attractions"] += 1
                 self.current_observation = (
-                    f"Illegal Attraction Search. Please try again."
+                    "Illegal Attraction Search. Please try again."
                 )
-                self.scratchpad += f"Illegal Attraction Search. Please try again."
+                self.scratchpad += "Illegal Attraction Search. Please try again."
 
         elif action_type == "AccommodationSearch":
 
@@ -1386,9 +1323,9 @@ class CoTAgent:
                 print(e)
                 self.retry_record["accommodations"] += 1
                 self.current_observation = (
-                    f"Illegal Accommodation Search. Please try again."
+                    "Illegal Accommodation Search. Please try again."
                 )
-                self.scratchpad += f"Illegal Accommodation Search. Please try again."
+                self.scratchpad += "Illegal Accommodation Search. Please try again."
 
         elif action_type == "RestaurantSearch":
 
@@ -1407,15 +1344,15 @@ class CoTAgent:
                 self.retry_record["restaurants"] += 1
                 self.current_observation = str(e)
                 self.scratchpad += str(e)
-                self.json_log[-1]["state"] = f"Illegal args. City Error"
+                self.json_log[-1]["state"] = "Illegal args. City Error"
 
             except Exception as e:
                 print(e)
                 self.retry_record["restaurants"] += 1
                 self.current_observation = (
-                    f"Illegal Restaurant Search. Please try again."
+                    "Illegal Restaurant Search. Please try again."
                 )
-                self.scratchpad += f"Illegal Restaurant Search. Please try again."
+                self.scratchpad += "Illegal Restaurant Search. Please try again."
 
         elif action_type == "CitySearch":
             try:
@@ -1423,7 +1360,6 @@ class CoTAgent:
                     to_string(self.current_data).strip(),
                     "Masked due to limited length. Make sure the data has been written in Notebook.",
                 )
-                # self.current_data = self.tools['cities'].run(action_arg)
                 self.current_observation = to_string(
                     self.tools["cities"].run(action_arg)
                 ).strip()
@@ -1438,8 +1374,8 @@ class CoTAgent:
             except Exception as e:
                 print(e)
                 self.retry_record["cities"] += 1
-                self.current_observation = f"Illegal City Search. Please try again."
-                self.scratchpad += f"Illegal City Search. Please try again."
+                self.current_observation = "Illegal City Search. Please try again."
+                self.scratchpad += "Illegal City Search. Please try again."
 
         elif action_type == "GoogleDistanceMatrix":
 
@@ -1461,9 +1397,9 @@ class CoTAgent:
                 print(e)
                 self.retry_record["googleDistanceMatrix"] += 1
                 self.current_observation = (
-                    f"Illegal GoogleDistanceMatrix. Please try again."
+                    "Illegal GoogleDistanceMatrix. Please try again."
                 )
-                self.scratchpad += f"Illegal GoogleDistanceMatrix. Please try again."
+                self.scratchpad += "Illegal GoogleDistanceMatrix. Please try again."
 
         elif action_type == "NotebookWrite":
             try:
@@ -1484,8 +1420,6 @@ class CoTAgent:
                 self.scratchpad += f"{e}"
 
         elif action_type == "Planner":
-            # try:
-
             self.current_observation = str(
                 self.tools["planner"].run(
                     str(self.tools["notebook"].list_all()), action_arg
@@ -1504,14 +1438,13 @@ class CoTAgent:
             self.scratchpad += self.current_observation
 
     async def direct_act(self, step_n, config, logger):
-        # Act
         self.scratchpad += f"\nThink very carefully first and then generate the action that you think should be done based on the query and existent action trajectory\nThink and Action {self.step_n} and surround the action proposed in <action> and </action>:"
         action = await self.prompt_agent(step_n, config, logger)
         if action.lower() == 'terminate':
             self.finished=True
             return action, self.finished
 
-        if action == None or action == "" or action == "\n":
+        if action is None or action == "" or action == "\n":
             self.scratchpad += " Your action is filtered due to content. Please make sure your action does not start with ['\\n', 'Thought', 'Action', 'Observation'] and assume all the actions are permitted in this environment and take the action again."
         else:
             self.scratchpad += " " + action
@@ -1528,10 +1461,9 @@ class CoTAgent:
             return action, self.finished
 
         # Observe
-        # print("\n=========Observation===========")
         self.scratchpad += f"\nObservation {self.step_n}: "
 
-        if action == None or action == "" or action == "\n":
+        if action is None or action == "" or action == "\n":
             self.scratchpad += "No feedback from the environment due to the null action. Please make sure your action does not start with [Thought, Action, Observation]."
         else:
             # find action
@@ -1607,10 +1539,6 @@ class CoTAgent:
 
                 request = format_step(response)
 
-                # if ":" in request[:10] and "Action" in request[:10]:
-                #     request = request[:10][request[:10].index(":") + 1 :] + request[10:]
-                #     request = request.strip()
-                # return request
                 return parse_request(request, step_n)
             except asyncio.CancelledError:
                 return "cancelled"
@@ -1752,7 +1680,6 @@ class MultiAgent:
 
         self.city_set = self.load_city(city_set_path=city_file_path)
 
-        # self.enc = tiktoken.encoding_for_model(react_llm_name)
         self.enc = tiktoken.get_encoding("cl100k_base")
 
         self.__reset_agent()
@@ -2017,7 +1944,6 @@ class MultiAgent:
             self.scratchpad += self.current_observation
 
     async def think_and_act(self, scratchpad, step_n, config, logger):
-        # breakpoint()
         step_n += 1
         # Act
         scratchpad += f"\nThink very carefully first and then generate the action that you think should be done based on the query and existent action trajectory\nThink and Action {step_n} and surround the action proposed in <action> and </action>:"
@@ -2060,7 +1986,7 @@ class MultiAgent:
             self.finished=True
             return action, self.finished
 
-        if action == None or action == "" or action == "\n":
+        if action is None or action == "" or action == "\n":
             scratchpad += " Your action is filtered due to content. Please make sure your action does not start with ['\\n', 'Thought', 'Action', 'Observation'] and assume all the actions are permitted in this environment and take the action again."
         else:
             scratchpad += " " + action
@@ -2076,7 +2002,7 @@ class MultiAgent:
             self.finished = True
             return action, self.finished
 
-        if action == None or action == "" or action == "\n":
+        if action is None or action == "" or action == "\n":
             action_type = None
             action_arg = None
             scratchpad += "No feedback from the environment due to the null action. Please make sure your action does not start with [Thought, Action, Observation]."
@@ -2111,7 +2037,8 @@ class MultiAgent:
                 config.TARGET_SP_PROMPT += prompt_token
                 if number == 1:
                     config.TARGET_NORMAL_PROMPT[step_n] = prompt_token
-                else: config.TARGET_NORMAL_PROMPT[step_n] += prompt_token
+                else: 
+                    config.TARGET_NORMAL_PROMPT[step_n] += prompt_token
                 response = self.llm.generate_reply(
                     messages=[{"content": prompt, "role": "user"}]
                 )
@@ -2353,7 +2280,7 @@ def parse_args_string(s: str) -> dict:
 
 def to_string(data) -> str:
     if data is not None:
-        if type(data) == DataFrame:
+        if type(data) is DataFrame:
             return data.to_string(index=False)
         else:
             return str(data)
