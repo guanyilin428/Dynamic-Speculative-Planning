@@ -598,9 +598,6 @@ async def onebreakingpoint_speculative_planning(
             flatten_tas += t
     flatten_tas = sorted(flatten_tas, key=lambda x: x[0], reverse=False)
     
-    target_logger.log(f"sas tasks: {[(sa[0], False if sa[1] is not True else True) for sa in sas]}")    
-    target_logger.log(f"flatten_tas: {flatten_tas}")
-    t0 = time.time()
  
     all_match = True
     for step_number, (s, t) in enumerate(zip(sas, flatten_tas)):
@@ -632,8 +629,6 @@ async def onebreakingpoint_speculative_planning(
     
     if all_match:
         sas = sas = sas[:len(flatten_tas)]
-    t2 = time.time()    
-    target_logger.log(f"return sas is {[(sa[0], False if sa[1] is not True else True) for sa in sas]}")
     return sas
 
 

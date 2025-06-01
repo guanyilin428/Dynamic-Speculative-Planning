@@ -1,6 +1,4 @@
 from datetime import datetime
-from torch.utils.data import Dataset, DataLoader
-from collections import deque
 import torch
 import random
 from typing import List, Tuple
@@ -13,7 +11,6 @@ import threading
 from threading import Event
 import time
 import json
-import hashlib
 import os
 import nltk
 
@@ -124,7 +121,6 @@ class OnlineLearningExecutor:
     async def async_train(self, logger):
         async with self.train_lock:
             loop = asyncio.get_running_loop()
-            # logger.log("Starting training")
             current_train_task = loop.run_in_executor(
                 self.train_executor,
                 self._train,
@@ -178,15 +174,10 @@ class OnlineLearningExecutor:
 
     def _predict(self, logger, k_offset):
         self.predict_model.eval()
-        start = time.time()
         
         state = self.collector.get_current_trajectory()
         logger.log(f"Predict state: {state}")
         with self.model_lock:
-            # param_tensor = torch.cat([p.flatten() for p in self.predict_model.parameters()])
-            # checksum = hashlib.md5(param_tensor.detach().cpu().numpy().tobytes()).hexdigest()
-            # logger.log(f"Predict model checksum: {checksum}") # log model updates
-
             inputs = self.tokenizer(
                 state,
                 return_tensors="pt",
@@ -196,7 +187,6 @@ class OnlineLearningExecutor:
             ).to(self.device)
             k_pred = self.predict_model(**inputs).squeeze().cpu()
         k = int(torch.round(k_pred).item()) + k_offset
-        # logger.log(f'Predictor time: {round(time.time()-start, 2)}s')
         logger.log(f'Predict K: {k}')
         return k
     
@@ -449,7 +439,6 @@ class FiniteReplay:
                 break
         if total_steps < batch_size_steps:
             return None
-        logger.log(f"chosen index {chosen_idx}")
         
         return input_ids_list, attention_mask_list, rewards_list, gt_k_list
 

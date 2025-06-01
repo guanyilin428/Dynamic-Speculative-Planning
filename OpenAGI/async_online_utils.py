@@ -144,11 +144,7 @@ class OnlineLearningExecutor:
             
             self.optimizer.zero_grad()
             k_pred = self.train_model(flat_input_ids, flat_attention_mask).squeeze()
-            # diff = flat_G_lambda - k_pred
             loss = self.criterion(flat_G_lambda, k_pred)
-            diff = torch.round(k_pred) - flat_gt_k
-            acc = ((diff == 0) | (diff == 1)).float().mean().item()
-            # logger.log(f'Epoch {epoch + 1} - Loss: {loss.item()} - Accuracy: {round(acc * 100, 2)}%')
 
             loss.backward()
             self.optimizer.step()
@@ -173,7 +169,6 @@ class OnlineLearningExecutor:
 
     def _predict(self, logger, k_offset):
         self.predict_model.eval()
-        start = time.time()
         
         state = self.collector.get_current_trajectory()
         with self.model_lock:
