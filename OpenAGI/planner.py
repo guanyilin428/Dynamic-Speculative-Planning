@@ -75,13 +75,11 @@ class SpeculativePlanner:
         else:
             self.logger.log(f'The target agent thinks step {len(prev_steps) + to_print_id+1} should be {t[0][1]}, correcting what the approximation agent thinks which is {s}.')
 
-    async def simulate_within_T_interaction(self, sas, tas, flatten_tas, printed_ids, prev_steps, target_tasks):
+    async def process_on_time_interactions(self, sas, tas, flatten_tas, printed_ids, prev_steps, target_tasks):
         """Handle on-time interaction between approximation and target agents."""
         tas_ids = [t[0] for t in flatten_tas]
-        flatten_printed_ids = []
-        for ids in printed_ids:
-            if ids:
-                flatten_printed_ids += ids
+        flatten_printed_ids = [i for ids in printed_ids if ids for i in ids]
+
         tas_length = len(tas_ids)
         
         for l in range(0, tas_length+1):
@@ -89,50 +87,45 @@ class SpeculativePlanner:
                 tas_length = l-1
                 break
 
-        contain_wrong_result = False
-        if tas_length > 0:
-            for printed_id in flatten_printed_ids:
-                if not judge_to_be_true(sas[printed_id], tas[printed_id][0][1]):
-                    contain_wrong_result = True
+        contain_wrong_result = any(
+            not judge_to_be_true(sas[pid], tas[pid][0][1]) for pid in flatten_printed_ids
+        )
 
         if tas_length > 0 and not contain_wrong_result:
             tas_ids = tas_ids[:tas_length]
             to_print_ids = list(set(tas_ids) - set(flatten_printed_ids))
             for order_id, to_print_id in enumerate(to_print_ids):
-                if order_id > 0:
-                    if not judge_to_be_true(sas[to_print_ids[order_id-1]], tas[to_print_ids[order_id-1]][0][1]):
-                        break
+                if order_id > 0 and not judge_to_be_true(
+                    sas[to_print_ids[order_id-1]], 
+                    tas[to_print_ids[order_id-1]][0][1]
+                ):
+                    break
                 printed_ids[to_print_id].append(to_print_id)
                 await self.process_target(sas, tas, to_print_id, prev_steps, target_tasks)
 
         return printed_ids, tas
 
-    async def simulate_leftover_interaction(self, sas, tas, flatten_tas, printed_ids, prev_steps, target_tasks):
+    async def process_remaining_interactions(self, sas, tas, flatten_tas, printed_ids, prev_steps, target_tasks):
         """Handle remaining interactions and process corrections."""
-        flatten_printed_ids = []
-        for ids in printed_ids:
-            if ids:
-                flatten_printed_ids += ids
-        
-        print_leftover = True
-        if len(sas) > len(flatten_printed_ids) and len(flatten_tas) > len(flatten_printed_ids):
-            for printed_id in flatten_printed_ids:
-                if not judge_to_be_true(sas[printed_id], tas[printed_id][0][1]):
-                    print_leftover = False
-        else:
-            print_leftover = False
+        flatten_printed_ids = [i for ids in printed_ids if ids for i in ids]
 
-        contain_wrong_result = False
-        for printed_id in flatten_printed_ids:
-            if not judge_to_be_true(sas[printed_id], tas[printed_id][0][1]):
-                contain_wrong_result = True
+        
+        print_leftover = (
+            len(sas) > len(flatten_printed_ids)
+            and len(flatten_tas) > len(flatten_printed_ids)
+            and all(judge_to_be_true(sas[pid], tas[pid][0][1]) for pid in flatten_printed_ids)
+        )
+
+        contain_wrong_result = any(
+            not judge_to_be_true(sas[pid], tas[pid][0][1]) for pid in flatten_printed_ids
+        )
 
         if print_leftover and not contain_wrong_result:
             for print_id in range(len(flatten_printed_ids), min(len(sas),len(tas))):
-                if tas[print_id]:
-                    await self.process_target(sas, tas, print_id, prev_steps, target_tasks)
-                else:
+                if not tas[print_id]:
                     break
+                
+                await self.process_target(sas, tas, print_id, prev_steps, target_tasks)
                 if not judge_to_be_true(sas[print_id], tas[print_id][0][1]):
                     break
 
@@ -192,34 +185,8 @@ class SpeculativePlanner:
                 prev_steps=prev_steps
             )
         
-        except asyncio.CancelledError:
-            if self.config.USERINPUT:
-                self.config.USERINPUT = False
-                result = input("What do you think this step should be?\n")
-                result = 'any tool'
-                user_input_task = asyncio.create_task(
-                    self.postprocess_T_generation(
-                        args, prediction_task, result,
-                        total_step_number, tas, sas, target_tasks,
-                        printed_ids=printed_ids, current_step=current_step,
-                        prev_steps=prev_steps
-                    )
-                )
-                target_tasks.append(user_input_task)
-        except Exception as e:
-            if self.config.USERINPUT:
-                self.config.USERINPUT = False
-                result = input("What do you think this step should be?\n")
-                result = 'any tool'
-                user_input_task = asyncio.create_task(
-                    self.postprocess_T_generation(
-                        args, prediction_task, result,
-                        total_step_number, tas, sas, target_tasks,
-                        printed_ids=printed_ids, current_step=current_step,
-                        prev_steps=prev_steps
-                    )
-                )
-                target_tasks.append(user_input_task)
+        except Exception:
+            pass
 
         # Record timing
         end = time.time()
@@ -240,12 +207,8 @@ class SpeculativePlanner:
         in_step_number = total_step_number - current_step
         tas[in_step_number].append((in_step_number,result))
 
-        flatten_tas = []
-        for t in tas:
-            if t:
-                flatten_tas += t
-        flatten_tas = sorted(flatten_tas, key=lambda x: x[0],reverse=False)
-        printed_ids, tas = await self.simulate_within_T_interaction(
+        flatten_tas = sorted([item for t in tas if t for item in t], key=lambda x: x[0], reverse=False)
+        printed_ids, tas = await self.process_on_time_interactions(
             sas, tas, flatten_tas, printed_ids,
             prev_steps, target_tasks
         )
@@ -260,11 +223,7 @@ class SpeculativePlanner:
                         self.mismatch_state.mismatch_detected.set()
                     raise Exception('terminate the whole process!')
 
-        flatten_tas = []
-        for t in tas:
-            if t:
-                flatten_tas += t
-        flatten_tas = sorted(flatten_tas, key=lambda x: x[0],reverse=False)
+        flatten_tas = sorted([item for t in tas if t for item in t], key=lambda x: x[0], reverse=False)
         for ta in flatten_tas:
             if len(sas) > ta[0]:
                 if not judge_to_be_true(sas[ta[0]], ta[1]) or ta[1].lower() == "terminate":
@@ -463,7 +422,7 @@ class SpeculativePlanner:
             if t:
                 flatten_tas += t
         flatten_tas = sorted(flatten_tas, key=lambda x: x[0], reverse=False)
-        printed_ids, tas = await self.simulate_leftover_interaction(
+        printed_ids, tas = await self.process_remaining_interactions(
             sas, tas, flatten_tas, printed_ids,
             self.steps, target_tasks
         )

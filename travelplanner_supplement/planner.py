@@ -147,97 +147,89 @@ class TravelPlannerSpeculativePlanner:
             self.logger.log(f'The target agent thinks step {len(prev_steps) + to_print_id+1} should be {t[0][1][0]}, which agrees with the approximation agent.')
             try:
                 self.logger.log(f'The approximation agent thinks step {len(prev_steps) + to_print_id+2} should be {sas[to_print_id+1][0]}')
-                self.config.HIL_INTERACTION = to_print_id+1
                 register_async_handler(target_tasks=target_tasks)
             except Exception:
                 pass
         else:
             self.logger.log(f'The target agent thinks step {len(prev_steps) + to_print_id+1} should be {t[0][1][0]}, correcting what the approximation agent thinks which is {s[0]}.')
 
-    def simulate_within_T_interaction(self, sas, tas, flatten_tas, printed_ids, prev_steps, target_tasks):
+    def process_on_time_interactions(self, sas, tas, flatten_tas, printed_ids, prev_steps, target_tasks):
         """Handle on-time interaction between approximation and target agents."""
         tas_ids = [t[0] for t in flatten_tas]
-        flatten_printed_ids = []
-        for ids in printed_ids:
-            if ids:
-                flatten_printed_ids += ids
+        flatten_printed_ids = [i for ids in printed_ids if ids for i in ids]
         tas_length = len(tas_ids)
         
-        for l in range(0, tas_length+1):
+        for l in range(tas_length+1):
             if not(tas_ids[:l] == list(range(len(flatten_tas)))[:l] and len(sas) >= len(flatten_tas[:l])):
                 tas_length = l-1
                 break
 
-        contain_wrong_result = False
-        if tas_length > 0:
-            for printed_id in flatten_printed_ids:
-                if not judge_to_be_true(sas[printed_id][0], tas[printed_id][0][1][0]):
-                    contain_wrong_result = True
+        contain_wrong_result = any(
+            not judge_to_be_true(sas[pid][0], tas[pid][0][1][0]) for pid in flatten_printed_ids
+        )
 
         if tas_length > 0 and not contain_wrong_result:
             tas_ids = tas_ids[:tas_length]
             to_print_ids = list(set(tas_ids) - set(flatten_printed_ids))
             for order_id, to_print_id in enumerate(to_print_ids):
-                if order_id > 0:
-                    if not judge_to_be_true(sas[to_print_ids[order_id-1]][0], tas[to_print_ids[order_id-1]][0][1][0]):
+                if order_id > 0 and not judge_to_be_true(
+                        sas[to_print_ids[order_id-1]][0], 
+                        tas[to_print_ids[order_id-1]][0][1][0]
+                    ):
                         break
                 printed_ids[to_print_id].append(to_print_id)
                 t_res = interaction_function(sas[to_print_id], tas[to_print_id], self.logger, self.collector, prev_steps, self.config)
-                if str(t_res) == str(tas[to_print_id][0][1][0]) and t_res.lower() != "terminate":
+                if str(t_res) == str(tas[to_print_id][0][1][0]):
+                    if t_res.lower() == "terminate":
+                        return printed_ids, tas
                     continue
-                elif str(t_res) == str(tas[to_print_id][0][1][0]) and t_res.lower() == "terminate":
-                    return printed_ids, tas
-                else:
-                    change_one_tas_position = list(tas[to_print_id][0])
-                    self.tar_agent.execute(t_res)
-                    change_one_tas_position[1] = [
-                        t_res,
-                        self.tar_agent.current_observation,
-                    ]
-                    tas[to_print_id][0] = change_one_tas_position
-                    return printed_ids, tas
+
+                changed_position = list(tas[to_print_id][0])
+                self.tar_agent.execute(t_res)
+                changed_position[1] = [
+                    t_res,
+                    self.tar_agent.current_observation,
+                ]
+                tas[to_print_id][0] = changed_position
+                return printed_ids, tas
 
         return printed_ids, tas
 
-    def simulate_leftover_interaction(self, sas, tas, flatten_tas, printed_ids, prev_steps, target_tasks):
+    def process_remaining_interactions(self, sas, tas, flatten_tas, printed_ids, prev_steps, target_tasks):
         """Handle remaining interactions and process corrections."""
-        flatten_printed_ids = []
-        for ids in printed_ids:
-            if ids:
-                flatten_printed_ids += ids
+        flatten_printed_ids = [i for ids in printed_ids if ids for i in ids]
         
-        print_leftover = True
-        if len(sas) > len(flatten_printed_ids) and len(flatten_tas) > len(flatten_printed_ids):
-            for printed_id in flatten_printed_ids:
-                if not judge_to_be_true(sas[printed_id][0], tas[printed_id][0][1][0]):
-                    print_leftover = False
-        else:
-            print_leftover = False
-
-        contain_wrong_result = False
-        for printed_id in flatten_printed_ids:
-            if not judge_to_be_true(sas[printed_id][0], tas[printed_id][0][1][0]):
-                contain_wrong_result = True
+        print_leftover = (
+            len(sas) > len(flatten_printed_ids)
+            and len(flatten_tas) > len(flatten_printed_ids)
+            and all(judge_to_be_true(sas[pid][0], tas[pid][0][1][0]) for pid in flatten_printed_ids)
+        )
+        
+        contain_wrong_result = any(
+            not judge_to_be_true(sas[pid][0], tas[pid][0][1][0]) for pid in flatten_printed_ids
+        )
 
         if print_leftover and not contain_wrong_result:
             for print_id in range(len(flatten_printed_ids), min(len(sas),len(tas))):
-                if tas[print_id]:
-                    t_res = interaction_function(sas[print_id], tas[print_id], self.logger, self.collector, prev_steps, self.config)
-                    printed_ids[print_id].append(print_id)
-                    if str(t_res) == str(tas[print_id][0][1][0]):
-                        continue
-                    else:
-                        change_one_tas_position = list(tas[print_id][0])
-                        self.tar_agent.execute(t_res)
-                        change_one_tas_position[1] = [
-                            t_res,
-                            self.tar_agent.current_observation,
-                        ]
-                        tas[print_id][0] = change_one_tas_position
-                else:
+                if not tas[print_id]:
                     break
+
+                t_res = interaction_function(sas[print_id], tas[print_id], self.logger, self.collector, prev_steps, self.config)
+                printed_ids[print_id].append(print_id)
+                if str(t_res) == str(tas[print_id][0][1][0]):
+                    continue
+
+                changed_position = list(tas[print_id][0])
+                self.tar_agent.execute(t_res)
+                changed_position[1] = [
+                    t_res,
+                    self.tar_agent.current_observation,
+                ]
+                tas[print_id][0] = changed_position
+            
                 if not judge_to_be_true(sas[print_id][0], tas[print_id][0][1][0]):
                     break     
+
         return printed_ids, tas
 
 
@@ -318,7 +310,6 @@ class TravelPlannerSpeculativePlanner:
         self.target_logger.log(
             f"Intermediate Target Step {total_step_number+1} -Action {result} -Finished {finished} -gen {self.config.TARGET_NORMAL_GENERATION[total_step_number+1]} -prompt {self.config.TARGET_NORMAL_PROMPT[total_step_number+1]} -time {t_time}"
         )
-        # self.target_logger.log(f"target time: {self.config.TARGET_NORMAL_TIME[total_step_number+1]}")
 
         return tas, printed_ids
 
@@ -332,7 +323,7 @@ class TravelPlannerSpeculativePlanner:
             if t:
                 flatten_tas += t
         flatten_tas = sorted(flatten_tas, key=lambda x: x[0],reverse=False)
-        printed_ids, tas = self.simulate_within_T_interaction(
+        printed_ids, tas = self.process_on_time_interactions(
             sas, tas, flatten_tas, printed_ids,
             prev_steps, target_tasks
         )
@@ -533,7 +524,7 @@ class TravelPlannerSpeculativePlanner:
                         if t:
                             flatten_tas += t
                     flatten_tas = sorted(flatten_tas, key=lambda x: x[0], reverse=False)
-                    printed_ids, tas = self.simulate_leftover_interaction(
+                    printed_ids, tas = self.process_remaining_interactions(
                         sas, tas, flatten_tas, printed_ids,
                         self.steps, target_tasks
                     )
@@ -597,26 +588,16 @@ class TravelPlannerSpeculativePlanner:
                 break
 
         # Process leftover interactions
-        flatten_tas = []
-        for t in tas:
-            if t:
-                flatten_tas += t
-        flatten_tas = sorted(flatten_tas, key=lambda x: x[0], reverse=False)
-        printed_ids, tas = self.simulate_leftover_interaction(
+        flatten_tas = sorted([item for t in tas if t for item in t], key=lambda x: x[0], reverse=False)
+        printed_ids, tas = self.process_remaining_interactions(
             sas, tas, flatten_tas, printed_ids,
             self.steps, target_tasks
         )
 
-        # Get final results
-        flatten_tas = []
-        for t in tas:
-            if t:
-                flatten_tas += t
-        flatten_tas = sorted(flatten_tas, key=lambda x: x[0], reverse=False)
+        flatten_tas = sorted([item for t in tas if t for item in t], key=lambda x: x[0], reverse=False)
         
-        self.target_logger.log(f"sas tasks: {[(sa[0], False if sa[1] is not True else True) for sa in sas]}")    
-        self.target_logger.log(f"flatten_tas: {flatten_tas}")
-        # t0 = time.time()
+        # self.target_logger.log(f"sas tasks: {[(sa[0], False if sa[1] is not True else True) for sa in sas]}")    
+        # self.target_logger.log(f"flatten_tas: {flatten_tas}")
      
         all_match = True
         for step_number, (s, t) in enumerate(zip(sas, flatten_tas)):
@@ -649,7 +630,6 @@ class TravelPlannerSpeculativePlanner:
         if all_match:
             sas = sas[:len(flatten_tas)]
         t2 = time.time()    
-        self.target_logger.log(f"return sas is {[(sa[0], False if sa[1] is not True else True) for sa in sas]}")
         return sas 
 
     async def run(self, args, prompt: str) -> List[str]:
