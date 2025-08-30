@@ -131,7 +131,7 @@ class SpeculativePlanner:
 
         return printed_ids, tas
 
-    async def A_generate(self, args, collector, app_prompt, total_step_number, start):
+    async def approx_gen(self, args, collector, app_prompt, total_step_number, start):
         """Generate approximation agent responses."""
         try:
             # Get the response from the agent (token tracking handled by agent)
@@ -157,7 +157,7 @@ class SpeculativePlanner:
         except Exception:
             return ''
 
-    async def T_generate(self, args, prediction_task, prompt, total_step_number, tas, sas, target_tasks, printed_ids, current_step, prev_steps, start):
+    async def target_gen(self, args, prediction_task, prompt, total_step_number, tas, sas, target_tasks, printed_ids, current_step, prev_steps, start):
         """Generate target agent responses with comprehensive error handling."""
         result = None
         
@@ -178,7 +178,7 @@ class SpeculativePlanner:
                     await asyncio.sleep(0.1)
                     continue
             
-            tas, printed_ids = await self.postprocess_T_generation(
+            tas, printed_ids = await self.verify_process(
                 args, prediction_task, result, 
                 total_step_number, tas, sas, target_tasks, 
                 printed_ids=printed_ids, current_step=current_step,
@@ -202,7 +202,7 @@ class SpeculativePlanner:
 
         return tas, printed_ids
 
-    async def postprocess_T_generation(self, args, prediction_task, result, total_step_number, tas, sas, target_tasks, printed_ids=[[]], current_step=0, prev_steps=[]):
+    async def verify_process(self, args, prediction_task, result, total_step_number, tas, sas, target_tasks, printed_ids=[[]], current_step=0, prev_steps=[]):
         """Post-process target generation results and handle mismatches."""
         in_step_number = total_step_number - current_step
         tas[in_step_number].append((in_step_number,result))
@@ -283,7 +283,7 @@ class SpeculativePlanner:
             # Generate approximation
             a_start = time.time()
             approximation = asyncio.create_task(
-                self.A_generate(
+                self.approx_gen(
                     args, self.collector, app_prompt, current_step+i, a_start
                 ),
                 name=f"approximation_{current_step+i}"
@@ -292,7 +292,7 @@ class SpeculativePlanner:
             # Generate target
             t_start = time.time()
             target = asyncio.create_task(
-                self.T_generate(
+                self.target_gen(
                     args, prediction_task, tar_prompt, current_step+i, tas, sas,
                     target_tasks, printed_ids, current_step,
                     self.steps, t_start

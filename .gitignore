@@ -175,3 +175,6 @@ poetry.toml
 pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python
+
+OpenAGI/openagi_dyn.py
+travelplanner_supplement/sp_travel_planner_dyn.py
