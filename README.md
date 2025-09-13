@@ -1,9 +1,11 @@
 # Dynamic Speculative Agent Planning
+Dynamic Speculative Planning (DSP) is an lightweight online reinforcement learning framework for accelerating LLM-based agents. This repository hosts the code and data for this paper: [Dynamic Speculative Agent Planning](https://arxiv.org/abs/2509.01920)
 
-## Abstract
-
-Dynamic speculative planning enhances decision-making in time-sensitive tasks by continuously predicting and optimizing future outcomes in real time. Unlike traditional planning methods that rely on fixed parameters, this approach adapts dynamically based on incoming data. By leveraging online learning and incremental speculative step prediction, it reduces computational costs and latency, enabling systems to plan and act more efficiently. Techniques such as expectile regression and cost-latency preference bias further improve time savings and token efficiency in complex environments. 
-This repository provides tools and algorithms for implementing dynamic speculative planning strategies, along with evaluations on various benchmarks and tasks.
+## Table of Contents
+- [Experiment & Command](#experiment--command)
+  - [OpenAGI Experiment](#openagi-experiment)
+  - [TravelPlanner Experiment](#travelplanner-experiment)
+- [Citation](#citation)
 
 ## Experiment & Command
 We provide two environments for two separate experiments. Please follow instructions accordingly.
@@ -27,13 +29,19 @@ os.environ['DEEPSEEK_API_KEY'] = your_dpsk_key
 
 There are four setting that we employs in our experiment:
 
-Setting 1: The approximation agent uses direct-generation-based planning with a GPT-4.1-mini backbone, and the target agent uses ReAct-based planning with a GPT-4.1-mini backbone. 
+We use the following shorthand:  
+- `Direct` = direct-generation  
+- `CoT` = chain-of-thought  
+- `MAD` = multi-agent-debate  
 
-Setting 2: The approximation agent uses chain-of-thought (CoT)-based planning with a GPT-4.1-mini backbone, and the target agent uses multi-agent-debate (MAD)-based planning with a GPT-4.1-mini backbone. 
+| **Setting** | **Approximation Agent** | **Target Agent** |
+|-------------|--------------------------|------------------|
+| **1** | Direct (GPT-4.1-mini) | ReAct (GPT-4.1-mini) |
+| **2** | CoT (GPT-4.1-mini) | MAD (GPT-4.1-mini) |
+| **3** | Direct (deepseek-chat) | ReAct (deepseek-reasoner) |
+| **4** | CoT (deepseek-chat) | MAD (deepseek-reasoner) |
 
-Setting 3: The approximation agent uses direct-generation-based planning with a deepseek-chat backbone, and the target agent uses ReAct-based planning with a deepseek-reasoner backbone.
-
-Setting 4: The approximation agent uses chain-of-thought (CoT)-based planning with a deepseek-chat backbone, and the target agent uses multi-agent-debate (MAD)-based planning with a deepseek-reasoner backbone.
+You may also configure your own approximation–target combinations or plug in other APIs if interested.
 
 - Fix Mode:
 ```
@@ -88,4 +96,17 @@ offset = 0 # choose inference offset for k
 tau = 0.5 # choose asymmetric hyperparameter for expectile regression
 model_type = "gpt-4.1-mini" # could be "gpt-4.1-mini", "deepseek-chat"
 python runner.py --pred --target_type target_type --approx_type approx_type --offset offset --tau tau --model_type model_type
+```
+
+## Citation
+
+If you have any further questions, please feel free to contact us. And if you find our work helpful, please cite our paper:
+
+```bibtex
+@article{guan2025dynamic,
+  title={Dynamic Speculative Agent Planning},
+  author={Guan, Yilin and Hua, Wenyue and Lan, Qingfeng and Fei, Sun and Ding, Dujian and Acharya, Devang and Wang, Chi and Wang, William Yang},
+  journal={arXiv preprint arXiv:2509.01920},
+  year={2025}
+}
 ```
